@@ -1,4 +1,6 @@
-# mmblocks - Mattermost bar
+# mmtools - i3 status bar and notification script for Mattermost
+
+mmtools are various tools using the [mattermost](https://mattermost.org) API.
 
 # Installation
 
@@ -16,7 +18,7 @@ This will install mmtols from pypi, including the following required packages:
 - dbus-python
 - requests
 
-For dbus-python to build, you need to have libdbus-1-dev packages installed on your platform. On debian you can do
+For dbus-python to build, you need to have the libdbus-1-dev package installed. On debian you can do
 
 ```bash
 sudo apt install libdbus-1-dev
@@ -46,6 +48,8 @@ signal=12
 
 
 ## Configuration
+
+All tools can be configured using both command line arguments and a configuration file.
 
 Use the following command to create the configuration `~/.config/mmtools/config`. The same configuration file is used for both tools.
 
