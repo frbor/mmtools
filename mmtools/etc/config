@@ -1,0 +1,41 @@
+###
+### mmtools config
+###
+### Default values are shown for all options, but are commented out per default.
+
+[DEFAULT]
+### These options will be used by all all mmtools, but it can be
+### overwritten in the specific section per tools
+
+# Server and user must be specified
+server =
+user =
+
+# Need either password or password-pass-entry (https://www.passwordstore.org/)
+password =
+password-pass-entry =
+
+# no-verify =
+
+### Channels (regular expression) to ignore. These are the short channel IDs.
+### This applies to both mmstatus and mmwatch, but you can have different settings
+### By moving this setting to the either [mmstatus] or [mmwatch]
+# ignore =
+# team =
+# chat-prefix = 🗨️
+
+# port=443
+
+### filename for logs
+# logfile =
+
+### Default log level
+# loglevel = info
+
+[mmstatus]
+# channel-color = "#00FF00"
+# user-color = "#FF4488"
+
+[mmwatch]
+# no-notify = false
+# pkill = i3blocks

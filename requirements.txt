@@ -1,0 +1,7 @@
+caep
+pydantic
+mattermostdriver
+passpy
+notify2
+dbus-python
+requests
