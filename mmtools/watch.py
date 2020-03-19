@@ -100,7 +100,7 @@ class EventHandler:
         message = post.get("message", "")
 
         if not self.no_notify:
-            notify_send(f"{self.chat_prefix}{channel_name}/{name}", message[:1024])
+            notify_send(f"{self.chat_prefix} {channel_name}/{name}", message[:1024])
 
         if self.pkill:
             os.kill(get_pid(self.pkill), signal.SIGUSR2)

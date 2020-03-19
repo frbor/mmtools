@@ -1,14 +1,31 @@
 """ Mattermost module """
 import argparse
 import functools
-import re
 from typing import Callable, List, Optional, Text, cast
 
 from mattermostdriver import Driver
 from pydantic import BaseModel
 
 
+class Channel(BaseModel):
+    """ Mattermost channel model """
+    id: Optional[Text]
+    type: Optional[Text]
+    header: Optional[Text]
+    purpose: Optional[Text]
+    display_name: Optional[Text]
+    name: Text = ""
+    mention_count: Optional[int]
+    msg_count: Optional[int]
+    msg_unread_count: Optional[int]
+    update_at: Optional[int]
+    last_post_at: Optional[int]
+    total_msg_count: Optional[int]
+    dirty: Optional[bool]
+
+
 class Mattermost:
+    """ Mattermost helper class """
 
     def __init__(self, args: argparse.Namespace) -> None:
 
@@ -38,42 +55,21 @@ class Mattermost:
             return cast(Text, user["username"])
         return "Unknown"
 
-    def init_channels(self) -> None:
+    # Channels is not defined yet, and Channels depends on Mattermost in typing
+    # so we need to quote the return definition
+    # https://mypy.readthedocs.io/en/latest/kinds_of_types.html#class-name-forward-references
+    def init_channels(self) -> 'Channels':
         """ Initialize channels """
 
         teams = self.api.teams.get_user_teams(self.user.id)
         self.channels.update(self, self.user.id, teams[0]["id"])
 
-    def i3blocks(
-            self,
-            ignore: Text,
-            channel_color: Text,
-            user_color: Text,
-            chat_prefix: Text) -> None:
-        """ Output channel status in i3blocks format """
-        self.channels.i3blocks(ignore, channel_color, user_color, chat_prefix)
+        return self.channels
 
     def init_websocket(self, func: Callable) -> None:
         """ Initialize websocket """
 
         self.api.init_websocket(func)
-
-
-class Channel(BaseModel):
-    """ Mattermost channel model """
-    id: Optional[Text]
-    type: Optional[Text]
-    header: Optional[Text]
-    purpose: Optional[Text]
-    display_name: Optional[Text]
-    name: Text = ""
-    mention_count: Optional[int]
-    msg_count: Optional[int]
-    msg_unread_count: Optional[int]
-    update_at: Optional[int]
-    last_post_at: Optional[int]
-    total_msg_count: Optional[int]
-    dirty: Optional[bool]
 
 
 class Channels(BaseModel):
@@ -101,12 +97,16 @@ class Channels(BaseModel):
             channel = Channel(**channel)
 
             if not channel.display_name and "__" in channel.name:
-                sender, recipient = channel.name.split("__")
+                # for 1-1 chats, the channel name is "<user_id>__<user_id>" where
+                # one of the user1 is yours (probably depends on who opened the private chat
+                # we need to check which user id is yours, and then lookup the
+                # username of the other user
+                user1, user2 = channel.name.split("__")
 
-                if recipient == user_id:
-                    channel.display_name = mm.get_user(sender)
+                if user2 == user_id:
+                    channel.display_name = mm.get_user(user1)
                 else:
-                    channel.display_name = mm.get_user(recipient)
+                    channel.display_name = mm.get_user(user2)
 
             channel.msg_unread_count = channel.total_msg_count - channel.msg_count
 
@@ -116,33 +116,6 @@ class Channels(BaseModel):
         """ Debug output of channels """
         for channel in self.channels:
             print(channel)
-
-    def i3blocks(
-            self,
-            ignore: Text,
-            channel_color: Text,
-            user_color: Text,
-            chat_prefix: Text) -> None:
-        """ Output channel status in i3blocks format """
-
-        private = [f"{channel.display_name}:{channel.msg_unread_count}"
-                   for channel in self.channels
-                   if channel.msg_unread_count and channel.type == "D"
-                   and not (ignore and re.search(ignore, channel.name))]
-        other = [f"{channel.name}:{channel.msg_unread_count}"
-                 for channel in self.channels
-                 if channel.msg_unread_count and channel.type != "D"
-                 and not (ignore and re.search(ignore, channel.name))]
-
-        out = chat_prefix
-
-        print(out + " | ".join(other + private))
-        print(out + " | ".join(other + private))
-
-        if private:
-            print(user_color)
-        elif other:
-            print(channel_color)
 
 
 class User(BaseModel):

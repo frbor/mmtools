@@ -118,8 +118,7 @@ def handle_args(parser: argparse.ArgumentParser, section: Text) -> argparse.Name
 
     info(args)
 
-    if args.chat_prefix:
-        args.chat_prefix = args.chat_prefix.strip() + " "
+    args.chat_prefix = args.chat_prefix.strip()
 
     if not args.server:
         fatal("--server not specified")
