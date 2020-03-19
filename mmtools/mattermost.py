@@ -101,7 +101,12 @@ class Channels(BaseModel):
             channel = Channel(**channel)
 
             if not channel.display_name and "__" in channel.name:
-                channel.display_name = mm.get_user(channel.name.split("__")[0])
+                sender, recipient = channel.name.split("__")
+
+                if recipient == user_id:
+                    channel.display_name = mm.get_user(sender)
+                else:
+                    channel.display_name = mm.get_user(recipient)
 
             channel.msg_unread_count = channel.total_msg_count - channel.msg_count
 
