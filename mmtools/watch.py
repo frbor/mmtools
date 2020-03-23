@@ -19,7 +19,7 @@ from . import arguments
 def parseargs() -> argparse.Namespace:
     """ Handle arguments """
 
-    parser = arguments.parseargs("mmws")
+    parser = arguments.parseargs("mmwatch")
 
     parser.add_argument(
         "--no-notify", action='store_true', help="Disable notifications")
@@ -27,7 +27,7 @@ def parseargs() -> argparse.Namespace:
         "--pkill", default="i3blocks",
         help="Send SIGUSR1 to process matching value")
 
-    return arguments.handle_args(parser, "mmws")
+    return arguments.handle_args(parser, "mmwatch")
 
 
 def notify_send(summary: Text, body: Text) -> None:
@@ -77,9 +77,11 @@ class EventHandler:
         data = event["data"]
         post = data.get("post", {})
 
+        # Do not notify on messages sent from myself
         if post.get("user_id") == self.mm.user.id:
             return
 
+        # Do not notify on system join channel/team
         if post.get("type") in ("system_join_channel", "system_join_team"):
             return
 
@@ -103,7 +105,9 @@ class EventHandler:
             notify_send(f"{self.chat_prefix} {channel_name}/{name}", message[:1024])
 
         if self.pkill:
-            os.kill(get_pid(self.pkill), signal.SIGUSR2)
+            pid = get_pid(self.pkill)
+            info("kill SIGUSR2 %s (%s)", pid, self.pkill)
+            os.kill(pid, signal.SIGUSR2)
 
     async def event_handler(self, event: Text) -> None:
         """ Websocket event handler """

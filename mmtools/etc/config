@@ -19,7 +19,7 @@ password-pass-entry =
 
 ### Channels (regular expression) to ignore. These are the short channel IDs.
 ### This applies to both mmstatus and mmwatch, but you can have different settings
-### By moving this setting to the either [mmstatus] or [mmwatch]
+### By moving this setting to [mmstatus] and/or [mmwatch]
 # ignore =
 # team =
 # chat-prefix = 🗨️

@@ -14,7 +14,7 @@ from .mattermost import Channels, Mattermost
 def parseargs() -> argparse.Namespace:
     """ Handle arguments """
 
-    parser = arguments.parseargs("mmtools")
+    parser = arguments.parseargs("mmstatus")
     parser.add_argument(
         "--channel-color",
         default="#00FF00",
@@ -24,7 +24,7 @@ def parseargs() -> argparse.Namespace:
         default="#FF4488",
         help="Color to use if unread user messages")
 
-    return arguments.handle_args(parser, "mmtools")
+    return arguments.handle_args(parser, "mmstatus")
 
 
 def i3blocks(

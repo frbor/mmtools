@@ -2,9 +2,10 @@
 
 import argparse
 import logging
+import logging.handlers
 import os
 import sys
-from logging import error, info
+from logging import error, debug
 from typing import Any, List, Optional, Text
 
 import caep
@@ -57,22 +58,30 @@ def gettpassentry(key: Text) -> Any:
 
 
 def setup_logging(
-        loglevel: Text,
-        logfile: Optional[Text],
-        prefix: Text = "mmtools") -> None:
-    """setup default logging"""
-
+        loglevel: Text = "debug",
+        logfile: Optional[Text] = None,
+        prefix: Text = "mmtools",
+        maxBytes: int = 10000000,  # 10 MB
+        backupCount: int = 5) -> None:
+    """ Setup loglevel and optional log to file """
     numeric_level = getattr(logging, loglevel.upper(), None)
     if not isinstance(numeric_level, int):
-        raise ValueError('Invalid log level: {}'.format(loglevel))
+        raise ValueError('Invalid log level: %s' % loglevel)
 
     datefmt = "%Y-%m-%d %H:%M:%S"
     formatter = "[%(asctime)s] app=" + prefix + " level=%(levelname)s msg=%(message)s"
 
     if logfile:
+        # Support strftime in log file names
+        handlers = [
+            logging.handlers.RotatingFileHandler(
+                logfile,
+                maxBytes=maxBytes,
+                backupCount=backupCount)]
+
         logging.basicConfig(
             level=numeric_level,
-            filename=logfile,
+            handlers=handlers,
             format=formatter,
             datefmt=datefmt)
     else:
@@ -116,7 +125,7 @@ def handle_args(parser: argparse.ArgumentParser, section: Text) -> argparse.Name
 
     setup_logging(args.loglevel, args.logfile)
 
-    info(args)
+    debug(args)
 
     args.chat_prefix = args.chat_prefix.strip()
 
