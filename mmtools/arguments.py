@@ -72,6 +72,11 @@ def setup_logging(
     formatter = "[%(asctime)s] app=" + prefix + " level=%(levelname)s msg=%(message)s"
 
     if logfile:
+        logdir = os.path.basename(logfile)
+
+        if not os.path.isdir(logdir):
+            os.makedirs(logdir)
+
         # Support strftime in log file names
         handlers = [
             logging.handlers.RotatingFileHandler(
