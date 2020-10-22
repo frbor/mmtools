@@ -11,7 +11,7 @@ with open(path.join(this_directory, 'README.md'), "rb") as f:
 
 setup(
     name="mmtools",
-    version="0.0.8",
+    version="0.0.9",
     author="Fredrik Borg",
     zip_safe=True,
     author_email="fredrikb.borg@gmail.com",
