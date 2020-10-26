@@ -42,6 +42,19 @@ interval=60
 signal=12
 ```
 
+### mmpolybar
+
+`mmpolybar` same as mmstatus, but with polybar colors.
+
+Example configuration for polybar:
+
+```
+[module/mmpolybar]
+type = custom/script
+exec = mmpolybar
+```
+
+
 ### mmwatch
 
 `mmwatch` connects to the mattermost websocket API and can display notification on messages and send SIGUSR2 to i3blocks to update statusbar before next interval.

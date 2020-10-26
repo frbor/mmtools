@@ -3,7 +3,7 @@
 import argparse
 import re
 import sys
-from typing import Text
+from typing import List, Text, Tuple
 
 import requests
 
@@ -27,60 +27,79 @@ def parseargs() -> argparse.Namespace:
     return arguments.handle_args(parser, "mmstatus")
 
 
-def i3blocks(
-        channels: Channels,
-        ignore: Text,
-        channel_color: Text,
-        user_color: Text,
-        chat_prefix: Text) -> None:
-    """ Output channel status in i3blocks format """
+def get_status(args: argparse.Namespace) -> Tuple[List, List]:
+    mm = Mattermost(args)
+    channels = mm.init_channels()
 
+    # channel.type == D (Direct)
     private = [f"{channel.display_name}:{channel.msg_unread_count}"
                for channel in channels.channels
                if channel.msg_unread_count and channel.type == "D"
-               and not (ignore and re.search(ignore, channel.name))]
+               and not (args.ignore and re.search(args.ignore, channel.name))]
     other = [f"{channel.name}:{channel.msg_unread_count}"
              for channel in channels.channels
              if channel.msg_unread_count and channel.type != "D"
-             and not (ignore and re.search(ignore, channel.name))]
+             and not (args.ignore and re.search(args.ignore, channel.name))]
 
-    out = chat_prefix
+    return (private, other)
+
+
+def i3blocks() -> None:
+    """ Output channel status in i3blocks format """
+
+    args = parseargs()
+
+    try:
+        (private, other) = get_status(args)
+    except requests.exceptions.ConnectionError:
+        msg = f"{args.chat_prefix.strip()} Connection error"
+        print(f"{msg}\n{msg}\n#FF0000")
+        sys.exit(0)
+
+    out = args.chat_prefix
 
     # Join all channels with pipe
     msg = " | ".join(other + private)
 
     # If we have prefix and output - insert space between prefix and output
-    if msg and chat_prefix:
+    if msg and args.chat_prefix:
         msg = " " + msg
 
     print(out + msg)
     print(out + msg)
 
     if private:
-        print(user_color)
+        print(args.user_color)
     elif other:
-        print(channel_color)
+        print(args.channel_color)
 
 
-def main() -> None:
-    """ Main module """
+def polybar() -> None:
+    """ Output channel status in i3blocks format """
 
     args = parseargs()
 
     try:
-        mm = Mattermost(args)
-
-        i3blocks(
-            mm.init_channels(),
-            args.ignore,
-            args.channel_color,
-            args.user_color,
-            args.chat_prefix)
+        (private, other) = get_status(args)
     except requests.exceptions.ConnectionError:
-        msg = f"{args.chat_prefix.strip()} Connection error"
-        print(f"{msg}\n{msg}\n#FF0000")
+        print(f"%{{F#F00}}{args.chat_prefix.strip()} Connection error")
         sys.exit(0)
 
+    out = args.chat_prefix
 
-if __name__ == "__main__":
-    main()
+    private = [f"%{{F{args.user_color}}}{channel}" for channel in private]
+    other = [f"%{{F{args.channel_color}}}{channel}" for channel in other]
+
+    # Join all channels with pipe
+    msg = " | ".join(other + private)
+
+    # If we have prefix and output - insert space between prefix and output
+    if msg and args.chat_prefix:
+        msg = " " + msg
+
+    print(out + msg)
+
+
+def main() -> None:
+    """ For backwards compatibility """
+    i3blocks()

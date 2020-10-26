@@ -11,7 +11,7 @@ with open(path.join(this_directory, 'README.md'), "rb") as f:
 
 setup(
     name="mmtools",
-    version="0.0.9",
+    version="0.0.10",
     author="Fredrik Borg",
     zip_safe=True,
     author_email="fredrikb.borg@gmail.com",
@@ -23,7 +23,8 @@ setup(
     url="https://github.com/frbor/mmtools",
     entry_points={
         'console_scripts': [
-            'mmstatus = mmtools.status:main',
+            'mmstatus = mmtools.status:i3blocks',
+            'mmpolybar = mmtools.status:polybar',
             'mmwatch = mmtools.watch:main',
             'mmconfig= mmtools.config:main',
         ]
