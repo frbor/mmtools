@@ -85,10 +85,16 @@ def polybar() -> None:
         print(f"%{{F#F00}}{args.chat_prefix.strip()} Connection error")
         sys.exit(0)
 
-    out = args.chat_prefix
 
     private = [f"%{{F{args.user_color}}}{channel}" for channel in private]
     other = [f"%{{F{args.channel_color}}}{channel}" for channel in other]
+
+    if other:
+        out = f"%{{F{args.channel_color}}}{args.chat_prefix}"
+    elif private:
+        out = f"%{{F{args.user_color}}}{args.chat_prefix}"
+    else:
+        out = args.chat_prefix
 
     # Join all channels with pipe
     msg = " | ".join(other + private)
