@@ -17,11 +17,11 @@ def parseargs() -> argparse.Namespace:
     parser = arguments.parseargs("mmstatus")
     parser.add_argument(
         "--channel-color",
-        default="#00FF00",
+        default="#689d6a",
         help="Color to use if unread group messages")
     parser.add_argument(
         "--user-color",
-        default="#FF4488",
+        default="#fb4934",
         help="Color to use if unread user messages")
 
     return arguments.handle_args(parser, "mmstatus")

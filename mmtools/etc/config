@@ -33,8 +33,8 @@ password-pass-entry =
 # loglevel = info
 
 [mmstatus]
-# channel-color = #00FF00
-# user-color = #FF4488
+# channel-color = #689d6a
+# user-color = #fb4934
 
 [mmwatch]
 # no-notify = false
