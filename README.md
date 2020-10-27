@@ -52,6 +52,7 @@ Example configuration for polybar:
 [module/mmpolybar]
 type = custom/script
 exec = mmpolybar
+tail = true
 ```
 
 

@@ -3,7 +3,8 @@
 import argparse
 import re
 import sys
-from typing import List, Text, Tuple
+import time
+from typing import List, Tuple
 
 import requests
 
@@ -23,12 +24,16 @@ def parseargs() -> argparse.Namespace:
         "--user-color",
         default="#fb4934",
         help="Color to use if unread user messages")
+    parser.add_argument(
+        "--sleep",
+        type=int,
+        default=30,
+        help="Time to sleep between updates for polybar")
 
     return arguments.handle_args(parser, "mmstatus")
 
 
-def get_status(args: argparse.Namespace) -> Tuple[List, List]:
-    mm = Mattermost(args)
+def get_status(args: argparse.Namespace, mm) -> Tuple[List, List]:
     channels = mm.init_channels()
 
     # channel.type == D (Direct)
@@ -48,9 +53,10 @@ def i3blocks() -> None:
     """ Output channel status in i3blocks format """
 
     args = parseargs()
+    mm = Mattermost(args)
 
     try:
-        (private, other) = get_status(args)
+        (private, other) = get_status(args, mm)
     except requests.exceptions.ConnectionError:
         msg = f"{args.chat_prefix.strip()} Connection error"
         print(f"{msg}\n{msg}\n#FF0000")
@@ -78,32 +84,35 @@ def polybar() -> None:
     """ Output channel status in i3blocks format """
 
     args = parseargs()
+    mm = Mattermost(args)
 
-    try:
-        (private, other) = get_status(args)
-    except requests.exceptions.ConnectionError:
-        print(f"%{{F#F00}}{args.chat_prefix.strip()} Connection error")
-        sys.exit(0)
+    while True:
+        try:
+            (private, other) = get_status(args, mm)
+        except requests.exceptions.ConnectionError:
+            print(f"%{{F#F00}}{args.chat_prefix.strip()} Connection error")
+            sys.exit(0)
 
+        private = [f"%{{F{args.user_color}}}{channel}" for channel in private]
+        other = [f"%{{F{args.channel_color}}}{channel}" for channel in other]
 
-    private = [f"%{{F{args.user_color}}}{channel}" for channel in private]
-    other = [f"%{{F{args.channel_color}}}{channel}" for channel in other]
+        if other:
+            out = f"%{{F{args.channel_color}}}{args.chat_prefix}"
+        elif private:
+            out = f"%{{F{args.user_color}}}{args.chat_prefix}"
+        else:
+            out = args.chat_prefix
 
-    if other:
-        out = f"%{{F{args.channel_color}}}{args.chat_prefix}"
-    elif private:
-        out = f"%{{F{args.user_color}}}{args.chat_prefix}"
-    else:
-        out = args.chat_prefix
+        # Join all channels with pipe
+        msg = " | ".join(other + private)
 
-    # Join all channels with pipe
-    msg = " | ".join(other + private)
+        # If we have prefix and output - insert space between prefix and output
+        if msg and args.chat_prefix:
+            msg = " " + msg
 
-    # If we have prefix and output - insert space between prefix and output
-    if msg and args.chat_prefix:
-        msg = " " + msg
-
-    print(out + msg)
+        print(out + msg)
+        sys.stdout.flush()
+        time.sleep(args.sleep)
 
 
 def main() -> None:

@@ -45,6 +45,7 @@ class Mattermost:
         self.api.login()
         self.user = User(**self.api.users.get_user_by_username(args.user))
         self.channels = Channels()
+        self.teams = self.api.teams.get_user_teams(self.user.id)
 
     @functools.lru_cache(128)
     def get_user(self, user_id: Text) -> Text:
@@ -61,8 +62,7 @@ class Mattermost:
     def init_channels(self) -> 'Channels':
         """ Initialize channels """
 
-        teams = self.api.teams.get_user_teams(self.user.id)
-        self.channels.update(self, self.user.id, teams[0]["id"])
+        self.channels.update(self, self.user.id, self.teams[0]["id"])
 
         return self.channels
 
