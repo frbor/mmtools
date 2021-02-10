@@ -1,10 +1,11 @@
 """ mmtools - status """
 
 import argparse
+import json
 import re
 import sys
 import time
-from typing import List, Tuple, Callable
+from typing import Callable, List, Tuple
 
 import requests
 
@@ -127,6 +128,37 @@ def polybar() -> None:
             msg = " " + msg
 
         print(out + msg)
+        sys.stdout.flush()
+        time.sleep(args.sleep)
+
+
+def waybar_fatal(args, message):
+    print(json.dumps({"text": message, "class": "error"}))
+    sys.exit(0)
+
+
+def waybar() -> None:
+    """ Output channel status in i3blocks format """
+
+    args = parseargs()
+    mm = init_mattermost(args, error=waybar_fatal)
+
+    while True:
+        (private, other) = get_status(args, mm, waybar_fatal)
+
+        if private:
+            klass = "private"
+        elif other:
+            klass = "other"
+
+        # Join all channels with pipe
+        msg = f"{args.chat_prefix}" + " | ".join(other + private)
+
+        # If we have prefix and output - insert space between prefix and output
+        if msg and args.chat_prefix:
+            msg = " " + msg
+
+        print(json.dumps({"text": msg, "class": klass}))
         sys.stdout.flush()
         time.sleep(args.sleep)
 

@@ -11,7 +11,7 @@ with open(path.join(this_directory, 'README.md'), "rb") as f:
 
 setup(
     name="mmtools",
-    version="0.0.12",
+    version="0.0.13",
     author="Fredrik Borg",
     zip_safe=True,
     author_email="fredrikb.borg@gmail.com",
@@ -25,6 +25,7 @@ setup(
         'console_scripts': [
             'mmstatus = mmtools.status:i3blocks',
             'mmpolybar = mmtools.status:polybar',
+            'mmwaybar = mmtools.status:waybar',
             'mmwatch = mmtools.watch:main',
             'mmconfig= mmtools.config:main',
         ]

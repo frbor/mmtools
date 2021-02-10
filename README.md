@@ -55,6 +55,18 @@ exec = mmpolybar
 tail = true
 ```
 
+### mmwaybar
+
+`mmwaybar` same as mmstatus, but with output for waybar.
+
+Example configuration for waybar:
+
+```
+"custom/mattermost": {
+    "exec": " mmwaybar",
+    "return-type": "json"
+}
+```
 
 ### mmwatch
 
