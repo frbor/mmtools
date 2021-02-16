@@ -148,7 +148,7 @@ def waybar() -> None:
 
         if private:
             klass = "private"
-        elif other:
+        else:
             klass = "other"
 
         # Join all channels with pipe
