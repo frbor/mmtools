@@ -5,8 +5,8 @@ import json
 import os
 import re
 import signal
-from logging import debug, info
-from subprocess import check_output
+from logging import debug, info, warning
+from subprocess import CalledProcessError, check_output
 from typing import Dict, Text
 
 import notify2
@@ -37,7 +37,11 @@ def notify_send(summary: Text, body: Text) -> None:
 
 def get_pid(name: Text) -> int:
     """ Get pid from process name """
-    return int(check_output(["pidof", "-s", name]))
+    try:
+        return int(check_output(["pidof", "-s", name]))
+    except CalledProcessError as e:
+        warning("Unable to pidof -s %s: %s", name, e)
+        return 0
 
 
 class EventHandler:
@@ -108,8 +112,10 @@ class EventHandler:
 
         if self.pkill:
             pid = get_pid(self.pkill)
-            info("kill SIGUSR2 %s (%s)", pid, self.pkill)
-            os.kill(pid, signal.SIGUSR2)
+
+            if pid:
+                info("kill SIGUSR2 %s (%s)", pid, self.pkill)
+                os.kill(pid, signal.SIGUSR2)
 
     async def event_handler(self, event: Text) -> None:
         """ Websocket event handler """
