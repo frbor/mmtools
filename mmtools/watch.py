@@ -101,10 +101,10 @@ class EventHandler:
 
         message = post.get("message", "")
 
-        notification = f"{self.chat_prefix} {channel_name}/{name}", message[:1024]
+        channel = f"{self.chat_prefix} {channel_name}/{name}"
 
         if not self.no_notify:
-            notify_send(notification.strip())
+            notify_send(channel.strip(), message[:1024].strip())
 
         if self.pkill:
             pid = get_pid(self.pkill)
