@@ -43,7 +43,7 @@ def init_mattermost(args: argparse.Namespace, error: Callable) -> Mattermost:
         error(args, "Connection error")
 
 
-def get_status(args: argparse.Namespace, mm: Mattermost, error: Callable) -> Tuple[List, List]:
+def get_status(args: argparse.Namespace, mm: Mattermost, error: Callable) -> Tuple[List, List, bool]:
     try:
         channels = mm.init_channels()
 
@@ -57,11 +57,13 @@ def get_status(args: argparse.Namespace, mm: Mattermost, error: Callable) -> Tup
                  if channel.msg_unread_count and channel.type != "D"
                  and not (args.ignore and re.search(args.ignore, channel.name))]
 
-        return (private, other)
+        return (private, other, True)
     except requests.exceptions.ReadTimeout:
         error(args, "Timeout")
     except requests.exceptions.ConnectionError:
         error(args, "Connection error")
+
+    return [[], [], False]
 
 
 def i3blocks_fatal(args, message):
@@ -76,7 +78,7 @@ def i3blocks() -> None:
     args = parseargs()
     mm = init_mattermost(args, error=i3blocks_fatal)
 
-    (private, other) = get_status(args, mm, error=i3blocks_fatal)
+    (private, other, ok) = get_status(args, mm, error=i3blocks_fatal)
 
     out = args.chat_prefix
 
@@ -105,10 +107,18 @@ def polybar() -> None:
     """ Output channel status in i3blocks format """
 
     args = parseargs()
-    mm = init_mattermost(args, error=polybar_fatal)
+
+    ok = False
 
     while True:
-        (private, other) = get_status(args, mm, polybar_fatal)
+        if not ok:
+            mm = init_mattermost(args, error=polybar_fatal)
+
+        (private, other, ok) = get_status(args, mm, polybar_fatal)
+
+        if not ok:
+            time.sleep(args.sleep)
+            continue
 
         private = [f"%{{F{args.user_color}}}{channel}" for channel in private]
         other = [f"%{{F{args.channel_color}}}{channel}" for channel in other]
@@ -141,10 +151,18 @@ def waybar() -> None:
     """ Output channel status in i3blocks format """
 
     args = parseargs()
-    mm = init_mattermost(args, error=waybar_fatal)
+
+    ok = False
 
     while True:
-        (private, other) = get_status(args, mm, waybar_fatal)
+        if not ok:
+            mm = init_mattermost(args, error=waybar_fatal)
+
+        (private, other, ok) = get_status(args, mm, waybar_fatal)
+
+        if not ok:
+            time.sleep(args.sleep)
+            continue
 
         if private:
             klass = "private"
