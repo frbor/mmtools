@@ -35,12 +35,15 @@ def parseargs() -> argparse.Namespace:
 
 
 def init_mattermost(args: argparse.Namespace, error: Callable) -> Mattermost:
-    try:
-        return Mattermost(args)
-    except requests.exceptions.ReadTimeout:
-        error(args, "Timeout")
-    except requests.exceptions.ConnectionError:
-        error(args, "Connection error")
+    while True:
+        try:
+            return Mattermost(args)
+        except requests.exceptions.ReadTimeout as e:
+            error(args, f"Timeout {e}")
+            time.sleep(5)
+        except requests.exceptions.ConnectionError as e:
+            error(args, f"Connection error: {e}")
+            time.sleep(5)
 
 
 def get_status(args: argparse.Namespace, mm: Mattermost, error: Callable) -> Tuple[List, List, bool]:
@@ -63,7 +66,7 @@ def get_status(args: argparse.Namespace, mm: Mattermost, error: Callable) -> Tup
     except requests.exceptions.ConnectionError:
         error(args, "Connection error")
 
-    return [[], [], False]
+    return ([], [], False)
 
 
 def i3blocks_fatal(args, message):
@@ -78,7 +81,7 @@ def i3blocks() -> None:
     args = parseargs()
     mm = init_mattermost(args, error=i3blocks_fatal)
 
-    (private, other, ok) = get_status(args, mm, error=i3blocks_fatal)
+    (private, other, _) = get_status(args, mm, error=i3blocks_fatal)
 
     out = args.chat_prefix
 
