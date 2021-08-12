@@ -77,6 +77,8 @@ Example configuration for waybar:
 
 All tools can be configured using both command line arguments and a configuration file.
 
+`mmtools` will first look for a configuration in `~/.config/mmtools/config-<HOSTNAME>` with fallback to `~/.config/mmtools/config`.
+
 Use the following command to create the configuration `~/.config/mmtools/config`. The same configuration file is used for both tools.
 
 ```bash

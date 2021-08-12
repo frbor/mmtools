@@ -4,8 +4,10 @@ import argparse
 import logging
 import logging.handlers
 import os
+import socket
 import sys
-from logging import error, debug
+from logging import debug, error
+from pathlib import Path
 from typing import Any, List, Optional, Text
 
 import caep
@@ -126,7 +128,16 @@ def parseargs(description: Text) -> argparse.ArgumentParser:
 def handle_args(parser: argparse.ArgumentParser, section: Text) -> argparse.Namespace:
     """ Verify default arguments """
 
-    args = caep.handle_args(parser, CONFIG_ID, CONFIG_NAME, section)
+    hostname = socket.gethostname()
+
+    host_config_name = f"{CONFIG_NAME}-{hostname}"
+
+    config_name = CONFIG_NAME
+
+    if (Path(caep.get_config_dir(CONFIG_ID)) / host_config_name).is_file():
+        config_name = host_config_name
+
+    args = caep.handle_args(parser, CONFIG_ID, config_name, section)
 
     setup_logging(args.loglevel, args.logfile)
 
