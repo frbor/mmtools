@@ -8,9 +8,10 @@ import time
 from typing import Callable, List, Tuple
 
 import requests
+import urllib3
 
-from . import arguments
-from .mattermost import Mattermost
+from mmtools import arguments
+from mmtools.mattermost import Mattermost
 
 
 def parseargs() -> argparse.Namespace:
@@ -41,8 +42,8 @@ def init_mattermost(args: argparse.Namespace, error: Callable) -> Mattermost:
         except requests.exceptions.ReadTimeout as e:
             error(args, f"Timeout {e}")
             time.sleep(5)
-        except requests.exceptions.ConnectionError as e:
-            error(args, f"Connection error: {e}")
+        except (requests.exceptions.ConnectionError, urllib3.exceptions.NewConnectionError):
+            error(args, "Connection error")
             time.sleep(5)
 
 
@@ -63,8 +64,10 @@ def get_status(args: argparse.Namespace, mm: Mattermost, error: Callable) -> Tup
         return (private, other, True)
     except requests.exceptions.ReadTimeout:
         error(args, "Timeout")
-    except requests.exceptions.ConnectionError:
+    except (requests.exceptions.ConnectionError, urllib3.exceptions.NewConnectionError):
         error(args, "Connection error")
+    except Exception as e:
+        error(args, f"Unknown error: {e}")
 
     return ([], [], False)
 
@@ -101,9 +104,8 @@ def i3blocks() -> None:
         print(args.channel_color)
 
 
-def polybar_fatal(args, message):
+def polybar_error(args, message):
     print(f"%{{F{args.channel_color}}}{args.chat_prefix} {message}")
-    sys.exit(0)
 
 
 def polybar() -> None:
@@ -115,9 +117,9 @@ def polybar() -> None:
 
     while True:
         if not ok:
-            mm = init_mattermost(args, error=polybar_fatal)
+            mm = init_mattermost(args, error=polybar_error)
 
-        (private, other, ok) = get_status(args, mm, polybar_fatal)
+        (private, other, ok) = get_status(args, mm, polybar_error)
 
         if not ok:
             time.sleep(args.sleep)
@@ -145,9 +147,8 @@ def polybar() -> None:
         time.sleep(args.sleep)
 
 
-def waybar_fatal(args, message):
+def waybar_error(args, message):
     print(json.dumps({"text": message, "class": "error"}))
-    sys.exit(0)
 
 
 def waybar() -> None:
@@ -159,9 +160,9 @@ def waybar() -> None:
 
     while True:
         if not ok:
-            mm = init_mattermost(args, error=waybar_fatal)
+            mm = init_mattermost(args, error=waybar_error)
 
-        (private, other, ok) = get_status(args, mm, waybar_fatal)
+        (private, other, ok) = get_status(args, mm, waybar_error)
 
         if not ok:
             time.sleep(args.sleep)
