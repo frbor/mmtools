@@ -143,7 +143,10 @@ def polybar() -> None:
             msg = " " + msg
 
         print(out + msg)
-        sys.stdout.flush()
+        try:
+            sys.stdout.flush()
+        except BrokenPipeError:
+            pass
         time.sleep(args.sleep)
 
 
@@ -181,7 +184,10 @@ def waybar() -> None:
             msg = " " + msg
 
         print(json.dumps({"text": msg, "class": klass}))
-        sys.stdout.flush()
+        try:
+            sys.stdout.flush()
+        except BrokenPipeError:
+            pass
         time.sleep(args.sleep)
 
 
