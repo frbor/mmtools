@@ -1,0 +1,37 @@
+[tool]
+[tool.poetry]
+name = "mmtools"
+version = "0.0.24"
+description = "mmtools"
+license = "ISC"
+classifiers = ["Development Status :: 4 - Beta", "Topic :: Utilities", "License :: OSI Approved :: ISC License (ISCL)"]
+homepage = "https://github.com/frbor/mmtools"
+authors = ["Fredrik Borg <fredrikb.borg@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.scripts]
+mmstatus = "mmtools.status:i3blocks"
+mmpolybar = "mmtools.status:polybar"
+mmwaybar = "mmtools.status:waybar"
+mmwatch = "mmtools.watch:main"
+mmconfig= "mmtools.config:main"
+
+[tool.poetry.dependencies]
+python = "^3.6.1"
+caep = "~0.0.4"
+dbus-python = "^1.2.16"
+mattermostdriver = "^7.3.1"
+notify2 = "^0.3.1"
+passpy = "^1.0.2"
+pydantic = "^1.8.2"
+requests = "^2.26.0"
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+
+reportMissingImports = true
+reportMissingTypeStubs = false
+
+pythonVersion = "3.6"
+pythonPlatform = "Linux"
