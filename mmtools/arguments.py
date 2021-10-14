@@ -129,13 +129,18 @@ def handle_args(parser: argparse.ArgumentParser, section: Text) -> argparse.Name
     """ Verify default arguments """
 
     hostname = socket.gethostname()
+    hostname_short = socket.gethostname().split(".")[0]
 
     host_config_name = f"{CONFIG_NAME}-{hostname}"
-
-    config_name = CONFIG_NAME
+    host_short_config_name = f"{CONFIG_NAME}-{hostname_short}"
 
     if (Path(caep.get_config_dir(CONFIG_ID)) / host_config_name).is_file():
         config_name = host_config_name
+
+    elif (Path(caep.get_config_dir(CONFIG_ID)) / host_short_config_name).is_file():
+        config_name = host_config_name
+    else:
+        config_name = CONFIG_NAME
 
     args = caep.handle_args(parser, CONFIG_ID, config_name, section)
 
