@@ -6,7 +6,7 @@ import logging.handlers
 import os
 import socket
 import sys
-from logging import debug, error
+from logging import debug, error, info
 from pathlib import Path
 from typing import Any, List, Optional, Text
 
@@ -138,7 +138,7 @@ def handle_args(parser: argparse.ArgumentParser, section: Text) -> argparse.Name
         config_name = host_config_name
 
     elif (Path(caep.get_config_dir(CONFIG_ID)) / host_short_config_name).is_file():
-        config_name = host_config_name
+        config_name = host_short_config_name
     else:
         config_name = CONFIG_NAME
 
@@ -146,7 +146,8 @@ def handle_args(parser: argparse.ArgumentParser, section: Text) -> argparse.Name
 
     setup_logging(args.loglevel, args.logfile)
 
-    debug(args)
+    info(f"args: {args}")
+    info(f"config: {CONFIG_ID}/{config_name}")
 
     args.chat_prefix = args.chat_prefix.strip()
 
