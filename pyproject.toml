@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "mmtools"
-version = "0.0.24"
+version = "0.0.25"
 description = "mmtools"
 license = "ISC"
 classifiers = ["Development Status :: 4 - Beta", "Topic :: Utilities", "License :: OSI Approved :: ISC License (ISCL)"]
