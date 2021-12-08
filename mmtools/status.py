@@ -15,22 +15,23 @@ from mmtools.mattermost import Mattermost
 
 
 def parseargs() -> argparse.Namespace:
-    """ Handle arguments """
+    """Handle arguments"""
 
     parser = arguments.parseargs("mmstatus")
     parser.add_argument(
         "--channel-color",
         default="#689d6a",
-        help="Color to use if unread group messages")
+        help="Color to use if unread group messages",
+    )
     parser.add_argument(
-        "--user-color",
-        default="#fb4934",
-        help="Color to use if unread user messages")
+        "--user-color", default="#fb4934", help="Color to use if unread user messages"
+    )
     parser.add_argument(
         "--sleep",
         type=int,
         default=30,
-        help="Time to sleep between updates for polybar")
+        help="Time to sleep between updates for polybar",
+    )
 
     return arguments.handle_args(parser, "mmstatus")
 
@@ -42,24 +43,35 @@ def init_mattermost(args: argparse.Namespace, error: Callable) -> Mattermost:
         except requests.exceptions.ReadTimeout as e:
             error(args, f"Timeout {e}")
             time.sleep(5)
-        except (requests.exceptions.ConnectionError, urllib3.exceptions.NewConnectionError):
+        except (
+            requests.exceptions.ConnectionError,
+            urllib3.exceptions.NewConnectionError,
+        ):
             error(args, "Connection error")
             time.sleep(5)
 
 
-def get_status(args: argparse.Namespace, mm: Mattermost, error: Callable) -> Tuple[List, List, bool]:
+def get_status(
+    args: argparse.Namespace, mm: Mattermost, error: Callable
+) -> Tuple[List, List, bool]:
     try:
         channels = mm.init_channels()
 
         # channel.type == D (Direct)
-        private = [f"{channel.display_name}:{channel.msg_unread_count}"
-                   for channel in channels.channels
-                   if channel.msg_unread_count and channel.type == "D"
-                   and not (args.ignore and re.search(args.ignore, channel.name))]
-        other = [f"{channel.name}:{channel.msg_unread_count}"
-                 for channel in channels.channels
-                 if channel.msg_unread_count and channel.type != "D"
-                 and not (args.ignore and re.search(args.ignore, channel.name))]
+        private = [
+            f"{channel.display_name}:{channel.msg_unread_count}"
+            for channel in channels.channels
+            if channel.msg_unread_count
+            and channel.type == "D"
+            and not (args.ignore and re.search(args.ignore, channel.name))
+        ]
+        other = [
+            f"{channel.name}:{channel.msg_unread_count}"
+            for channel in channels.channels
+            if channel.msg_unread_count
+            and channel.type != "D"
+            and not (args.ignore and re.search(args.ignore, channel.name))
+        ]
 
         return (private, other, True)
     except requests.exceptions.ReadTimeout:
@@ -79,7 +91,7 @@ def i3blocks_fatal(args, message):
 
 
 def i3blocks() -> None:
-    """ Output channel status in i3blocks format """
+    """Output channel status in i3blocks format"""
 
     args = parseargs()
     mm = init_mattermost(args, error=i3blocks_fatal)
@@ -109,7 +121,7 @@ def polybar_error(args, message):
 
 
 def polybar() -> None:
-    """ Output channel status in i3blocks format """
+    """Output channel status in i3blocks format"""
 
     args = parseargs()
 
@@ -155,42 +167,33 @@ def waybar_error(args, message):
 
 
 def waybar() -> None:
-    """ Output channel status in i3blocks format """
+    """Output channel status in i3blocks format"""
 
     args = parseargs()
 
-    ok = False
+    mm = init_mattermost(args, error=waybar_error)
 
-    while True:
-        if not ok:
-            mm = init_mattermost(args, error=waybar_error)
+    (private, other, ok) = get_status(args, mm, waybar_error)
 
-        (private, other, ok) = get_status(args, mm, waybar_error)
+    if private:
+        klass = "private"
+    else:
+        klass = "other"
 
-        if not ok:
-            time.sleep(args.sleep)
-            continue
+    # Join all channels with pipe
+    msg = f"{args.chat_prefix}" + " | ".join(other + private)
 
-        if private:
-            klass = "private"
-        else:
-            klass = "other"
+    # If we have prefix and output - insert space between prefix and output
+    if msg and args.chat_prefix:
+        msg = " " + msg
 
-        # Join all channels with pipe
-        msg = f"{args.chat_prefix}" + " | ".join(other + private)
-
-        # If we have prefix and output - insert space between prefix and output
-        if msg and args.chat_prefix:
-            msg = " " + msg
-
-        print(json.dumps({"text": msg, "class": klass}))
-        try:
-            sys.stdout.flush()
-        except BrokenPipeError:
-            pass
-        time.sleep(args.sleep)
+    print(json.dumps({"text": msg, "class": klass}))
+    try:
+        sys.stdout.flush()
+    except BrokenPipeError:
+        pass
 
 
 def main() -> None:
-    """ For backwards compatibility """
+    """For backwards compatibility"""
     i3blocks()

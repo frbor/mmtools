@@ -64,7 +64,8 @@ Example configuration for waybar:
 ```
 "custom/mattermost": {
     "exec": " mmwaybar",
-    "return-type": "json"
+    "return-type": "json",
+    "interval": 90
 }
 ```
 
