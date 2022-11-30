@@ -1,7 +1,7 @@
 """ Mattermost module """
 import argparse
 import functools
-from logging import debug
+from logging import debug, info
 from typing import Callable, List, Optional, cast
 
 from mattermostdriver import Driver

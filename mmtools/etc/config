@@ -4,7 +4,7 @@
 ### Default values are shown for all options, but are commented out per default.
 
 [DEFAULT]
-### These options will be used by all all mmtools, but it can be
+### These options will be used by all mmtools, but it can be
 ### overwritten in the specific section per tools
 
 # Server and user must be specified
@@ -22,7 +22,7 @@ password-pass-entry =
 ### By moving this setting to [mmstatus] and/or [mmwatch]
 # ignore =
 # team =
-# chat-prefix = 🗨️
+# chat-prefix = 💬
 
 # port=443
 

@@ -66,7 +66,7 @@ def get_status(
             and not (args.ignore and re.search(args.ignore, channel.name))
         ]
         other = [
-            f"{channel.name}:{channel.msg_unread_count}"
+            f"{channel.display_name}:{channel.msg_unread_count}"
             for channel in channels.channels
             if channel.msg_unread_count
             and channel.type != "D"
