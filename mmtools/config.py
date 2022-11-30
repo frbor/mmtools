@@ -4,7 +4,6 @@
 import argparse
 import os
 import sys
-from typing import Text
 
 import caep
 from pkg_resources import resource_string
@@ -13,42 +12,45 @@ from mmtools import arguments
 
 
 def parseargs() -> argparse.Namespace:
-    """ Parse arguments """
+    """Parse arguments"""
 
     parser = argparse.ArgumentParser(
         "mmtools config",
         epilog="""
     show - Print default config
 
-    user - Copy default config to {0}/{1}
+    user - Copy default config to {}/{}
 
-""".format(caep.get_config_dir(arguments.CONFIG_ID), arguments.CONFIG_NAME),
-        formatter_class=argparse.RawDescriptionHelpFormatter)
+""".format(
+            caep.get_config_dir(arguments.CONFIG_ID), arguments.CONFIG_NAME
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
 
-    parser.add_argument('action', nargs=1, choices=["show", "user"])
+    parser.add_argument("action", nargs=1, choices=["show", "user"])
 
     return parser.parse_args()
 
 
-def default_ini() -> Text:
-    """ Get content of default ini file """
-    return resource_string("mmtools", "etc/{}".format(arguments.CONFIG_NAME)).decode('utf-8')
+def default_ini() -> str:
+    """Get content of default ini file"""
+    return resource_string("mmtools", f"etc/{arguments.CONFIG_NAME}").decode("utf-8")
 
 
-def save_config(filename: Text) -> None:
-    """ Save config to specified filename """
+def save_config(filename: str) -> None:
+    """Save config to specified filename"""
     if os.path.isfile(filename):
-        sys.stderr.write("Config already exists: {}\n".format(filename))
+        sys.stderr.write(f"Config already exists: {filename}\n")
         sys.exit(1)
 
     try:
         with open(filename, "w") as f:
             f.write(default_ini())
     except PermissionError as err:
-        sys.stderr.write("{}\n".format(err))
+        sys.stderr.write(f"{err}\n")
         sys.exit(2)
 
-    print("Config copied to {}".format(filename))
+    print(f"Config copied to {filename}")
 
 
 def main() -> None:
@@ -63,5 +65,5 @@ def main() -> None:
         save_config(os.path.join(config_dir, arguments.CONFIG_NAME))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

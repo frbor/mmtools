@@ -7,7 +7,7 @@ import re
 import signal
 from logging import debug, info, warning
 from subprocess import CalledProcessError, check_output
-from typing import Dict, Text
+from typing import Dict
 
 import notify2
 
@@ -17,26 +17,27 @@ from . import arguments
 
 
 def parseargs() -> argparse.Namespace:
-    """ Handle arguments """
+    """Handle arguments"""
 
     parser = arguments.parseargs("mmwatch")
 
     parser.add_argument(
-        "--no-notify", action='store_true', help="Disable notifications")
+        "--no-notify", action="store_true", help="Disable notifications"
+    )
     parser.add_argument(
-        "--pkill", default="i3blocks",
-        help="Send SIGUSR1 to process matching value")
+        "--pkill", default="i3blocks", help="Send SIGUSR1 to process matching value"
+    )
 
     return arguments.handle_args(parser, "mmwatch")
 
 
-def notify_send(summary: Text, body: Text) -> None:
-    """ Send notification message """
+def notify_send(summary: str, body: str) -> None:
+    """Send notification message"""
     notify2.Notification(summary, body, "notification-message-im").show()
 
 
-def get_pid(name: Text) -> int:
-    """ Get pid from process name """
+def get_pid(name: str) -> int:
+    """Get pid from process name"""
     try:
         return int(check_output(["pidof", "-s", name]))
     except CalledProcessError as e:
@@ -45,15 +46,16 @@ def get_pid(name: Text) -> int:
 
 
 class EventHandler:
-    """ Event Handler """
+    """Event Handler"""
 
     def __init__(
-            self,
-            mm: Mattermost,
-            ignore_channels: Text,
-            pkill: Text,
-            no_notify: bool,
-            chat_prefix: Text):
+        self,
+        mm: Mattermost,
+        ignore_channels: str,
+        pkill: str,
+        no_notify: bool,
+        chat_prefix: str,
+    ):
 
         self.event_map = {
             "posted": self.event_posted,
@@ -67,7 +69,7 @@ class EventHandler:
         self.chat_prefix = chat_prefix
 
     async def event_channel_viewed(self, event: Dict) -> None:
-        """ Websocket event handler for channel views """
+        """Websocket event handler for channel views"""
         data = event.get("data", {})
 
         channel_id = data.get("channel_id")
@@ -77,7 +79,7 @@ class EventHandler:
         info(f"channel viewed: {channel_id}")
 
     async def event_posted(self, event: Dict) -> None:
-        """ Websocket event handler for posts """
+        """Websocket event handler for posts"""
         data = event["data"]
         post = data.get("post", {})
 
@@ -117,15 +119,16 @@ class EventHandler:
                 info("kill SIGUSR2 %s (%s)", pid, self.pkill)
                 os.kill(pid, signal.SIGUSR2)
 
-    async def event_handler(self, event: Text) -> None:
-        """ Websocket event handler """
+    async def event_handler(self, event: str) -> None:
+        """Websocket event handler"""
 
         debug_event = (
             "status_change",
             "typing",
             "channel_member_updated",
             "user_added",
-            None)
+            None,
+        )
 
         d = json.loads(event)
         if "data" in d:
@@ -150,14 +153,16 @@ class EventHandler:
 
 
 def main() -> None:
-    """ Main module """
+    """Main module"""
     args = parseargs()
 
-    notify2.init('mmtools')
+    notify2.init("mmtools")
 
     mm = Mattermost(args)
 
-    handler = EventHandler(mm, args.ignore, args.pkill, args.no_notify, args.chat_prefix)
+    handler = EventHandler(
+        mm, args.ignore, args.pkill, args.no_notify, args.chat_prefix
+    )
 
     mm.init_websocket(handler.event_handler)
 
