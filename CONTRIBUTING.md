@@ -28,4 +28,3 @@
 #### **Do you have questions about the source code?**
 
 * Ask any question about the code to fredrik.borg@gmail.com.
-

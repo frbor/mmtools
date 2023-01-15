@@ -1,35 +1,25 @@
 #!/usr/bin/env python3
 """ Handle config"""
 
-import argparse
 import os
 import sys
 
 import caep
 from pkg_resources import resource_string
+from pydantic import Field
 
 from mmtools import arguments
 
 
-def parseargs() -> argparse.Namespace:
-    """Parse arguments"""
+class Config(arguments.Config):
 
-    parser = argparse.ArgumentParser(
-        "mmtools config",
-        epilog="""
-    show - Print default config
-
-    user - Copy default config to {}/{}
-
-""".format(
+    show: bool = Field(False, description="Print default config")
+    init: bool = Field(
+        False,
+        description="Copy default config to {}/{}".format(
             caep.get_config_dir(arguments.CONFIG_ID), arguments.CONFIG_NAME
         ),
-        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-
-    parser.add_argument("action", nargs=1, choices=["show", "user"])
-
-    return parser.parse_args()
 
 
 def default_ini() -> str:
@@ -55,14 +45,16 @@ def save_config(filename: str) -> None:
 
 def main() -> None:
     "main function"
-    args = parseargs()
+    args: Config = arguments.handle_args(Config, "config")
 
-    if "show" in args.action:
+    if args.show:
         print(default_ini())
-
-    if "user" in args.action:
+    elif args.init:
         config_dir = caep.get_config_dir(arguments.CONFIG_ID, create=True)
         save_config(os.path.join(config_dir, arguments.CONFIG_NAME))
+
+    else:
+        arguments.fatal("You must specify --show or --init")
 
 
 if __name__ == "__main__":

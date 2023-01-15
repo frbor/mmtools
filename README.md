@@ -83,7 +83,7 @@ All tools can be configured using both command line arguments and a configuratio
 Use the following command to create the configuration `~/.config/mmtools/config`. The same configuration file is used for both tools.
 
 ```bash
-mmconfig user
+mmconfig init
 ```
 
 In this file you must specify at least:

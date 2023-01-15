@@ -1,11 +1,12 @@
 """ Mattermost module """
-import argparse
 import functools
-from logging import debug, info
+from logging import debug
 from typing import Callable, List, Optional, cast
 
 from mattermostdriver import Driver
 from pydantic import BaseModel
+
+from mmtools import arguments
 
 
 class Channel(BaseModel):
@@ -35,7 +36,7 @@ class Channel(BaseModel):
 class Mattermost:
     """Mattermost helper class"""
 
-    def __init__(self, args: argparse.Namespace) -> None:
+    def __init__(self, args: arguments.Config) -> None:
 
         self.api = Driver(
             {
@@ -82,7 +83,7 @@ class Mattermost:
 
         return self.channels
 
-    def init_websocket(self, func: Callable) -> None:
+    def init_websocket(self, func: Callable) -> None:  # type: ignore
         """Initialize websocket"""
 
         self.api.init_websocket(func)
@@ -119,9 +120,9 @@ class Channels(BaseModel):
 
             if not channel.display_name and "__" in channel.name:
                 # for 1-1 chats, the channel name is "<user_id>__<user_id>" where
-                # one of the user1 is yours (probably depends on who opened the private chat
-                # we need to check which user id is yours, and then lookup the
-                # username of the other user
+                # one of the user1 is yours (probably depends on who opened the
+                # private chat we need to check which user id is yours, and then
+                # lookup the username of the other user
 
                 user1, user2 = channel.name.split("__")
 
