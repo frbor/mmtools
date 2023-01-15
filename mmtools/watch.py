@@ -1,34 +1,26 @@
 """ mmtools - watch """
 
-import argparse
 import json
 import os
 import re
 import signal
 from logging import debug, info, warning
 from subprocess import CalledProcessError, check_output
-from typing import Dict
+from typing import Any, Dict
 
 import notify2
+from pydantic import Field
 
+from mmtools import arguments
 from mmtools.mattermost import Mattermost
 
-from . import arguments
 
+class Config(arguments.Config):
 
-def parseargs() -> argparse.Namespace:
-    """Handle arguments"""
+    no_verify: bool = Field(False, description="SSL verify")
 
-    parser = arguments.parseargs("mmwatch")
-
-    parser.add_argument(
-        "--no-notify", action="store_true", help="Disable notifications"
-    )
-    parser.add_argument(
-        "--pkill", default="i3blocks", help="Send SIGUSR1 to process matching value"
-    )
-
-    return arguments.handle_args(parser, "mmwatch")
+    no_notify: bool = Field(False, description="Disable notifications")
+    pkill: str = Field("i3blocks", description="Send SIGUSR1 to process matching value")
 
 
 def notify_send(summary: str, body: str) -> None:
@@ -68,7 +60,7 @@ class EventHandler:
         self.no_notify = no_notify
         self.chat_prefix = chat_prefix
 
-    async def event_channel_viewed(self, event: Dict) -> None:
+    async def event_channel_viewed(self, event: Dict[str, Any]) -> None:
         """Websocket event handler for channel views"""
         data = event.get("data", {})
 
@@ -78,7 +70,7 @@ class EventHandler:
 
         info(f"channel viewed: {channel_id}")
 
-    async def event_posted(self, event: Dict) -> None:
+    async def event_posted(self, event: Dict[str, Any]) -> None:
         """Websocket event handler for posts"""
         data = event["data"]
         post = data.get("post", {})
@@ -154,7 +146,7 @@ class EventHandler:
 
 def main() -> None:
     """Main module"""
-    args = parseargs()
+    args: Config = arguments.handle_args(Config, "mmstatus")
 
     notify2.init("mmtools")
 

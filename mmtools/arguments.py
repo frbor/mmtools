@@ -1,18 +1,18 @@
 """ mmblocks """
 
-import argparse
 import logging
 import logging.handlers
 import os
 import socket
 import sys
-from logging import debug, error, info
+from logging import error, info
 from pathlib import Path
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Type
 
 import caep
 import passpy
 import requests
+from pydantic import BaseModel, Field
 from urllib3.exceptions import InsecureRequestWarning
 
 CONFIG_ID = "mmtools"
@@ -49,13 +49,17 @@ def whereis(filenames: List[str]) -> Optional[str]:
 
     for filename in filenames:
         for path in os.environ["PATH"].split(":"):
-            if os.path.isfile("{}/{}".format(path, filename)):
-                return os.path.realpath("{}/{}".format(path, filename))
+            if os.path.isfile(f"{path}/{filename}"):
+                return os.path.realpath(f"{path}/{filename}")
     return None
 
 
 def gettpassentry(key: str) -> Any:
     """Get pass entry from passpy"""
+    entry = passpy_store().get_key(key)
+
+    if not entry:
+        fatal(f"pass entry {key} not found")
     return passpy_store().get_key(key).split("\n")[0]
 
 
@@ -96,32 +100,27 @@ def setup_logging(
         )
 
 
-def parseargs(description: str) -> argparse.ArgumentParser:
-    """Parse arguments"""
-    parser = argparse.ArgumentParser(allow_abbrev=False, description=description)
+class Config(BaseModel):
 
-    parser.add_argument("--server", help="Mattermost Server")
-    parser.add_argument("--user", help="Mattermost User")
-    parser.add_argument("--port", type=int, default=443, help="Mattermost port")
-    parser.add_argument("--ignore", help="Regular expression of channels to ignore")
-    parser.add_argument("--no-verify", action="store_true", help="SSL verify")
-    parser.add_argument("--logfile", help="Log to file")
-    parser.add_argument("--loglevel", default="info", help="Log level (default=INFO)")
-    parser.add_argument("--password", help="Mattermost password")
-    parser.add_argument(
-        "--chat-prefix",
-        default="🗨️ ",
-        help="Prefix to show on statusbar and notification messages",
+    server: str = Field(description="Mattermost Server")
+    user: str = Field(description="Mattermost User")
+    port: int = Field(443, description="Mattermost port")
+    ignore: str = Field(description="Regular expression of channels to ignore")
+    no_verify: bool = Field(False, description="SSL verify")
+    logfile: str = Field(description="Log to file")
+    loglevel: str = Field("info", description="Log level (default=INFO)")
+    password: str = Field(description="Mattermost password")
+    chat_prefix: str = Field(
+        "🗨️ ",
+        description="Prefix to show on statusbar and notification messages",
     )
-    parser.add_argument("--team", help="Mattermost team (optional)")
-    parser.add_argument(
-        "--password-pass-entry", help="pass entry to insert into password"
-    )
-
-    return parser
+    team: str = Field(description="Mattermost team (optional)")
+    password_pass_entry: str = Field(description="pass entry to insert into password")
 
 
-def handle_args(parser: argparse.ArgumentParser, section: str) -> argparse.Namespace:
+def handle_args(
+    model: Type[caep.schema.BaseModelType], section: str
+) -> caep.schema.BaseModelType:
     """Verify default arguments"""
 
     hostname = socket.gethostname()
@@ -138,7 +137,13 @@ def handle_args(parser: argparse.ArgumentParser, section: str) -> argparse.Names
     else:
         config_name = CONFIG_NAME
 
-    args = caep.handle_args(parser, CONFIG_ID, config_name, section)
+    args = caep.load(
+        model,
+        section,
+        CONFIG_ID,
+        config_name,
+        section,
+    )
 
     setup_logging(args.loglevel, args.logfile)
 
@@ -154,7 +159,9 @@ def handle_args(parser: argparse.ArgumentParser, section: str) -> argparse.Names
         fatal("--user not specified")
 
     if args.no_verify:
-        requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
+        requests.packages.urllib3.disable_warnings(  # type: ignore
+            category=InsecureRequestWarning
+        )
 
     if args.password_pass_entry:
         args.password = gettpassentry(args.password_pass_entry)

@@ -1,6 +1,5 @@
 """ mmtools - status """
 
-import argparse
 import json
 import re
 import sys
@@ -9,34 +8,28 @@ from typing import Callable, List, Tuple
 
 import requests
 import urllib3
+from pydantic import Field
 
 from mmtools import arguments
 from mmtools.mattermost import Mattermost
 
 
-def parseargs() -> argparse.Namespace:
-    """Handle arguments"""
+class Config(arguments.Config):
 
-    parser = arguments.parseargs("mmstatus")
-    parser.add_argument(
-        "--channel-color",
-        default="#689d6a",
-        help="Color to use if unread group messages",
+    channel_color: str = Field(
+        "#689d6a",
+        description="Color to use if unread group messages",
     )
-    parser.add_argument(
-        "--user-color", default="#fb4934", help="Color to use if unread user messages"
+    user_color: str = Field(
+        "#fb4934", description="Color to use if unread user messages"
     )
-    parser.add_argument(
-        "--sleep",
-        type=int,
-        default=30,
-        help="Time to sleep between updates for polybar",
+    sleep: int = Field(
+        30,
+        description="Time to sleep between updates for polybar",
     )
 
-    return arguments.handle_args(parser, "mmstatus")
 
-
-def init_mattermost(args: argparse.Namespace, error: Callable) -> Mattermost:
+def init_mattermost(args: Config, error: Callable) -> Mattermost:
     while True:
         try:
             return Mattermost(args)
@@ -52,7 +45,7 @@ def init_mattermost(args: argparse.Namespace, error: Callable) -> Mattermost:
 
 
 def get_status(
-    args: argparse.Namespace, mm: Mattermost, error: Callable
+    args: Config, mm: Mattermost, error: Callable
 ) -> Tuple[List, List, bool]:
     try:
         channels = mm.init_channels()
@@ -162,14 +155,14 @@ def polybar() -> None:
         time.sleep(args.sleep)
 
 
-def waybar_error(args, message):
+def waybar_error(args: Config, message: str) -> None:
     print(json.dumps({"text": message, "class": "error"}))
 
 
 def waybar() -> None:
     """Output channel status in i3blocks format"""
 
-    args = parseargs()
+    args: Config = arguments.handle_args(Config, "mmstatus")
 
     mm = init_mattermost(args, error=waybar_error)
 
