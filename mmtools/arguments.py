@@ -12,11 +12,15 @@ from typing import Any, List, Optional, Type
 import caep
 import passpy
 import requests
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, root_validator
 from urllib3.exceptions import InsecureRequestWarning
 
 CONFIG_ID = "mmtools"
 CONFIG_NAME = "config"
+
+
+class ArgumentError(Exception):
+    pass
 
 
 class NotFound(Exception):
@@ -60,7 +64,8 @@ def gettpassentry(key: str) -> Any:
 
     if not entry:
         fatal(f"pass entry {key} not found")
-    return passpy_store().get_key(key).split("\n")[0]
+    else:
+        return entry.split("\n")[0]
 
 
 def setup_logging(
@@ -109,13 +114,24 @@ class Config(BaseModel):
     no_verify: bool = Field(False, description="SSL verify")
     logfile: str = Field(description="Log to file")
     loglevel: str = Field("info", description="Log level (default=INFO)")
-    password: str = Field(description="Mattermost password")
+    password: Optional[str] = Field(description="Mattermost password")
     chat_prefix: str = Field(
         "🗨️ ",
         description="Prefix to show on statusbar and notification messages",
     )
-    team: str = Field(description="Mattermost team (optional)")
-    password_pass_entry: str = Field(description="pass entry to insert into password")
+    team: Optional[str] = Field(description="Mattermost team (optional)")
+    password_pass_entry: Optional[str] = Field(
+        description="pass entry to insert into password"
+    )
+
+    @root_validator
+    def check_arguments(cls, values: dict[str, Any]) -> dict[str, Any]:
+        password = values.get("password")
+        password_pass_entry = values.get("password_pass_entry")
+        if not (password or password_pass_entry):
+            raise ArgumentError("Specify --password or --password-pass-entry")
+
+        return values
 
 
 def handle_args(
@@ -137,13 +153,16 @@ def handle_args(
     else:
         config_name = CONFIG_NAME
 
-    args = caep.load(
-        model,
-        section,
-        CONFIG_ID,
-        config_name,
-        section,
-    )
+    try:
+        args = caep.load(
+            model,
+            section,
+            CONFIG_ID,
+            config_name,
+            section,
+        )
+    except ArgumentError as e:
+        fatal(str(e))
 
     setup_logging(args.loglevel, args.logfile)
 

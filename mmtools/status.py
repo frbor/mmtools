@@ -29,7 +29,7 @@ class Config(arguments.Config):
     )
 
 
-def init_mattermost(args: Config, error: Callable) -> Mattermost:
+def init_mattermost(args: Config, error: Callable[[Config, str], None]) -> Mattermost:
     while True:
         try:
             return Mattermost(args)
@@ -45,8 +45,8 @@ def init_mattermost(args: Config, error: Callable) -> Mattermost:
 
 
 def get_status(
-    args: Config, mm: Mattermost, error: Callable
-) -> Tuple[List, List, bool]:
+    args: Config, mm: Mattermost, error: Callable[[Config, str], None]
+) -> Tuple[List[str], List[str], bool]:
     try:
         channels = mm.init_channels()
 
@@ -77,7 +77,7 @@ def get_status(
     return ([], [], False)
 
 
-def i3blocks_fatal(args, message):
+def i3blocks_fatal(args: Config, message: str) -> None:
     msg = f"{args.chat_prefix.strip()} {message}"
     print(f"{msg}\n{msg}\n#FF0000")
     sys.exit(0)
@@ -86,7 +86,7 @@ def i3blocks_fatal(args, message):
 def i3blocks() -> None:
     """Output channel status in i3blocks format"""
 
-    args = parseargs()
+    args: Config = arguments.handle_args(Config, "mmstatus")
     mm = init_mattermost(args, error=i3blocks_fatal)
 
     (private, other, _) = get_status(args, mm, error=i3blocks_fatal)
@@ -109,14 +109,14 @@ def i3blocks() -> None:
         print(args.channel_color)
 
 
-def polybar_error(args, message):
+def polybar_error(args: Config, message: str) -> None:
     print(f"%{{F{args.channel_color}}}{args.chat_prefix} {message}")
 
 
 def polybar() -> None:
     """Output channel status in i3blocks format"""
 
-    args = parseargs()
+    args: Config = arguments.handle_args(Config, "mmstatus")
 
     ok = False
 

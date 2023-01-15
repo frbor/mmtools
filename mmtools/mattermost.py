@@ -83,7 +83,7 @@ class Mattermost:
 
         return self.channels
 
-    def init_websocket(self, func: Callable) -> None:
+    def init_websocket(self, func: Callable) -> None:  # type: ignore
         """Initialize websocket"""
 
         self.api.init_websocket(func)
