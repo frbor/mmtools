@@ -4,7 +4,7 @@ from logging import debug
 from typing import Callable, List, Optional, cast
 
 from mattermostdriver import Driver
-from pydantic import BaseModel
+from pydantic import BaseModel, SecretStr
 
 from mmtools import arguments
 
@@ -42,7 +42,7 @@ class Mattermost:
             {
                 "url": args.server,
                 "login_id": args.user,
-                "password": args.password,
+                "password": cast(SecretStr, args.password).get_secret_value(),
                 "scheme": "https",
                 "port": args.port,
                 "basepath": "/api/v4",
