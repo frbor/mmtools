@@ -12,7 +12,7 @@ from typing import Any, List, Optional, Type
 import caep
 import passpy
 import requests
-from pydantic import BaseModel, Field, root_validator
+from pydantic import BaseModel, Field, SecretStr, root_validator
 from urllib3.exceptions import InsecureRequestWarning
 
 CONFIG_ID = "mmtools"
@@ -114,7 +114,7 @@ class Config(BaseModel):
     no_verify: bool = Field(False, description="SSL verify")
     logfile: str = Field(description="Log to file")
     loglevel: str = Field("info", description="Log level (default=INFO)")
-    password: Optional[str] = Field(description="Mattermost password")
+    password: Optional[SecretStr] = Field(description="Mattermost password")
     chat_prefix: str = Field(
         "🗨️ ",
         description="Prefix to show on statusbar and notification messages",
