@@ -42,6 +42,9 @@ def init_mattermost(args: Config, error: Callable[[Config, str], None]) -> Matte
         ):
             error(args, "Connection error")
             time.sleep(5)
+        except Exception as e:
+            error(args, f"Unknown exception: {e}")
+            sys.exit(1)
 
 
 def get_status(

@@ -183,7 +183,7 @@ def handle_args(
         )
 
     if args.password_pass_entry:
-        args.password = gettpassentry(args.password_pass_entry)
+        args.password = SecretStr(gettpassentry(args.password_pass_entry))
 
     if not args.password:
         fatal("Must specify either --password or --password-pass-entry")
