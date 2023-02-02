@@ -6,7 +6,7 @@ import re
 import signal
 from logging import debug, info, warning
 from subprocess import CalledProcessError, check_output
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import notify2
 from pydantic import Field
@@ -43,7 +43,7 @@ class EventHandler:
     def __init__(
         self,
         mm: Mattermost,
-        ignore_channels: str,
+        ignore_channels: Optional[str],
         pkill: str,
         no_notify: bool,
         chat_prefix: str,

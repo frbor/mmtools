@@ -110,9 +110,11 @@ class Config(BaseModel):
     server: str = Field(description="Mattermost Server")
     user: str = Field(description="Mattermost User")
     port: int = Field(443, description="Mattermost port")
-    ignore: str = Field(description="Regular expression of channels to ignore")
+    ignore: Optional[str] = Field(
+        description="Regular expression of channels to ignore"
+    )
     no_verify: bool = Field(False, description="SSL verify")
-    logfile: str = Field(description="Log to file")
+    logfile: Optional[str] = Field(description="Log to file")
     loglevel: str = Field("info", description="Log level (default=INFO)")
     password: Optional[SecretStr] = Field(description="Mattermost password")
     chat_prefix: str = Field(
