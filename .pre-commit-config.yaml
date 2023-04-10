@@ -1,13 +1,10 @@
 repos:
-  - repo: local
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: 'v0.0.261'
     hooks:
-      - id: isort
-        name: isort
-        language: python
-        entry: isort
-        types: [python]
-        additional_dependencies: [isort==5.10.1]
-        args: ["--profile", "black"]
+      - id: ruff
+        args: [ --fix, --exit-non-zero-on-fix ]
 
   - repo: local
     hooks:
@@ -16,7 +13,7 @@ repos:
         language: python
         entry: black
         types: [python]
-        additional_dependencies: [black==22.10.0]
+        additional_dependencies: [black==23.3.0]
 
   - repo: local
     hooks:
@@ -25,30 +22,11 @@ repos:
         language: python
         entry: mypy
         types: [python]
-        additional_dependencies: ["mypy==0.991", "pydantic", "requests"]
+        additional_dependencies: ["mypy==1.2.0", "pydantic", "requests"]
         args: [".", "--strict", "--install-types", "--non-interactive"]
         pass_filenames: false
         always_run: true
 
-  - repo: local
-    hooks:
-      - id: pyupgrade
-        name: pyupgrade
-        language: python
-        entry: pyupgrade
-        types: [python]
-        args: ["--py38-plus"]
-        additional_dependencies: [pyupgrade==3.1.0]
-
-  - repo: local
-    hooks:
-      - id: flake8
-        name: flake8
-        language: python
-        entry: flake8
-        types: [python]
-        args: [--max-line-length=88]
-        additional_dependencies: [flake8==5.0.4]
 
   - repo: local
     hooks:

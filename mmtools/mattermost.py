@@ -1,7 +1,8 @@
 """ Mattermost module """
+
 import functools
 from logging import debug
-from typing import Callable, List, Optional, cast
+from typing import Callable, Optional, cast
 
 from mattermostdriver import Driver
 from pydantic import BaseModel, SecretStr
@@ -37,7 +38,6 @@ class Mattermost:
     """Mattermost helper class"""
 
     def __init__(self, args: arguments.Config) -> None:
-
         self.api = Driver(
             {
                 "url": args.server,
@@ -92,7 +92,7 @@ class Mattermost:
 class Channels(BaseModel):
     """Channels model Keeps a list of channels"""
 
-    channels: List[Channel] = []
+    channels: list[Channel] = []
 
     def update(self, mm: Mattermost, user_id: str, team_id: str) -> None:
         """
@@ -110,7 +110,6 @@ class Channels(BaseModel):
 
         self.channels = []
         for channel in mm.api.channels.get_channels_for_user(user_id, team_id):
-
             # Merge results from channel_members_for_user and channels_for_user
             channel.update(channel_members[channel["id"]])
             channel = Channel(**channel)

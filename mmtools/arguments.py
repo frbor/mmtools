@@ -7,7 +7,7 @@ import socket
 import sys
 from logging import error, info
 from pathlib import Path
-from typing import Any, List, Optional, Type
+from typing import Any, Optional
 
 import caep
 import passpy
@@ -46,7 +46,7 @@ def passpy_store(gpgbinary: Optional[str] = None) -> passpy.store.Store:
     return passpy.store.Store(gpg_bin=gpgbinary)
 
 
-def whereis(filenames: List[str]) -> Optional[str]:
+def whereis(filenames: list[str]) -> Optional[str]:
     "Locate file"
     if isinstance(filenames, type(str)):
         filenames = [filenames]
@@ -106,7 +106,6 @@ def setup_logging(
 
 
 class Config(BaseModel):
-
     server: str = Field(description="Mattermost Server")
     user: str = Field(description="Mattermost User")
     port: int = Field(443, description="Mattermost port")
@@ -137,7 +136,7 @@ class Config(BaseModel):
 
 
 def handle_args(
-    model: Type[caep.schema.BaseModelType], section: str
+    model: type[caep.schema.BaseModelType], section: str
 ) -> caep.schema.BaseModelType:
     """Verify default arguments"""
 
