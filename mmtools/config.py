@@ -12,7 +12,6 @@ from mmtools import arguments
 
 
 class Config(arguments.Config):
-
     show: bool = Field(False, description="Print default config")
     init: bool = Field(
         False,

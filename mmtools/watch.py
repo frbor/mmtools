@@ -6,7 +6,7 @@ import re
 import signal
 from logging import debug, info, warning
 from subprocess import CalledProcessError, check_output
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 import notify2
 from pydantic import Field
@@ -16,7 +16,6 @@ from mmtools.mattermost import Mattermost
 
 
 class Config(arguments.Config):
-
     no_verify: bool = Field(False, description="SSL verify")
 
     no_notify: bool = Field(False, description="Disable notifications")
@@ -48,7 +47,6 @@ class EventHandler:
         no_notify: bool,
         chat_prefix: str,
     ):
-
         self.event_map = {
             "posted": self.event_posted,
             "channel_viewed": self.event_channel_viewed,
@@ -60,7 +58,7 @@ class EventHandler:
         self.no_notify = no_notify
         self.chat_prefix = chat_prefix
 
-    async def event_channel_viewed(self, event: Dict[str, Any]) -> None:
+    async def event_channel_viewed(self, event: dict[str, Any]) -> None:
         """Websocket event handler for channel views"""
         data = event.get("data", {})
 
@@ -70,7 +68,7 @@ class EventHandler:
 
         info(f"channel viewed: {channel_id}")
 
-    async def event_posted(self, event: Dict[str, Any]) -> None:
+    async def event_posted(self, event: dict[str, Any]) -> None:
         """Websocket event handler for posts"""
         data = event["data"]
         post = data.get("post", {})

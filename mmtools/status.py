@@ -4,7 +4,7 @@ import json
 import re
 import sys
 import time
-from typing import Callable, List, Tuple
+from typing import Callable
 
 import requests
 import urllib3
@@ -15,7 +15,6 @@ from mmtools.mattermost import Mattermost
 
 
 class Config(arguments.Config):
-
     channel_color: str = Field(
         "#689d6a",
         description="Color to use if unread group messages",
@@ -49,7 +48,7 @@ def init_mattermost(args: Config, error: Callable[[Config, str], None]) -> Matte
 
 def get_status(
     args: Config, mm: Mattermost, error: Callable[[Config, str], None]
-) -> Tuple[List[str], List[str], bool]:
+) -> tuple[list[str], list[str], bool]:
     try:
         channels = mm.init_channels()
 
