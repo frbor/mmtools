@@ -6,9 +6,9 @@ import re
 import signal
 from logging import debug, info, warning
 from subprocess import CalledProcessError, check_output
-from typing import Any, Optional
+from typing import Any, Optional, cast
 
-import notify2
+import notify2  # type: ignore
 from pydantic import Field
 
 from mmtools import arguments
@@ -144,7 +144,7 @@ class EventHandler:
 
 def main() -> None:
     """Main module"""
-    args: Config = arguments.handle_args(Config, "mmstatus")
+    args: Config = cast(Config, arguments.handle_args(Config, "mmstatus"))
 
     notify2.init("mmtools")
 

@@ -4,7 +4,7 @@ import functools
 from logging import debug
 from typing import Callable, Optional, cast
 
-from mattermostdriver import Driver
+from mattermostdriver import Driver  # type: ignore
 from pydantic import BaseModel, SecretStr
 
 from mmtools import arguments

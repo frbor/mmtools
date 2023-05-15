@@ -3,6 +3,7 @@
 
 import os
 import sys
+from typing import cast
 
 import caep
 from pkg_resources import resource_string
@@ -44,7 +45,7 @@ def save_config(filename: str) -> None:
 
 def main() -> None:
     "main function"
-    args: Config = arguments.handle_args(Config, "config")
+    args: Config = cast(Config, arguments.handle_args(Config, "config"))
 
     if args.show:
         print(default_ini())

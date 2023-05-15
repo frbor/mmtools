@@ -7,7 +7,7 @@ import socket
 import sys
 from logging import error, info
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Optional, cast
 
 import caep
 import passpy
@@ -135,9 +135,7 @@ class Config(BaseModel):
         return values
 
 
-def handle_args(
-    model: type[caep.schema.BaseModelType], section: str
-) -> caep.schema.BaseModelType:
+def handle_args(model: type[caep.schema.BaseModelType], section: str) -> Config:
     """Verify default arguments"""
 
     hostname = socket.gethostname()
@@ -155,12 +153,15 @@ def handle_args(
         config_name = CONFIG_NAME
 
     try:
-        args = caep.load(
-            model,
-            section,
-            CONFIG_ID,
-            config_name,
-            section,
+        args: Config = cast(
+            Config,
+            caep.load(
+                model,
+                section,
+                CONFIG_ID,
+                config_name,
+                section,
+            ),
         )
     except ArgumentError as e:
         fatal(str(e))
