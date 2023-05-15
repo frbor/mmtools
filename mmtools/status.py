@@ -4,7 +4,7 @@ import json
 import re
 import sys
 import time
-from typing import Callable
+from typing import Callable, cast
 
 import requests
 import urllib3
@@ -88,7 +88,7 @@ def i3blocks_fatal(args: Config, message: str) -> None:
 def i3blocks() -> None:
     """Output channel status in i3blocks format"""
 
-    args: Config = arguments.handle_args(Config, "mmstatus")
+    args: Config = cast(Config, arguments.handle_args(Config, "mmstatus"))
     mm = init_mattermost(args, error=i3blocks_fatal)
 
     (private, other, _) = get_status(args, mm, error=i3blocks_fatal)
@@ -118,7 +118,7 @@ def polybar_error(args: Config, message: str) -> None:
 def polybar() -> None:
     """Output channel status in i3blocks format"""
 
-    args: Config = arguments.handle_args(Config, "mmstatus")
+    args: Config = cast(Config, arguments.handle_args(Config, "mmstatus"))
 
     ok = False
 
@@ -164,7 +164,7 @@ def waybar_error(args: Config, message: str) -> None:
 def waybar() -> None:
     """Output channel status in i3blocks format"""
 
-    args: Config = arguments.handle_args(Config, "mmstatus")
+    args: Config = cast(Config, arguments.handle_args(Config, "mmstatus"))
 
     mm = init_mattermost(args, error=waybar_error)
 
