@@ -68,7 +68,6 @@ repos:
         name: end-of-file-fixer
         entry: end-of-file-fixer
         language: python
-        exclude: ^static_root/.*
         types: [text]
 
       - id: check-json
