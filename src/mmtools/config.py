@@ -1,12 +1,11 @@
-#!/usr/bin/env python3
-""" Handle config"""
+"""Handle config"""
 
-import os
 import sys
+from importlib import resources
+from pathlib import Path
 from typing import cast
 
 import caep
-from pkg_resources import resource_string
 from pydantic import Field
 
 from mmtools import arguments
@@ -16,25 +15,25 @@ class Config(arguments.Config):
     show: bool = Field(False, description="Print default config")
     init: bool = Field(
         False,
-        description="Copy default config to {}/{}".format(
-            caep.get_config_dir(arguments.CONFIG_ID), arguments.CONFIG_NAME
-        ),
+        description=f"Copy default config to {caep.get_config_dir(arguments.CONFIG_ID)}/{arguments.CONFIG_NAME}",
     )
 
 
 def default_ini() -> str:
     """Get content of default ini file"""
-    return resource_string("mmtools", f"etc/{arguments.CONFIG_NAME}").decode("utf-8")
+    return (
+        resources.files("mmtools").joinpath(f"etc/{arguments.CONFIG_NAME}").read_text()
+    )
 
 
-def save_config(filename: str) -> None:
+def save_config(filename: Path) -> None:
     """Save config to specified filename"""
-    if os.path.isfile(filename):
+    if filename.is_file():
         sys.stderr.write(f"Config already exists: {filename}\n")
         sys.exit(1)
 
     try:
-        with open(filename, "w") as f:
+        with Path(filename).open("w") as f:
             f.write(default_ini())
     except PermissionError as err:
         sys.stderr.write(f"{err}\n")
@@ -51,11 +50,11 @@ def main() -> None:
         print(default_ini())
     elif args.init:
         config_dir = caep.get_config_dir(arguments.CONFIG_ID, create=True)
-        save_config(os.path.join(config_dir, arguments.CONFIG_NAME))
+        save_config(Path(config_dir) / arguments.CONFIG_NAME)
 
     else:
         arguments.fatal("You must specify --show or --init")
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

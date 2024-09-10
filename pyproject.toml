@@ -1,44 +1,75 @@
-[tool]
-[tool.poetry]
+[project]
 name = "mmtools"
-version = "0.0.38"
+version = "0.0.39"
 description = "mmtools"
-license = "ISC"
-classifiers = ["Development Status :: 4 - Beta", "Topic :: Utilities", "License :: OSI Approved :: ISC License (ISCL)"]
-homepage = "https://github.com/frbor/mmtools"
-authors = ["Fredrik Borg <fredrikb.borg@gmail.com>"]
-readme = "README.md"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Topic :: Utilities",
+    "License :: OSI Approved :: ISC License (ISCL)"
+]
 
-[tool.poetry.scripts]
+authors = [
+    {name = "Fredrik Borg", email = "fredrikb.borg@gmail.com"}
+]
+
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    "caep == 1.1.*",
+    "dbus-python == 1.3.2",
+    "mattermostdriver == 7.3.*",
+    "notify2 == 0.3.*",
+    "passpy == 1.0.2",
+    "requests == 2.32.*",
+]
+
+[project.urls]
+Homepage = "https://github.com/frbor/mmtools"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest == 8.1.*",
+    "mypy == 1.11.*",
+    "pre-commit == 3.8.*",
+    "pre-commit-hooks == 4.6.*",
+    "types-requests",
+    "types-passpy",
+    "types-setuptools",
+]
+
+[project.scripts]
 mmstatus = "mmtools.status:i3blocks"
 mmpolybar = "mmtools.status:polybar"
 mmwaybar = "mmtools.status:waybar"
 mmwatch = "mmtools.watch:main"
-mmconfig= "mmtools.config:main"
-
-[tool.poetry.dependencies]
-python = "^3.9.0"
-caep = "^0.1.0"
-dbus-python = "^1.3.2"
-mattermostdriver = "^7.3.2"
-notify2 = "^0.3.1"
-passpy = "^1.0.2"
-requests = "^2.28.1"
-mypy = "^1.3.0"
-types-requests = "*"
-types-passpy = "*"
-types-setuptools = "*"
-
-[tool.mypy]
-strict = true
+mmconfig = "mmtools.config:main"
 
 [tool.ruff]
 line-length = 88
+target-version = "py311"
 
-# pyflakes, pycodestyle, pyupgrade and isort
-select = ["F", "E", "W", "UP", "I001"]
+[tool.ruff.lint]
+select = [
+    "A",   # Builtins
+    "E",   # pycodestyle
+    "W",   # pycodestyle
+    "F",   # pyflakes
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "PTH", # Pathlib
+    "I",   # isort
+]
 
-# Ignore long lines - handled by black
-ignore = ["E501"]
+ignore = [
+    "E501",   # Ignore long lines - handled by ruff format
+    "B019",   # Use of `functools.lru_cache` or `functools.cache` on methods can lead to memory leaks
+]
 
-target-version = "py39"
+[tool.mypy]
+strict = true
+plugins = "pydantic.mypy"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

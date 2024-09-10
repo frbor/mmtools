@@ -1,8 +1,9 @@
-""" Mattermost module """
+"""Mattermost module"""
 
 import functools
+from collections.abc import Callable
 from logging import debug
-from typing import Callable, Optional, cast
+from typing import cast
 
 from mattermostdriver import Driver  # type: ignore
 from pydantic import BaseModel, SecretStr
@@ -13,18 +14,18 @@ from mmtools import arguments
 class Channel(BaseModel):
     """Mattermost channel model"""
 
-    id: Optional[str]
-    type: Optional[str]
-    header: Optional[str]
-    purpose: Optional[str]
-    display_name: Optional[str]
+    id: str | None
+    type: str | None
+    header: str | None
+    purpose: str | None
+    display_name: str | None
     name: str = ""
-    mention_count: Optional[int]
-    msg_count: Optional[int]
-    update_at: Optional[int]
-    last_post_at: Optional[int]
-    total_msg_count: Optional[int]
-    dirty: Optional[bool]
+    mention_count: int | None
+    msg_count: int | None
+    update_at: int | None
+    last_post_at: int | None
+    total_msg_count: int | None
+    dirty: bool | None = None
 
     @property
     def msg_unread_count(self) -> int:

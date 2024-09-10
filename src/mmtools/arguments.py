@@ -1,4 +1,4 @@
-""" mmblocks """
+"""mmblocks"""
 
 import logging
 import logging.handlers
@@ -7,12 +7,12 @@ import socket
 import sys
 from logging import error, info
 from pathlib import Path
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import caep
 import passpy
 import requests
-from pydantic import BaseModel, Field, SecretStr, root_validator
+from pydantic import BaseModel, Field, SecretStr, model_validator
 from urllib3.exceptions import InsecureRequestWarning
 
 CONFIG_ID = "mmtools"
@@ -36,7 +36,7 @@ def fatal(message: str, exit_code: int = 1) -> None:
     sys.exit(exit_code)
 
 
-def passpy_store(gpgbinary: Optional[str] = None) -> passpy.store.Store:
+def passpy_store(gpgbinary: str | None = None) -> passpy.store.Store:
     """passpy store"""
     if not gpgbinary:
         gpgbinary = whereis(["gpg2", "gpg"])
@@ -46,15 +46,16 @@ def passpy_store(gpgbinary: Optional[str] = None) -> passpy.store.Store:
     return passpy.store.Store(gpg_bin=gpgbinary)
 
 
-def whereis(filenames: list[str]) -> Optional[str]:
+def whereis(filenames: list[str]) -> str | None:
     "Locate file"
     if isinstance(filenames, type(str)):
         filenames = [filenames]
 
     for filename in filenames:
         for path in os.environ["PATH"].split(":"):
-            if os.path.isfile(f"{path}/{filename}"):
-                return os.path.realpath(f"{path}/{filename}")
+            file = Path(path) / filename
+            if file.is_file():
+                return str(file)
     return None
 
 
@@ -70,7 +71,7 @@ def gettpassentry(key: str) -> Any:
 
 def setup_logging(
     loglevel: str = "debug",
-    logfile: Optional[str] = None,
+    logfile: str | None = None,
     prefix: str = "mmtools",
     maxBytes: int = 10000000,  # 10 MB
     backupCount: int = 5,
@@ -78,16 +79,16 @@ def setup_logging(
     """Setup loglevel and optional log to file"""
     numeric_level = getattr(logging, loglevel.upper(), None)
     if not isinstance(numeric_level, int):
-        raise ValueError("Invalid log level: %s" % loglevel)
+        raise ValueError(f"Invalid log level: {loglevel}")
 
     datefmt = "%Y-%m-%d %H:%M:%S"
     formatter = "[%(asctime)s] app=" + prefix + " level=%(levelname)s msg=%(message)s"
 
     if logfile:
-        logdir = os.path.dirname(logfile)
+        logdir = Path(logfile).parent
 
-        if not os.path.isdir(logdir):
-            os.makedirs(logdir)
+        if not logdir.is_dir():
+            logdir.mkdir(parents=True)
 
         # Support strftime in log file names
         handlers = [
@@ -109,23 +110,21 @@ class Config(BaseModel):
     server: str = Field(description="Mattermost Server")
     user: str = Field(description="Mattermost User")
     port: int = Field(443, description="Mattermost port")
-    ignore: Optional[str] = Field(
-        description="Regular expression of channels to ignore"
-    )
+    ignore: str | None = Field(description="Regular expression of channels to ignore")
     no_verify: bool = Field(False, description="SSL verify")
-    logfile: Optional[str] = Field(description="Log to file")
+    logfile: str | None = Field(description="Log to file")
     loglevel: str = Field("info", description="Log level (default=INFO)")
-    password: Optional[SecretStr] = Field(description="Mattermost password")
+    password: SecretStr | None = Field(description="Mattermost password")
     chat_prefix: str = Field(
         "🗨️ ",
         description="Prefix to show on statusbar and notification messages",
     )
-    team: Optional[str] = Field(description="Mattermost team (optional)")
-    password_pass_entry: Optional[str] = Field(
+    team: str | None = Field(description="Mattermost team (optional)")
+    password_pass_entry: str | None = Field(
         description="pass entry to insert into password"
     )
 
-    @root_validator
+    @model_validator(mode="before")
     def check_arguments(cls, values: dict[str, Any]) -> dict[str, Any]:
         password = values.get("password")
         password_pass_entry = values.get("password_pass_entry")
