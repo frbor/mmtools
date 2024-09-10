@@ -1,4 +1,4 @@
-""" mmtools - watch """
+"""mmtools - watch"""
 
 import json
 import os
@@ -6,7 +6,7 @@ import re
 import signal
 from logging import debug, info, warning
 from subprocess import CalledProcessError, check_output
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import notify2  # type: ignore
 from pydantic import Field
@@ -42,7 +42,7 @@ class EventHandler:
     def __init__(
         self,
         mm: Mattermost,
-        ignore_channels: Optional[str],
+        ignore_channels: str | None,
         pkill: str,
         no_notify: bool,
         chat_prefix: str,

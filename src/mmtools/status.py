@@ -1,10 +1,11 @@
-""" mmtools - status """
+"""mmtools - status"""
 
 import json
 import re
 import sys
 import time
-from typing import Callable, cast
+from collections.abc import Callable
+from typing import cast
 
 import requests
 import urllib3

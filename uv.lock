@@ -1,0 +1,645 @@
+version = 1
+requires-python = ">=3.11"
+resolution-markers = [
+    "python_full_version < '3.13'",
+    "python_full_version >= '3.13'",
+]
+
+[[package]]
+name = "annotated-types"
+version = "0.7.0"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/ee/67/531ea369ba64dcff5ec9c3402f9f51bf748cec26dde048a2f973a4eea7f5/annotated_types-0.7.0.tar.gz", hash = "sha256:aff07c09a53a08bc8cfccb9c85b05f1aa9a2a6f23728d790723543408344ce89" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/78/b6/6307fbef88d9b5ee7421e68d78a9f162e0da4900bc5f5793f6d3d0e34fb8/annotated_types-0.7.0-py3-none-any.whl", hash = "sha256:1f02e8b43a8fbbc3f3e0d4f0f4bfc8131bcb4eebe8849b8e5c773f3a1c582a53" },
+]
+
+[[package]]
+name = "caep"
+version = "1.1.0"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "pydantic" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/c7/57/aac889a468f609520329f1c9a71c72879e4a35023b81c2ab1fd9b74343bb/caep-1.1.0.tar.gz", hash = "sha256:e4009191f63e890793bbae3941837e49b3707b0ce2613cc3341594282eed141e" }
+
+[[package]]
+name = "certifi"
+version = "2024.8.30"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/b0/ee/9b19140fe824b367c04c5e1b369942dd754c4c5462d5674002f75c4dedc1/certifi-2024.8.30.tar.gz", hash = "sha256:bec941d2aa8195e248a60b31ff9f0558284cf01a52591ceda73ea9afffd69fd9" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/12/90/3c9ff0512038035f59d279fddeb79f5f1eccd8859f06d6163c58798b9487/certifi-2024.8.30-py3-none-any.whl", hash = "sha256:922820b53db7a7257ffbda3f597266d435245903d80737e34f8a45ff3e3230d8" },
+]
+
+[[package]]
+name = "cfgv"
+version = "3.4.0"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/11/74/539e56497d9bd1d484fd863dd69cbbfa653cd2aa27abfe35653494d85e94/cfgv-3.4.0.tar.gz", hash = "sha256:e52591d4c5f5dead8e0f673fb16db7949d2cfb3f7da4582893288f0ded8fe560" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/c5/55/51844dd50c4fc7a33b653bfaba4c2456f06955289ca770a5dbd5fd267374/cfgv-3.4.0-py2.py3-none-any.whl", hash = "sha256:b7265b1f29fd3316bfcd2b330d63d024f2bfd8bcb8b0272f8e19a504856c48f9" },
+]
+
+[[package]]
+name = "charset-normalizer"
+version = "3.3.2"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz", hash = "sha256:f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/68/77/02839016f6fbbf808e8b38601df6e0e66c17bbab76dff4613f7511413597/charset_normalizer-3.3.2-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:802fe99cca7457642125a8a88a084cef28ff0cf9407060f7b93dca5aa25480db" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/3e/33/21a875a61057165e92227466e54ee076b73af1e21fe1b31f1e292251aa1e/charset_normalizer-3.3.2-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:573f6eac48f4769d667c4442081b1794f52919e7edada77495aaed9236d13a96" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/dd/51/68b61b90b24ca35495956b718f35a9756ef7d3dd4b3c1508056fa98d1a1b/charset_normalizer-3.3.2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:549a3a73da901d5bc3ce8d24e0600d1fa85524c10287f6004fbab87672bf3e1e" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/e4/a6/7ee57823d46331ddc37dd00749c95b0edec2c79b15fc0d6e6efb532e89ac/charset_normalizer-3.3.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f27273b60488abe721a075bcca6d7f3964f9f6f067c8c4c605743023d7d3944f" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/74/f1/0d9fe69ac441467b737ba7f48c68241487df2f4522dd7246d9426e7c690e/charset_normalizer-3.3.2-cp311-cp311-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:1ceae2f17a9c33cb48e3263960dc5fc8005351ee19db217e9b1bb15d28c02574" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/05/31/e1f51c76db7be1d4aef220d29fbfa5dbb4a99165d9833dcbf166753b6dc0/charset_normalizer-3.3.2-cp311-cp311-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:65f6f63034100ead094b8744b3b97965785388f308a64cf8d7c34f2f2e5be0c4" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/40/26/f35951c45070edc957ba40a5b1db3cf60a9dbb1b350c2d5bef03e01e61de/charset_normalizer-3.3.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:753f10e867343b4511128c6ed8c82f7bec3bd026875576dfd88483c5c73b2fd8" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/07/07/7e554f2bbce3295e191f7e653ff15d55309a9ca40d0362fcdab36f01063c/charset_normalizer-3.3.2-cp311-cp311-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:4a78b2b446bd7c934f5dcedc588903fb2f5eec172f3d29e52a9096a43722adfc" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/d8/b5/eb705c313100defa57da79277d9207dc8d8e45931035862fa64b625bfead/charset_normalizer-3.3.2-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:e537484df0d8f426ce2afb2d0f8e1c3d0b114b83f8850e5f2fbea0e797bd82ae" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/19/28/573147271fd041d351b438a5665be8223f1dd92f273713cb882ddafe214c/charset_normalizer-3.3.2-cp311-cp311-musllinux_1_1_i686.whl", hash = "sha256:eb6904c354526e758fda7167b33005998fb68c46fbc10e013ca97f21ca5c8887" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/cf/7c/f3b682fa053cc21373c9a839e6beba7705857075686a05c72e0f8c4980ca/charset_normalizer-3.3.2-cp311-cp311-musllinux_1_1_ppc64le.whl", hash = "sha256:deb6be0ac38ece9ba87dea880e438f25ca3eddfac8b002a2ec3d9183a454e8ae" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/1e/49/7ab74d4ac537ece3bc3334ee08645e231f39f7d6df6347b29a74b0537103/charset_normalizer-3.3.2-cp311-cp311-musllinux_1_1_s390x.whl", hash = "sha256:4ab2fe47fae9e0f9dee8c04187ce5d09f48eabe611be8259444906793ab7cbce" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/2d/dc/9dacba68c9ac0ae781d40e1a0c0058e26302ea0660e574ddf6797a0347f7/charset_normalizer-3.3.2-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:80402cd6ee291dcb72644d6eac93785fe2c8b9cb30893c1af5b8fdd753b9d40f" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/6c/c2/4a583f800c0708dd22096298e49f887b49d9746d0e78bfc1d7e29816614c/charset_normalizer-3.3.2-cp311-cp311-win32.whl", hash = "sha256:7cd13a2e3ddeed6913a65e66e94b51d80a041145a026c27e6bb76c31a853c6ab" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/57/ec/80c8d48ac8b1741d5b963797b7c0c869335619e13d4744ca2f67fc11c6fc/charset_normalizer-3.3.2-cp311-cp311-win_amd64.whl", hash = "sha256:663946639d296df6a2bb2aa51b60a2454ca1cb29835324c640dafb5ff2131a77" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/d1/b2/fcedc8255ec42afee97f9e6f0145c734bbe104aac28300214593eb326f1d/charset_normalizer-3.3.2-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:0b2b64d2bb6d3fb9112bafa732def486049e63de9618b5843bcdd081d8144cd8" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/2e/7d/2259318c202f3d17f3fe6438149b3b9e706d1070fe3fcbb28049730bb25c/charset_normalizer-3.3.2-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:ddbb2551d7e0102e7252db79ba445cdab71b26640817ab1e3e3648dad515003b" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/3a/52/9f9d17c3b54dc238de384c4cb5a2ef0e27985b42a0e5cc8e8a31d918d48d/charset_normalizer-3.3.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:55086ee1064215781fff39a1af09518bc9255b50d6333f2e4c74ca09fac6a8f6" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/99/b0/9c365f6d79a9f0f3c379ddb40a256a67aa69c59609608fe7feb6235896e1/charset_normalizer-3.3.2-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:8f4a014bc36d3c57402e2977dada34f9c12300af536839dc38c0beab8878f38a" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/91/33/749df346e93d7a30cdcb90cbfdd41a06026317bfbfb62cd68307c1a3c543/charset_normalizer-3.3.2-cp312-cp312-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:a10af20b82360ab00827f916a6058451b723b4e65030c5a18577c8b2de5b3389" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/72/1a/641d5c9f59e6af4c7b53da463d07600a695b9824e20849cb6eea8a627761/charset_normalizer-3.3.2-cp312-cp312-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:8d756e44e94489e49571086ef83b2bb8ce311e730092d2c34ca8f7d925cb20aa" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/ee/fb/14d30eb4956408ee3ae09ad34299131fb383c47df355ddb428a7331cfa1e/charset_normalizer-3.3.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:90d558489962fd4918143277a773316e56c72da56ec7aa3dc3dbbe20fdfed15b" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/df/3e/a06b18788ca2eb6695c9b22325b6fde7dde0f1d1838b1792a0076f58fe9d/charset_normalizer-3.3.2-cp312-cp312-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:6ac7ffc7ad6d040517be39eb591cac5ff87416c2537df6ba3cba3bae290c0fed" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/45/59/3d27019d3b447a88fe7e7d004a1e04be220227760264cc41b405e863891b/charset_normalizer-3.3.2-cp312-cp312-musllinux_1_1_aarch64.whl", hash = "sha256:7ed9e526742851e8d5cc9e6cf41427dfc6068d4f5a3bb03659444b4cabf6bc26" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/7b/ef/5eb105530b4da8ae37d506ccfa25057961b7b63d581def6f99165ea89c7e/charset_normalizer-3.3.2-cp312-cp312-musllinux_1_1_i686.whl", hash = "sha256:8bdb58ff7ba23002a4c5808d608e4e6c687175724f54a5dade5fa8c67b604e4d" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/a2/51/e5023f937d7f307c948ed3e5c29c4b7a3e42ed2ee0b8cdf8f3a706089bf0/charset_normalizer-3.3.2-cp312-cp312-musllinux_1_1_ppc64le.whl", hash = "sha256:6b3251890fff30ee142c44144871185dbe13b11bab478a88887a639655be1068" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/24/9d/2e3ef673dfd5be0154b20363c5cdcc5606f35666544381bee15af3778239/charset_normalizer-3.3.2-cp312-cp312-musllinux_1_1_s390x.whl", hash = "sha256:b4a23f61ce87adf89be746c8a8974fe1c823c891d8f86eb218bb957c924bb143" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/5b/ae/ce2c12fcac59cb3860b2e2d76dc405253a4475436b1861d95fe75bdea520/charset_normalizer-3.3.2-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:efcb3f6676480691518c177e3b465bcddf57cea040302f9f4e6e191af91174d4" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/ed/3a/a448bf035dce5da359daf9ae8a16b8a39623cc395a2ffb1620aa1bce62b0/charset_normalizer-3.3.2-cp312-cp312-win32.whl", hash = "sha256:d965bba47ddeec8cd560687584e88cf699fd28f192ceb452d1d7ee807c5597b7" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/b6/7c/8debebb4f90174074b827c63242c23851bdf00a532489fba57fef3416e40/charset_normalizer-3.3.2-cp312-cp312-win_amd64.whl", hash = "sha256:96b02a3dc4381e5494fad39be677abcb5e6634bf7b4fa83a6dd3112607547001" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/28/76/e6222113b83e3622caa4bb41032d0b1bf785250607392e1b778aca0b8a7d/charset_normalizer-3.3.2-py3-none-any.whl", hash = "sha256:3e4d1f6587322d2788836a99c69062fbb091331ec940e02d12d179c1d53e25fc" },
+]
+
+[[package]]
+name = "click"
+version = "8.1.7"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "colorama", marker = "platform_system == 'Windows'" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz", hash = "sha256:ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/00/2e/d53fa4befbf2cfa713304affc7ca780ce4fc1fd8710527771b58311a3229/click-8.1.7-py3-none-any.whl", hash = "sha256:ae74fb96c20a0277a1d615f1e4d73c8414f5a98db8b799a7931d1582f3390c28" },
+]
+
+[[package]]
+name = "colorama"
+version = "0.4.6"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6" },
+]
+
+[[package]]
+name = "dbus-python"
+version = "1.3.2"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/c1/d3/6be85a9c772d6ebba0cc3ab37390dd6620006dcced758667e0217fb13307/dbus-python-1.3.2.tar.gz", hash = "sha256:ad67819308618b5069537be237f8e68ca1c7fcc95ee4a121fe6845b1418248f8" }
+
+[[package]]
+name = "distlib"
+version = "0.3.8"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/c4/91/e2df406fb4efacdf46871c25cde65d3c6ee5e173b7e5a4547a47bae91920/distlib-0.3.8.tar.gz", hash = "sha256:1530ea13e350031b6312d8580ddb6b27a104275a31106523b8f123787f494f64" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/8e/41/9307e4f5f9976bc8b7fea0b66367734e8faf3ec84bc0d412d8cfabbb66cd/distlib-0.3.8-py2.py3-none-any.whl", hash = "sha256:034db59a0b96f8ca18035f36290806a9a6e6bd9d1ff91e45a7f172eb17e51784" },
+]
+
+[[package]]
+name = "filelock"
+version = "3.16.0"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/e6/76/3981447fd369539aba35797db99a8e2ff7ed01d9aa63e9344a31658b8d81/filelock-3.16.0.tar.gz", hash = "sha256:81de9eb8453c769b63369f87f11131a7ab04e367f8d97ad39dc230daa07e3bec" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/2f/95/f9310f35376024e1086c59cbb438d319fc9a4ef853289ce7c661539edbd4/filelock-3.16.0-py3-none-any.whl", hash = "sha256:f6ed4c963184f4c84dd5557ce8fece759a3724b37b80c6c4f20a2f63a4dc6609" },
+]
+
+[[package]]
+name = "gitdb"
+version = "4.0.11"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "smmap" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/19/0d/bbb5b5ee188dec84647a4664f3e11b06ade2bde568dbd489d9d64adef8ed/gitdb-4.0.11.tar.gz", hash = "sha256:bf5421126136d6d0af55bc1e7c1af1c397a34f5b7bd79e776cd3e89785c2b04b" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/fd/5b/8f0c4a5bb9fd491c277c21eff7ccae71b47d43c4446c9d0c6cff2fe8c2c4/gitdb-4.0.11-py3-none-any.whl", hash = "sha256:81a3407ddd2ee8df444cbacea00e2d038e40150acfa3001696fe0dcf1d3adfa4" },
+]
+
+[[package]]
+name = "gitpython"
+version = "3.1.43"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "gitdb" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/b6/a1/106fd9fa2dd989b6fb36e5893961f82992cf676381707253e0bf93eb1662/GitPython-3.1.43.tar.gz", hash = "sha256:35f314a9f878467f5453cc1fee295c3e18e52f1b99f10f6cf5b1682e968a9e7c" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/e9/bd/cc3a402a6439c15c3d4294333e13042b915bbeab54edc457c723931fed3f/GitPython-3.1.43-py3-none-any.whl", hash = "sha256:eec7ec56b92aad751f9912a73404bc02ba212a23adb2c7098ee668417051a1ff" },
+]
+
+[[package]]
+name = "identify"
+version = "2.6.0"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/32/f4/8e8f7db397a7ce20fbdeac5f25adaf567fc362472432938d25556008e03a/identify-2.6.0.tar.gz", hash = "sha256:cb171c685bdc31bcc4c1734698736a7d5b6c8bf2e0c15117f4d469c8640ae5cf" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/24/6c/a4f39abe7f19600b74528d0c717b52fff0b300bb0161081510d39c53cb00/identify-2.6.0-py2.py3-none-any.whl", hash = "sha256:e79ae4406387a9d300332b5fd366d8994f1525e8414984e1a59e058b2eda2dd0" },
+]
+
+[[package]]
+name = "idna"
+version = "3.8"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/e8/ac/e349c5e6d4543326c6883ee9491e3921e0d07b55fdf3cce184b40d63e72a/idna-3.8.tar.gz", hash = "sha256:d838c2c0ed6fced7693d5e8ab8e734d5f8fda53a039c0164afb0b82e771e3603" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/22/7e/d71db821f177828df9dea8c42ac46473366f191be53080e552e628aad991/idna-3.8-py3-none-any.whl", hash = "sha256:050b4e5baadcd44d760cedbd2b8e639f2ff89bbc7a5730fcc662954303377aac" },
+]
+
+[[package]]
+name = "iniconfig"
+version = "2.0.0"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/d7/4b/cbd8e699e64a6f16ca3a8220661b5f83792b3017d0f79807cb8708d33913/iniconfig-2.0.0.tar.gz", hash = "sha256:2d91e135bf72d31a410b17c16da610a82cb55f6b0477d1a902134b24a455b8b3" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/ef/a6/62565a6e1cf69e10f5727360368e451d4b7f58beeac6173dc9db836a5b46/iniconfig-2.0.0-py3-none-any.whl", hash = "sha256:b6a85871a79d2e3b22d2d1b94ac2824226a63c6b741c88f7ae975f18b6778374" },
+]
+
+[[package]]
+name = "mattermostdriver"
+version = "7.3.2"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "requests" },
+    { name = "websockets" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/b7/01/3a62b245848e95eda10525dd47b50cc97f6171a6902fbff95f7d182afea6/mattermostdriver-7.3.2.tar.gz", hash = "sha256:2e4d7b4a17d3013e279c6f993746ea18cd60b45d8fa3be24f47bc2de22b9b3b4" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/16/2b/c03ca96c2870c2e28e5407303ee6c23c14db748b6e97646a10368061371e/mattermostdriver-7.3.2-py3-none-any.whl", hash = "sha256:8c6f15da34873b6c88da8fa8da0342f94bef77fcd16294befd92fea7e008cd97" },
+]
+
+[[package]]
+name = "mmtools"
+version = "0.0.39"
+source = { editable = "." }
+dependencies = [
+    { name = "caep" },
+    { name = "dbus-python" },
+    { name = "mattermostdriver" },
+    { name = "notify2" },
+    { name = "passpy" },
+    { name = "requests" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "mypy" },
+    { name = "pre-commit" },
+    { name = "pre-commit-hooks" },
+    { name = "pytest" },
+    { name = "types-passpy" },
+    { name = "types-requests" },
+    { name = "types-setuptools" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "caep", specifier = "==1.1.*" },
+    { name = "dbus-python", specifier = "==1.3.2" },
+    { name = "mattermostdriver", specifier = "==7.3.*" },
+    { name = "notify2", specifier = "==0.3.*" },
+    { name = "passpy", specifier = "==1.0.2" },
+    { name = "requests", specifier = "==2.32.*" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "mypy", specifier = "==1.11.*" },
+    { name = "pre-commit", specifier = "==3.8.*" },
+    { name = "pre-commit-hooks", specifier = "==4.6.*" },
+    { name = "pytest", specifier = "==8.1.*" },
+    { name = "types-passpy" },
+    { name = "types-requests" },
+    { name = "types-setuptools" },
+]
+
+[[package]]
+name = "mypy"
+version = "1.11.2"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "mypy-extensions" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/5c/86/5d7cbc4974fd564550b80fbb8103c05501ea11aa7835edf3351d90095896/mypy-1.11.2.tar.gz", hash = "sha256:7f9993ad3e0ffdc95c2a14b66dee63729f021968bff8ad911867579c65d13a79" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/e2/aa/cc56fb53ebe14c64f1fe91d32d838d6f4db948b9494e200d2f61b820b85d/mypy-1.11.2-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:75746e06d5fa1e91bfd5432448d00d34593b52e7e91a187d981d08d1f33d4385" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/04/c8/b19a760fab491c22c51975cf74e3d253b8c8ce2be7afaa2490fbf95a8c59/mypy-1.11.2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:a976775ab2256aadc6add633d44f100a2517d2388906ec4f13231fafbb0eccca" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/88/57/7e7e39f2619c8f74a22efb9a4c4eff32b09d3798335625a124436d121d89/mypy-1.11.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:cd953f221ac1379050a8a646585a29574488974f79d8082cedef62744f0a0104" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/fc/a6/37f7544666b63a27e46c48f49caeee388bf3ce95f9c570eb5cfba5234405/mypy-1.11.2-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:57555a7715c0a34421013144a33d280e73c08df70f3a18a552938587ce9274f4" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/84/8b/459a513badc4d34acb31c736a0101c22d2bd0697b969796ad93294165cfb/mypy-1.11.2-cp311-cp311-win_amd64.whl", hash = "sha256:36383a4fcbad95f2657642a07ba22ff797de26277158f1cc7bd234821468b1b6" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/35/3a/ed7b12ecc3f6db2f664ccf85cb2e004d3e90bec928e9d7be6aa2f16b7cdf/mypy-1.11.2-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:e8960dbbbf36906c5c0b7f4fbf2f0c7ffb20f4898e6a879fcf56a41a08b0d318" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/04/e4/1a9051e2ef10296d206519f1df13d2cc896aea39e8683302f89bf5792a59/mypy-1.11.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:06d26c277962f3fb50e13044674aa10553981ae514288cb7d0a738f495550b36" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/f3/3c/350a9da895f8a7e87ade0028b962be0252d152e0c2fbaafa6f0658b4d0d4/mypy-1.11.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:6e7184632d89d677973a14d00ae4d03214c8bc301ceefcdaf5c474866814c987" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/b6/49/ee5adf6a49ff13f4202d949544d3d08abb0ea1f3e7f2a6d5b4c10ba0360a/mypy-1.11.2-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:3a66169b92452f72117e2da3a576087025449018afc2d8e9bfe5ffab865709ca" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/27/c0/b19d709a42b24004d720db37446a42abadf844d5c46a2c442e2a074d70d9/mypy-1.11.2-cp312-cp312-win_amd64.whl", hash = "sha256:969ea3ef09617aff826885a22ece0ddef69d95852cdad2f60c8bb06bf1f71f70" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/42/3a/bdf730640ac523229dd6578e8a581795720a9321399de494374afc437ec5/mypy-1.11.2-py3-none-any.whl", hash = "sha256:b499bc07dbdcd3de92b0a8b29fdf592c111276f6a12fe29c30f6c417dd546d12" },
+]
+
+[[package]]
+name = "mypy-extensions"
+version = "1.0.0"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/98/a4/1ab47638b92648243faf97a5aeb6ea83059cc3624972ab6b8d2316078d3f/mypy_extensions-1.0.0.tar.gz", hash = "sha256:75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/2a/e2/5d3f6ada4297caebe1a2add3b126fe800c96f56dbe5d1988a2cbe0b267aa/mypy_extensions-1.0.0-py3-none-any.whl", hash = "sha256:4392f6c0eb8a5668a69e23d168ffa70f0be9ccfd32b5cc2d26a34ae5b844552d" },
+]
+
+[[package]]
+name = "nodeenv"
+version = "1.9.1"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/43/16/fc88b08840de0e0a72a2f9d8c6bae36be573e475a6326ae854bcc549fc45/nodeenv-1.9.1.tar.gz", hash = "sha256:6ec12890a2dab7946721edbfbcd91f3319c6ccc9aec47be7c7e6b7011ee6645f" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/d2/1d/1b658dbd2b9fa9c4c9f32accbfc0205d532c8c6194dc0f2a4c0428e7128a/nodeenv-1.9.1-py2.py3-none-any.whl", hash = "sha256:ba11c9782d29c27c70ffbdda2d7415098754709be8a7056d79a737cd901155c9" },
+]
+
+[[package]]
+name = "notify2"
+version = "0.3.1"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/aa/e8/d4b335aa739dc299a77766ecc5f1972d1de1993524aa94acef3219bba315/notify2-0.3.1.tar.gz", hash = "sha256:33fa108d50c42f3cd3407cc437518ad3f6225d1bb237011f16393c9dd3ce197d" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/f9/69/99d2bc2d98a802b6f58d1e0a774a933b3fea5ef11455379561b71c04370b/notify2-0.3.1-py2.py3-none-any.whl", hash = "sha256:d7e27e63c2120c074225e526754101e22f029e38e5f002b1ceaa965258bf1073" },
+]
+
+[[package]]
+name = "packaging"
+version = "24.1"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/51/65/50db4dda066951078f0a96cf12f4b9ada6e4b811516bf0262c0f4f7064d4/packaging-24.1.tar.gz", hash = "sha256:026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/08/aa/cc0199a5f0ad350994d660967a8efb233fe0416e4639146c089643407ce6/packaging-24.1-py3-none-any.whl", hash = "sha256:5b8f2217dbdbd2f7f384c41c628544e6d52f2d0f53c6d0c3ea61aa5d1d7ff124" },
+]
+
+[[package]]
+name = "passpy"
+version = "1.0.2"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "click" },
+    { name = "gitpython" },
+    { name = "pyperclip" },
+    { name = "python-gnupg" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/aa/fa/2a4c61c4984f04a2356847439a6a653bac91171c4789b2a639f8808cdf2b/passpy-1.0.2.tar.gz", hash = "sha256:fe758c2022213034be2dbf0fab4a1e41fd0f9aeb0582da2f936cd105162027a9" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/18/20/4bdcf4acde70dd29d7bb1959664632c2cb8e57fe9a79b507e2da77c984be/passpy-1.0.2-py3-none-any.whl", hash = "sha256:c28958cb50c8a9a4bc28a7be2ed1819ce1d4e22f77f5dfdde1a1b28882d8c956" },
+]
+
+[[package]]
+name = "platformdirs"
+version = "4.3.2"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/75/a0/d7cab8409cdc7d39b037c85ac46d92434fb6595432e069251b38e5c8dd0e/platformdirs-4.3.2.tar.gz", hash = "sha256:9e5e27a08aa095dd127b9f2e764d74254f482fef22b0970773bfba79d091ab8c" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/da/8b/d497999c4017b80678017ddce745cf675489c110681ad3c84a55eddfd3e7/platformdirs-4.3.2-py3-none-any.whl", hash = "sha256:eb1c8582560b34ed4ba105009a4badf7f6f85768b30126f351328507b2beb617" },
+]
+
+[[package]]
+name = "pluggy"
+version = "1.5.0"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/96/2d/02d4312c973c6050a18b314a5ad0b3210edb65a906f868e31c111dede4a6/pluggy-1.5.0.tar.gz", hash = "sha256:2cffa88e94fdc978c4c574f15f9e59b7f4201d439195c3715ca9e2486f1d0cf1" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/88/5f/e351af9a41f866ac3f1fac4ca0613908d9a41741cfcf2228f4ad853b697d/pluggy-1.5.0-py3-none-any.whl", hash = "sha256:44e1ad92c8ca002de6377e165f3e0f1be63266ab4d554740532335b9d75ea669" },
+]
+
+[[package]]
+name = "pre-commit"
+version = "3.8.0"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "cfgv" },
+    { name = "identify" },
+    { name = "nodeenv" },
+    { name = "pyyaml" },
+    { name = "virtualenv" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/64/10/97ee2fa54dff1e9da9badbc5e35d0bbaef0776271ea5907eccf64140f72f/pre_commit-3.8.0.tar.gz", hash = "sha256:8bb6494d4a20423842e198980c9ecf9f96607a07ea29549e180eef9ae80fe7af" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/07/92/caae8c86e94681b42c246f0bca35c059a2f0529e5b92619f6aba4cf7e7b6/pre_commit-3.8.0-py2.py3-none-any.whl", hash = "sha256:9a90a53bf82fdd8778d58085faf8d83df56e40dfe18f45b19446e26bf1b3a63f" },
+]
+
+[[package]]
+name = "pre-commit-hooks"
+version = "4.6.0"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "ruamel-yaml" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/83/0d/b4e97cd99b26c0cd8265c9f19ee7e55248142f0c9955e4d119de96fa4a13/pre_commit_hooks-4.6.0.tar.gz", hash = "sha256:eb1f43ee67869cd41b4c59017fad4a0f9d4d61201d163f2135535aaf65035a2b" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/95/d8/d09b270248bc2441f966dd094a3de8ae813112d2687036f621202bdef80b/pre_commit_hooks-4.6.0-py2.py3-none-any.whl", hash = "sha256:a69199e6a2d45ec59c1020a81ca1549abddc2afb798276d9a0d951752d6abbfe" },
+]
+
+[[package]]
+name = "pydantic"
+version = "2.9.1"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "annotated-types" },
+    { name = "pydantic-core" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/14/15/3d989541b9c8128b96d532cfd2dd10131ddcc75a807330c00feb3d42a5bd/pydantic-2.9.1.tar.gz", hash = "sha256:1363c7d975c7036df0db2b4a61f2e062fbc0aa5ab5f2772e0ffc7191a4f4bce2" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/e4/28/fff23284071bc1ba419635c7e86561c8b9b8cf62a5bcb459b92d7625fd38/pydantic-2.9.1-py3-none-any.whl", hash = "sha256:7aff4db5fdf3cf573d4b3c30926a510a10e19a0774d38fc4967f78beb6deb612" },
+]
+
+[[package]]
+name = "pydantic-core"
+version = "2.23.3"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "typing-extensions" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/5c/cc/07bec3fb337ff80eacd6028745bd858b9642f61ee58cfdbfb64451c1def0/pydantic_core-2.23.3.tar.gz", hash = "sha256:3cb0f65d8b4121c1b015c60104a685feb929a29d7cf204387c7f2688c7974690" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/4a/60/ef8eaad365c1d94962d158633f66313e051f7b90cead647e65a96993da22/pydantic_core-2.23.3-cp311-cp311-macosx_10_12_x86_64.whl", hash = "sha256:c889fd87e1f1bbeb877c2ee56b63bb297de4636661cc9bbfcf4b34e5e925bc27" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/57/f4/20aa352e03379a3b5d6c2fb951a979f70718138ea747e3f756d63dda69da/pydantic_core-2.23.3-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:ea85bda3189fb27503af4c45273735bcde3dd31c1ab17d11f37b04877859ef45" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/f1/b9/e5482ac4ea2d128925759d905fb05a08ca98e67ed1d8ab7401861997c6c8/pydantic_core-2.23.3-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a7f7f72f721223f33d3dc98a791666ebc6a91fa023ce63733709f4894a7dc611" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/78/9f/387353f6b6b2ed023f973cffa4e2384bb2e52d15acf5680bc70c50f6c48f/pydantic_core-2.23.3-cp311-cp311-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:2b2b55b0448e9da68f56b696f313949cda1039e8ec7b5d294285335b53104b61" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/4f/70/9a153f19394e2ef749f586273ebcdb3de97e2fa97e175b957a8e5a2a77f9/pydantic_core-2.23.3-cp311-cp311-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:c24574c7e92e2c56379706b9a3f07c1e0c7f2f87a41b6ee86653100c4ce343e5" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/a5/1c/79d976846fcdcae0c657922d0f476ca287fa694e69ac1fc9d397b831e1cc/pydantic_core-2.23.3-cp311-cp311-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:f2b05e6ccbee333a8f4b8f4d7c244fdb7a979e90977ad9c51ea31261e2085ce0" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/fd/89/cdd76ae363cabae23a4b70df50d603c81c517415ff9d5d65e72e35251cf6/pydantic_core-2.23.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e2c409ce1c219c091e47cb03feb3c4ed8c2b8e004efc940da0166aaee8f9d6c8" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/1a/82/7d62c3dd4e2e101a81ac3fa138d986bfbad9727a6275fc2b4a5efb98bdbd/pydantic_core-2.23.3-cp311-cp311-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:d965e8b325f443ed3196db890d85dfebbb09f7384486a77461347f4adb1fa7f8" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/85/e6/ef09f395c974d08674464dd3d49066612fe7cc0466ef8ce9427cadf13e5b/pydantic_core-2.23.3-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:f56af3a420fb1ffaf43ece3ea09c2d27c444e7c40dcb7c6e7cf57aae764f2b48" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/a4/5e/e589474af850c77c3180b101b54bc98bf812ad09728ba2cff4989acc9734/pydantic_core-2.23.3-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:5b01a078dd4f9a52494370af21aa52964e0a96d4862ac64ff7cea06e0f12d2c5" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/e0/ff/626007d5b7ac811f9bcac6d8af3a574ccee4505c1f015d25806101842f0c/pydantic_core-2.23.3-cp311-none-win32.whl", hash = "sha256:560e32f0df04ac69b3dd818f71339983f6d1f70eb99d4d1f8e9705fb6c34a5c1" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/4f/ff/6dc33f3b71e34ef633e35d6476d245bf303fc3eaf18a00f39bb54f78faf3/pydantic_core-2.23.3-cp311-none-win_amd64.whl", hash = "sha256:c744fa100fdea0d000d8bcddee95213d2de2e95b9c12be083370b2072333a0fa" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/8f/35/6d81bc4aa7d06e716f39e2bffb0eabcbcebaf7bab94c2f8278e277ded0ea/pydantic_core-2.23.3-cp312-cp312-macosx_10_12_x86_64.whl", hash = "sha256:e0ec50663feedf64d21bad0809f5857bac1ce91deded203efc4a84b31b2e4305" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/18/42/0821cd46f76406e0fe57df7a89d6af8fddb22cce755bcc2db077773c7d1a/pydantic_core-2.23.3-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:db6e6afcb95edbe6b357786684b71008499836e91f2a4a1e55b840955b341dbb" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/e5/55/b969088e48bd8ea588548a7194d425de74370b17b385cee4d28f5a79013d/pydantic_core-2.23.3-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:98ccd69edcf49f0875d86942f4418a4e83eb3047f20eb897bffa62a5d419c8fa" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/43/c1/1d460d09c012ac76b68b2a1fd426ad624724f93b40e24a9a993763f12c61/pydantic_core-2.23.3-cp312-cp312-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:a678c1ac5c5ec5685af0133262103defb427114e62eafeda12f1357a12140162" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/70/8e/fd3c9eda00fbdadca726f17a0f863ecd871a65b3a381b77277ae386d3bcd/pydantic_core-2.23.3-cp312-cp312-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:01491d8b4d8db9f3391d93b0df60701e644ff0894352947f31fff3e52bd5c801" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/f0/67/13fa22d7b09395e83721edc31bae2bd5c5e2c36a09d470c18f5d1de46958/pydantic_core-2.23.3-cp312-cp312-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:fcf31facf2796a2d3b7fe338fe8640aa0166e4e55b4cb108dbfd1058049bf4cb" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/fa/1b/1d689c53d15ab67cb0df1c3a2b1df873b50409581e93e4848289dce57e2f/pydantic_core-2.23.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7200fd561fb3be06827340da066df4311d0b6b8eb0c2116a110be5245dceb326" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/3d/d9/b565048609db77760b9a0900f6e0a3b2f33be47cd3c4a433f49653a0d2b5/pydantic_core-2.23.3-cp312-cp312-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:dc1636770a809dee2bd44dd74b89cc80eb41172bcad8af75dd0bc182c2666d4c" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/41/94/8ee55c51333ed8df3a6f1e73c6530c724a9a37d326e114c9e3b24faacff9/pydantic_core-2.23.3-cp312-cp312-musllinux_1_1_aarch64.whl", hash = "sha256:67a5def279309f2e23014b608c4150b0c2d323bd7bccd27ff07b001c12c2415c" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/f7/49/0233bae5778a5526cef000447a93e8d462f4f13e2214c13c5b23d379cb25/pydantic_core-2.23.3-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:748bdf985014c6dd3e1e4cc3db90f1c3ecc7246ff5a3cd4ddab20c768b2f1dab" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/42/a1/2f262db2fd6f9c2c9904075a067b1764cc6f71c014be5c6c91d9de52c434/pydantic_core-2.23.3-cp312-none-win32.whl", hash = "sha256:255ec6dcb899c115f1e2a64bc9ebc24cc0e3ab097775755244f77360d1f3c06c" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/9a/00/a57937080b49500df790c4853d3e7bc605bd0784e4fcaf1a159456f37ef1/pydantic_core-2.23.3-cp312-none-win_amd64.whl", hash = "sha256:40b8441be16c1e940abebed83cd006ddb9e3737a279e339dbd6d31578b802f7b" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/e1/3c/32958c0a5d1935591b58337037a1695782e61261582d93d5a7f55441f879/pydantic_core-2.23.3-cp313-cp313-macosx_10_12_x86_64.whl", hash = "sha256:6daaf5b1ba1369a22c8b050b643250e3e5efc6a78366d323294aee54953a4d5f" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/92/a1/7e628e19b78e6ffdb2c92cccbb7eca84bfd3276cee4cafcae8833452f458/pydantic_core-2.23.3-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:d015e63b985a78a3d4ccffd3bdf22b7c20b3bbd4b8227809b3e8e75bc37f9cb2" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/bb/17/d15fd8ce143cd1abb27be924eeff3c5c0fe3b0582f703c5a5273c11e67ce/pydantic_core-2.23.3-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a3fc572d9b5b5cfe13f8e8a6e26271d5d13f80173724b738557a8c7f3a8a3791" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/24/cc/37feff1792f09dc33207fbad3897373229279d1973c211f9562abfdf137d/pydantic_core-2.23.3-cp313-cp313-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:f6bd91345b5163ee7448bee201ed7dd601ca24f43f439109b0212e296eb5b423" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/44/d8/ca9acd7f5f044d9ff6e43d7f35aab4b1d5982b4773761eabe3317fc68e30/pydantic_core-2.23.3-cp313-cp313-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:fc379c73fd66606628b866f661e8785088afe2adaba78e6bbe80796baf708a63" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/35/0f/146269dba21b10d5bf86f9a7a7bbeab4ce1db06f466a1ab5ec3dec68b409/pydantic_core-2.23.3-cp313-cp313-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:fbdce4b47592f9e296e19ac31667daed8753c8367ebb34b9a9bd89dacaa299c9" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/5a/7d/9573f006e39cd1a7b7716d1a264e3f4f353cf0a6042c04c01c6e31666f62/pydantic_core-2.23.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:fc3cf31edf405a161a0adad83246568647c54404739b614b1ff43dad2b02e6d5" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/7e/a5/25200aaafd1e97e2ec3c1eb4b357669dd93911f2eba252bc60b6ba884fff/pydantic_core-2.23.3-cp313-cp313-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:8e22b477bf90db71c156f89a55bfe4d25177b81fce4aa09294d9e805eec13855" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/3e/b4/ac069c58e3cee70c69f03693222cc173fdf740d20d53167bceafc1efc7ca/pydantic_core-2.23.3-cp313-cp313-musllinux_1_1_aarch64.whl", hash = "sha256:0a0137ddf462575d9bce863c4c95bac3493ba8e22f8c28ca94634b4a1d3e2bb4" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/d1/3d/9f96bbd6212b4b0a6dc6d037e446208d3420baba2b2b81e544094b18a859/pydantic_core-2.23.3-cp313-cp313-musllinux_1_1_x86_64.whl", hash = "sha256:203171e48946c3164fe7691fc349c79241ff8f28306abd4cad5f4f75ed80bc8d" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/ac/50/7399d536d6600d69059a87fff89861332c97a7b3471327a3663c7576e707/pydantic_core-2.23.3-cp313-none-win32.whl", hash = "sha256:76bdab0de4acb3f119c2a4bff740e0c7dc2e6de7692774620f7452ce11ca76c8" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/24/ba/9ac8744ab636c1161c598cc5e8261379b6b0f1d63c31242bf9d5ed41ed32/pydantic_core-2.23.3-cp313-none-win_amd64.whl", hash = "sha256:37ba321ac2a46100c578a92e9a6aa33afe9ec99ffa084424291d84e456f490c1" },
+]
+
+[[package]]
+name = "pyperclip"
+version = "1.9.0"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/30/23/2f0a3efc4d6a32f3b63cdff36cd398d9701d26cda58e3ab97ac79fb5e60d/pyperclip-1.9.0.tar.gz", hash = "sha256:b7de0142ddc81bfc5c7507eea19da920b92252b548b96186caf94a5e2527d310" }
+
+[[package]]
+name = "pytest"
+version = "8.1.2"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "colorama", marker = "sys_platform == 'win32'" },
+    { name = "iniconfig" },
+    { name = "packaging" },
+    { name = "pluggy" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/f8/1f/dd3960a2369182720e8cbd580523a4f75292c0c75197dd0254c95f4a0add/pytest-8.1.2.tar.gz", hash = "sha256:f3c45d1d5eed96b01a2aea70dee6a4a366d51d38f9957768083e4fecfc77f3ef" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/f0/d7/a812a0bd0f5160823e647524488cc9734f93782f2c273b8f77e8afc60a37/pytest-8.1.2-py3-none-any.whl", hash = "sha256:6c06dc309ff46a05721e6fd48e492a775ed8165d2ecdf57f156a80c7e95bb142" },
+]
+
+[[package]]
+name = "python-gnupg"
+version = "0.5.2"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/b1/5d/4425390ad81d22b330a1b0df204c4d39fb3cb7c39e081d51e9f7426ce716/python-gnupg-0.5.2.tar.gz", hash = "sha256:01d8013931c9fa3f45824bbea7054c03d6e11f258a72e7e086e168dbcb91854c" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/5f/86/18938c2378a8c8284910308b93e2bc521a965ced4ca028947e1ffa6e98dc/python_gnupg-0.5.2-py2.py3-none-any.whl", hash = "sha256:72ce142af6da7f07e433fef148b445fb3e07854acd2f88739008838745c0e9f5" },
+]
+
+[[package]]
+name = "pyyaml"
+version = "6.0.2"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/54/ed/79a089b6be93607fa5cdaedf301d7dfb23af5f25c398d5ead2525b063e17/pyyaml-6.0.2.tar.gz", hash = "sha256:d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/f8/aa/7af4e81f7acba21a4c6be026da38fd2b872ca46226673c89a758ebdc4fd2/PyYAML-6.0.2-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:cc1c1159b3d456576af7a3e4d1ba7e6924cb39de8f67111c735f6fc832082774" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/8b/62/b9faa998fd185f65c1371643678e4d58254add437edb764a08c5a98fb986/PyYAML-6.0.2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:1e2120ef853f59c7419231f3bf4e7021f1b936f6ebd222406c3b60212205d2ee" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/ad/0c/c804f5f922a9a6563bab712d8dcc70251e8af811fce4524d57c2c0fd49a4/PyYAML-6.0.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:5d225db5a45f21e78dd9358e58a98702a0302f2659a3c6cd320564b75b86f47c" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/51/16/6af8d6a6b210c8e54f1406a6b9481febf9c64a3109c541567e35a49aa2e7/PyYAML-6.0.2-cp311-cp311-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:5ac9328ec4831237bec75defaf839f7d4564be1e6b25ac710bd1a96321cc8317" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/75/e4/2c27590dfc9992f73aabbeb9241ae20220bd9452df27483b6e56d3975cc5/PyYAML-6.0.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3ad2a3decf9aaba3d29c8f537ac4b243e36bef957511b4766cb0057d32b0be85" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/9b/97/ecc1abf4a823f5ac61941a9c00fe501b02ac3ab0e373c3857f7d4b83e2b6/PyYAML-6.0.2-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:ff3824dc5261f50c9b0dfb3be22b4567a6f938ccce4587b38952d85fd9e9afe4" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/45/73/0f49dacd6e82c9430e46f4a027baa4ca205e8b0a9dce1397f44edc23559d/PyYAML-6.0.2-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:797b4f722ffa07cc8d62053e4cff1486fa6dc094105d13fea7b1de7d8bf71c9e" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/22/5f/956f0f9fc65223a58fbc14459bf34b4cc48dec52e00535c79b8db361aabd/PyYAML-6.0.2-cp311-cp311-win32.whl", hash = "sha256:11d8f3dd2b9c1207dcaf2ee0bbbfd5991f571186ec9cc78427ba5bd32afae4b5" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/ed/23/8da0bbe2ab9dcdd11f4f4557ccaf95c10b9811b13ecced089d43ce59c3c8/PyYAML-6.0.2-cp311-cp311-win_amd64.whl", hash = "sha256:e10ce637b18caea04431ce14fabcf5c64a1c61ec9c56b071a4b7ca131ca52d44" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/86/0c/c581167fc46d6d6d7ddcfb8c843a4de25bdd27e4466938109ca68492292c/PyYAML-6.0.2-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:c70c95198c015b85feafc136515252a261a84561b7b1d51e3384e0655ddf25ab" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/a8/0c/38374f5bb272c051e2a69281d71cba6fdb983413e6758b84482905e29a5d/PyYAML-6.0.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:ce826d6ef20b1bc864f0a68340c8b3287705cae2f8b4b1d932177dcc76721725" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/c3/93/9916574aa8c00aa06bbac729972eb1071d002b8e158bd0e83a3b9a20a1f7/PyYAML-6.0.2-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:1f71ea527786de97d1a0cc0eacd1defc0985dcf6b3f17bb77dcfc8c34bec4dc5" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/95/0f/b8938f1cbd09739c6da569d172531567dbcc9789e0029aa070856f123984/PyYAML-6.0.2-cp312-cp312-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:9b22676e8097e9e22e36d6b7bda33190d0d400f345f23d4065d48f4ca7ae0425" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/b9/2b/614b4752f2e127db5cc206abc23a8c19678e92b23c3db30fc86ab731d3bd/PyYAML-6.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:80bab7bfc629882493af4aa31a4cfa43a4c57c83813253626916b8c7ada83476" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/d4/00/dd137d5bcc7efea1836d6264f049359861cf548469d18da90cd8216cf05f/PyYAML-6.0.2-cp312-cp312-musllinux_1_1_aarch64.whl", hash = "sha256:0833f8694549e586547b576dcfaba4a6b55b9e96098b36cdc7ebefe667dfed48" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/c9/1f/4f998c900485e5c0ef43838363ba4a9723ac0ad73a9dc42068b12aaba4e4/PyYAML-6.0.2-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:8b9c7197f7cb2738065c481a0461e50ad02f18c78cd75775628afb4d7137fb3b" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/df/d1/f5a275fdb252768b7a11ec63585bc38d0e87c9e05668a139fea92b80634c/PyYAML-6.0.2-cp312-cp312-win32.whl", hash = "sha256:ef6107725bd54b262d6dedcc2af448a266975032bc85ef0172c5f059da6325b4" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/0c/e8/4f648c598b17c3d06e8753d7d13d57542b30d56e6c2dedf9c331ae56312e/PyYAML-6.0.2-cp312-cp312-win_amd64.whl", hash = "sha256:7e7401d0de89a9a855c839bc697c079a4af81cf878373abd7dc625847d25cbd8" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/ef/e3/3af305b830494fa85d95f6d95ef7fa73f2ee1cc8ef5b495c7c3269fb835f/PyYAML-6.0.2-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:efdca5630322a10774e8e98e1af481aad470dd62c3170801852d752aa7a783ba" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/45/9f/3b1c20a0b7a3200524eb0076cc027a970d320bd3a6592873c85c92a08731/PyYAML-6.0.2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:50187695423ffe49e2deacb8cd10510bc361faac997de9efef88badc3bb9e2d1" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/7c/9a/337322f27005c33bcb656c655fa78325b730324c78620e8328ae28b64d0c/PyYAML-6.0.2-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:0ffe8360bab4910ef1b9e87fb812d8bc0a308b0d0eef8c8f44e0254ab3b07133" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/a3/69/864fbe19e6c18ea3cc196cbe5d392175b4cf3d5d0ac1403ec3f2d237ebb5/PyYAML-6.0.2-cp313-cp313-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:17e311b6c678207928d649faa7cb0d7b4c26a0ba73d41e99c4fff6b6c3276484" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/04/24/b7721e4845c2f162d26f50521b825fb061bc0a5afcf9a386840f23ea19fa/PyYAML-6.0.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:70b189594dbe54f75ab3a1acec5f1e3faa7e8cf2f1e08d9b561cb41b845f69d5" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/2b/b2/e3234f59ba06559c6ff63c4e10baea10e5e7df868092bf9ab40e5b9c56b6/PyYAML-6.0.2-cp313-cp313-musllinux_1_1_aarch64.whl", hash = "sha256:41e4e3953a79407c794916fa277a82531dd93aad34e29c2a514c2c0c5fe971cc" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/fe/0f/25911a9f080464c59fab9027482f822b86bf0608957a5fcc6eaac85aa515/PyYAML-6.0.2-cp313-cp313-musllinux_1_1_x86_64.whl", hash = "sha256:68ccc6023a3400877818152ad9a1033e3db8625d899c72eacb5a668902e4d652" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/14/0d/e2c3b43bbce3cf6bd97c840b46088a3031085179e596d4929729d8d68270/PyYAML-6.0.2-cp313-cp313-win32.whl", hash = "sha256:bc2fa7c6b47d6bc618dd7fb02ef6fdedb1090ec036abab80d4681424b84c1183" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/fa/de/02b54f42487e3d3c6efb3f89428677074ca7bf43aae402517bc7cca949f3/PyYAML-6.0.2-cp313-cp313-win_amd64.whl", hash = "sha256:8388ee1976c416731879ac16da0aff3f63b286ffdd57cdeb95f3f2e085687563" },
+]
+
+[[package]]
+name = "requests"
+version = "2.32.3"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "certifi" },
+    { name = "charset-normalizer" },
+    { name = "idna" },
+    { name = "urllib3" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/63/70/2bf7780ad2d390a8d301ad0b550f1581eadbd9a20f896afe06353c2a2913/requests-2.32.3.tar.gz", hash = "sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/f9/9b/335f9764261e915ed497fcdeb11df5dfd6f7bf257d4a6a2a686d80da4d54/requests-2.32.3-py3-none-any.whl", hash = "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6" },
+]
+
+[[package]]
+name = "ruamel-yaml"
+version = "0.18.6"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "ruamel-yaml-clib", marker = "python_full_version < '3.13' and platform_python_implementation == 'CPython'" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/29/81/4dfc17eb6ebb1aac314a3eb863c1325b907863a1b8b1382cdffcb6ac0ed9/ruamel.yaml-0.18.6.tar.gz", hash = "sha256:8b27e6a217e786c6fbe5634d8f3f11bc63e0f80f6a5890f28863d9c45aac311b" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/73/67/8ece580cc363331d9a53055130f86b096bf16e38156e33b1d3014fffda6b/ruamel.yaml-0.18.6-py3-none-any.whl", hash = "sha256:57b53ba33def16c4f3d807c0ccbc00f8a6081827e81ba2491691b76882d0c636" },
+]
+
+[[package]]
+name = "ruamel-yaml-clib"
+version = "0.2.8"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/46/ab/bab9eb1566cd16f060b54055dd39cf6a34bfa0240c53a7218c43e974295b/ruamel.yaml.clib-0.2.8.tar.gz", hash = "sha256:beb2e0404003de9a4cab9753a8805a8fe9320ee6673136ed7f04255fe60bb512" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/b1/15/971b385c098e8d0d170893f5ba558452bb7b776a0c90658b8f4dd0e3382b/ruamel.yaml.clib-0.2.8-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:bef08cd86169d9eafb3ccb0a39edb11d8e25f3dae2b28f5c52fd997521133069" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/01/b0/4ddef56e9f703d7909febc3a421d709a3482cda25826816ec595b73e3847/ruamel.yaml.clib-0.2.8-cp311-cp311-macosx_13_0_arm64.whl", hash = "sha256:b16420e621d26fdfa949a8b4b47ade8810c56002f5389970db4ddda51dbff248" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/a4/f7/22d6b620ed895a05d40802d8281eff924dc6190f682d933d4efff60db3b5/ruamel.yaml.clib-0.2.8-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl", hash = "sha256:25c515e350e5b739842fc3228d662413ef28f295791af5e5110b543cf0b57d9b" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/7c/e4/0d19d65e340f93df1c47f323d95fa4b256bb28320290f5fddef90837853a/ruamel.yaml.clib-0.2.8-cp311-cp311-manylinux_2_24_aarch64.whl", hash = "sha256:1707814f0d9791df063f8c19bb51b0d1278b8e9a2353abbb676c2f685dee6afe" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/c9/ff/f781eb5e2ae011e586d5426e2086a011cf1e0f59704a6cad1387975c5a62/ruamel.yaml.clib-0.2.8-cp311-cp311-musllinux_1_1_i686.whl", hash = "sha256:46d378daaac94f454b3a0e3d8d78cafd78a026b1d71443f4966c696b48a6d899" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/e3/41/f62e67ac651358b8f0d60cfb12ab2daf99b1b69eeaa188d0cec809d943a6/ruamel.yaml.clib-0.2.8-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:09b055c05697b38ecacb7ac50bdab2240bfca1a0c4872b0fd309bb07dc9aa3a9" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/9f/f0/19ab8acbf983cd1b37f47d27ceb8b10a738d60d36316a54bad57e0d73fbb/ruamel.yaml.clib-0.2.8-cp311-cp311-win32.whl", hash = "sha256:53a300ed9cea38cf5a2a9b069058137c2ca1ce658a874b79baceb8f892f915a7" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/ec/54/d8a795997921d87224c65d44499ca595a833093fb215b133f920c1062956/ruamel.yaml.clib-0.2.8-cp311-cp311-win_amd64.whl", hash = "sha256:c2a72e9109ea74e511e29032f3b670835f8a59bbdc9ce692c5b4ed91ccf1eedb" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/7a/a2/eb5e9d088cb9d15c24d956944c09dca0a89108ad6e2e913c099ef36e3f0d/ruamel.yaml.clib-0.2.8-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:ebc06178e8821efc9692ea7544aa5644217358490145629914d8020042c24aa1" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/66/98/8de4f22bbfd9135deb3422e96d450c4bc0a57d38c25976119307d2efe0aa/ruamel.yaml.clib-0.2.8-cp312-cp312-macosx_13_0_arm64.whl", hash = "sha256:edaef1c1200c4b4cb914583150dcaa3bc30e592e907c01117c08b13a07255ec2" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/30/d3/5fe978cd01a61c12efd24d65fa68c6f28f28c8073a06cf11db3a854390ca/ruamel.yaml.clib-0.2.8-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:d176b57452ab5b7028ac47e7b3cf644bcfdc8cacfecf7e71759f7f51a59e5c92" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/55/b3/e2531a050758b717c969cbf76c103b75d8a01e11af931b94ba656117fbe9/ruamel.yaml.clib-0.2.8-cp312-cp312-manylinux_2_24_aarch64.whl", hash = "sha256:1dc67314e7e1086c9fdf2680b7b6c2be1c0d8e3a8279f2e993ca2a7545fecf62" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/0d/aa/06db7ca0995b513538402e11280282c615b5ae5f09eb820460d35fb69715/ruamel.yaml.clib-0.2.8-cp312-cp312-musllinux_1_1_i686.whl", hash = "sha256:3213ece08ea033eb159ac52ae052a4899b56ecc124bb80020d9bbceeb50258e9" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/27/38/4cf4d482b84ecdf51efae6635cc5483a83cf5ca9d9c13e205a750e251696/ruamel.yaml.clib-0.2.8-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:aab7fd643f71d7946f2ee58cc88c9b7bfc97debd71dcc93e03e2d174628e7e2d" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/6f/67/c62c6eea53a4feb042727a3d6c18f50dc99683c2b199c06bd2a9e3db8e22/ruamel.yaml.clib-0.2.8-cp312-cp312-win32.whl", hash = "sha256:5c365d91c88390c8d0a8545df0b5857172824b1c604e867161e6b3d59a827eaa" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/10/d2/52a3d810d0b5b3720725c0504a27b3fced7b6f310fe928f7019d79387bc1/ruamel.yaml.clib-0.2.8-cp312-cp312-win_amd64.whl", hash = "sha256:1758ce7d8e1a29d23de54a16ae867abd370f01b5a69e1a3ba75223eaa3ca1a1b" },
+]
+
+[[package]]
+name = "smmap"
+version = "5.0.1"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/88/04/b5bf6d21dc4041000ccba7eb17dd3055feb237e7ffc2c20d3fae3af62baa/smmap-5.0.1.tar.gz", hash = "sha256:dceeb6c0028fdb6734471eb07c0cd2aae706ccaecab45965ee83f11c8d3b1f62" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/a7/a5/10f97f73544edcdef54409f1d839f6049a0d79df68adbc1ceb24d1aaca42/smmap-5.0.1-py3-none-any.whl", hash = "sha256:e6d8668fa5f93e706934a62d7b4db19c8d9eb8cf2adbb75ef1b675aa332b69da" },
+]
+
+[[package]]
+name = "types-passpy"
+version = "1.0.2.4"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/31/25/d7c6adff3ada928773647be48935039db857bd5d75be990fb48ccbf12ec8/types-passpy-1.0.2.4.tar.gz", hash = "sha256:c4831bcb7c1b8db04d5d6571b5fd4ff75a5db5ac7c6cb54fd5451d8c54f2a07a" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/be/b8/1f6526680017cf59d7d3110eb928f3e47c9302acee692eee76b27d7359f2/types_passpy-1.0.2.4-py3-none-any.whl", hash = "sha256:1241ebefd851417979949e9211ec218e37d6f1475adcf80d848827e55fc39d91" },
+]
+
+[[package]]
+name = "types-requests"
+version = "2.32.0.20240907"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "urllib3" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/9f/94/b6f90e5f09e1d621d5cd6d1057d5d28d4019d95f06eab205afa743ba1907/types-requests-2.32.0.20240907.tar.gz", hash = "sha256:ff33935f061b5e81ec87997e91050f7b4af4f82027a7a7a9d9aaea04a963fdf8" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/5f/6e/425219be1dfc954c3e129b3ea70407abc78c1bd6414d0c7180df9940ca1f/types_requests-2.32.0.20240907-py3-none-any.whl", hash = "sha256:1d1e79faeaf9d42def77f3c304893dea17a97cae98168ac69f3cb465516ee8da" },
+]
+
+[[package]]
+name = "types-setuptools"
+version = "74.1.0.20240907"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/4b/80/7098cc47e64861d9591dd18ad2dffde9b63da6037dbad38f2eadd1124866/types-setuptools-74.1.0.20240907.tar.gz", hash = "sha256:0abdb082552ca966c1e5fc244e4853adc62971f6cd724fb1d8a3713b580e5a65" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/f6/5a/636fbcd7baf3d4d9f971581587bafba37d8b3dff498233be43f394e0eb9f/types_setuptools-74.1.0.20240907-py3-none-any.whl", hash = "sha256:15b38c8e63ca34f42f6063ff4b1dd662ea20086166d5ad6a102e670a52574120" },
+]
+
+[[package]]
+name = "typing-extensions"
+version = "4.12.2"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/df/db/f35a00659bc03fec321ba8bce9420de607a1d37f8342eee1863174c69557/typing_extensions-4.12.2.tar.gz", hash = "sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/26/9f/ad63fc0248c5379346306f8668cda6e2e2e9c95e01216d2b8ffd9ff037d0/typing_extensions-4.12.2-py3-none-any.whl", hash = "sha256:04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d" },
+]
+
+[[package]]
+name = "urllib3"
+version = "2.2.2"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/43/6d/fa469ae21497ddc8bc93e5877702dca7cb8f911e337aca7452b5724f1bb6/urllib3-2.2.2.tar.gz", hash = "sha256:dd505485549a7a552833da5e6063639d0d177c04f23bc3864e41e5dc5f612168" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/ca/1c/89ffc63a9605b583d5df2be791a27bc1a42b7c32bab68d3c8f2f73a98cd4/urllib3-2.2.2-py3-none-any.whl", hash = "sha256:a448b2f64d686155468037e1ace9f2d2199776e17f0a46610480d311f73e3472" },
+]
+
+[[package]]
+name = "virtualenv"
+version = "20.26.4"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+dependencies = [
+    { name = "distlib" },
+    { name = "filelock" },
+    { name = "platformdirs" },
+]
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/84/8a/134f65c3d6066153b84fc176c58877acd8165ed0b79a149ff50502597284/virtualenv-20.26.4.tar.gz", hash = "sha256:c17f4e0f3e6036e9f26700446f85c76ab11df65ff6d8a9cbfad9f71aabfcf23c" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/5d/ea/12f774a18b55754c730c8383dad8f10d7b87397d1cb6b2b944c87381bb3b/virtualenv-20.26.4-py3-none-any.whl", hash = "sha256:48f2695d9809277003f30776d155615ffc11328e6a0a8c1f0ec80188d7874a55" },
+]
+
+[[package]]
+name = "websockets"
+version = "13.0.1"
+source = { registry = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/simple/" }
+sdist = { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/8f/1c/78687e0267b09412409ac134f10fd14d14ac6475da892a8b09a02d0f6ae2/websockets-13.0.1.tar.gz", hash = "sha256:4d6ece65099411cfd9a48d13701d7438d9c34f479046b34c50ff60bb8834e43e" }
+wheels = [
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/20/95/e002ec55688b751d3c9cc131c1960af7e440d95e1954c441535b9da2bf36/websockets-13.0.1-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:699ba9dd6a926f82a277063603fc8d586b89f4cb128efc353b749b641fcddda7" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/62/6b/85fb8c13b278db7d45e27ff6ee0db3009b0fadef7c37c85e6cb4a0fbf08e/websockets-13.0.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:cf2fae6d85e5dc384bf846f8243ddaa9197f3a1a70044f59399af001fd1f51d4" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/e8/2e/c80cafbab86f8c399ba8323efff298b7062055724146391443d266e9c49b/websockets-13.0.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:52aed6ef21a0f1a2a5e310fb5c42d7555e9c5855476bbd7173c3aa3d8a0302f2" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/2e/67/631d4b1f28fef6f12730c0cbe982203a9d6814768c2ab1e0a352d9a07a97/websockets-13.0.1-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:8eb2b9a318542153674c6e377eb8cb9ca0fc011c04475110d3477862f15d29f0" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/9b/e8/ba740eab2a9c5b903ea94d9a2a448db63f0a296265aee976d17abf734758/websockets-13.0.1-cp311-cp311-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:5df891c86fe68b2c38da55b7aea7095beca105933c697d719f3f45f4220a5e0e" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/f8/4e/ffa2f1aad2da67e483fb7bad6c69f80c786f4e85d1942a39d7b275b084ed/websockets-13.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:fac2d146ff30d9dd2fcf917e5d147db037a5c573f0446c564f16f1f94cf87462" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/c0/85/0cbfe7b0e0dd3d885cd87b0523c6690ae7369feaf3aab5a23e95bdb4fefa/websockets-13.0.1-cp311-cp311-musllinux_1_2_aarch64.whl", hash = "sha256:b8ac5b46fd798bbbf2ac6620e0437c36a202b08e1f827832c4bf050da081b501" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/39/29/d9df0a1daedebefaeea88fb8071539604df09fd0f1bfb73bf58333aa3eb6/websockets-13.0.1-cp311-cp311-musllinux_1_2_i686.whl", hash = "sha256:46af561eba6f9b0848b2c9d2427086cabadf14e0abdd9fde9d72d447df268418" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/7d/9a/f88e186059f6b89f8bb08461d9fda7a26940b7b8897c7d7f02aead40b7e4/websockets-13.0.1-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:b5a06d7f60bc2fc378a333978470dfc4e1415ee52f5f0fce4f7853eb10c1e9df" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/cf/e4/ecdb8352ebab2e44c10b9d6f50008f95e30bb0a7ef0e6b66cb475d539d74/websockets-13.0.1-cp311-cp311-win32.whl", hash = "sha256:556e70e4f69be1082e6ef26dcb70efcd08d1850f5d6c5f4f2bcb4e397e68f01f" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/12/40/46967d00640e6c3231b73d310617927a11c91bcc044dd5a0860a3c457c33/websockets-13.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:67494e95d6565bf395476e9d040037ff69c8b3fa356a886b21d8422ad86ae075" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/4e/51/23ed2d239f1c3087c1431d41cfd159865df0bc35bb0c89973e3b6a0fff9b/websockets-13.0.1-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:f9c9e258e3d5efe199ec23903f5da0eeaad58cf6fccb3547b74fd4750e5ac47a" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/57/8d/814a7ef62b916b0f39108ad2e4d9b4cb0f8c640f8c30202fb63041598ada/websockets-13.0.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:6b41a1b3b561f1cba8321fb32987552a024a8f67f0d05f06fcf29f0090a1b956" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/ad/8b/a378d21124011737e0e490a8a6ef778914b03e50c8d938de2f2170a20dbd/websockets-13.0.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:f73e676a46b0fe9426612ce8caeca54c9073191a77c3e9d5c94697aef99296af" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/46/d2/814a61226af313c1bc289cfe3a10f87bf426b6f2d9df0f927c47afab7612/websockets-13.0.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:1f613289f4a94142f914aafad6c6c87903de78eae1e140fa769a7385fb232fdf" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/a1/7e/5987299eb7e131216c9027b05a65f149cbc2bde7c582e694d9eed6ec3d40/websockets-13.0.1-cp312-cp312-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:0f52504023b1480d458adf496dc1c9e9811df4ba4752f0bc1f89ae92f4f07d0c" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/94/6e/eaf95894042ba8a05a125fe8bcf9ee3572fef6edbcbf49478f4991c027cc/websockets-13.0.1-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:139add0f98206cb74109faf3611b7783ceafc928529c62b389917a037d4cfdf4" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/ce/ba/a1315d569cc2dadaafda74a9cea16ab5d68142525937f1994442d969b306/websockets-13.0.1-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:47236c13be337ef36546004ce8c5580f4b1150d9538b27bf8a5ad8edf23ccfab" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/90/9b/59866695cfd05e785c90932fef3dae4682eb4e06e7076b7c53478f25faad/websockets-13.0.1-cp312-cp312-musllinux_1_2_i686.whl", hash = "sha256:c44ca9ade59b2e376612df34e837013e2b273e6c92d7ed6636d0556b6f4db93d" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/9b/47/20af68a313b6453d2d094ccc497b7232e8475175d234e3e5bef5088521e5/websockets-13.0.1-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:9bbc525f4be3e51b89b2a700f5746c2a6907d2e2ef4513a8daafc98198b92237" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/f8/bb/60aaedc80e388e978617dda1ff38788780c6b0f6e462b85368cb934131a5/websockets-13.0.1-cp312-cp312-win32.whl", hash = "sha256:3624fd8664f2577cf8de996db3250662e259bfbc870dd8ebdcf5d7c6ac0b5185" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/16/2e/e47692f569e1be2e66c1dbc5e85ea4d2cc93b80027fbafa28ae8b0dee52c/websockets-13.0.1-cp312-cp312-win_amd64.whl", hash = "sha256:0513c727fb8adffa6d9bf4a4463b2bade0186cbd8c3604ae5540fae18a90cb99" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/46/37/d8ef4b68684d1fa368a5c64be466db07fc58b68163bc2496db2d4cc208ff/websockets-13.0.1-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:1ee4cc030a4bdab482a37462dbf3ffb7e09334d01dd37d1063be1136a0d825fa" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/95/49/78aeb3af08ec9887a9065e85cef9d7e199d6c6261fcd39eec087f3a62328/websockets-13.0.1-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:dbb0b697cc0655719522406c059eae233abaa3243821cfdfab1215d02ac10231" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/31/0d/dc9b7cec8deaee452092a631ccda894bd7098859f71dd7639b4b5b9c615c/websockets-13.0.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:acbebec8cb3d4df6e2488fbf34702cbc37fc39ac7abf9449392cefb3305562e9" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/16/bf/734cbd815d7bc94cffe35c934f4e08b619bf3b47df1c6c7af21c1d35bcfe/websockets-13.0.1-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:63848cdb6fcc0bf09d4a155464c46c64ffdb5807ede4fb251da2c2692559ce75" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/af/9b/756f89b12fee8931785531a314e6f087b21774a7f8c60878e597c684f91b/websockets-13.0.1-cp313-cp313-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:872afa52a9f4c414d6955c365b6588bc4401272c629ff8321a55f44e3f62b553" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/d3/37/31f97132d2262e666b797e250879ca833eab55115f88043b3952a2840eb8/websockets-13.0.1-cp313-cp313-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:05e70fec7c54aad4d71eae8e8cab50525e899791fc389ec6f77b95312e4e9920" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/41/ce/59c8d44e148c002fec506a9527504fb4281676e2e75c2ee5a58180f1b99a/websockets-13.0.1-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:e82db3756ccb66266504f5a3de05ac6b32f287faacff72462612120074103329" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/1a/74/5b31ce0f318b902c0d70c031f8e1228ba1a4d95a46b2a24a2a5ac17f9cf0/websockets-13.0.1-cp313-cp313-musllinux_1_2_i686.whl", hash = "sha256:4e85f46ce287f5c52438bb3703d86162263afccf034a5ef13dbe4318e98d86e7" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/0d/a7/6eac4f04177644bbc98deb98d11770cc7fbc216f6f67ab187c150540fd52/websockets-13.0.1-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:f3fea72e4e6edb983908f0db373ae0732b275628901d909c382aae3b592589f2" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/72/f6/b8b30a3b134dfdb4ccd1694befa48fddd43783957c988a1dab175732af33/websockets-13.0.1-cp313-cp313-win32.whl", hash = "sha256:254ecf35572fca01a9f789a1d0f543898e222f7b69ecd7d5381d8d8047627bdb" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/3e/88/d94ccc006c69583168aa9dd73b3f1885c8931f2c676f4bdd8cbfae91c7b6/websockets-13.0.1-cp313-cp313-win_amd64.whl", hash = "sha256:ca48914cdd9f2ccd94deab5bcb5ac98025a5ddce98881e5cce762854a5de330b" },
+    { url = "http://artifactory.mnemonic.no/artifactory/api/pypi/virt-pypi/packages/packages/fd/bd/d34c4b7918453506d2149208b175368738148ffc4ba256d7fd8708956732/websockets-13.0.1-py3-none-any.whl", hash = "sha256:b80f0c51681c517604152eb6a572f5a9378f877763231fddb883ba2f968e8817" },
+]
