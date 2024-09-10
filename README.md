@@ -139,8 +139,4 @@ systemctl --user start mmwatch
 
 # Local development
 
-For local development, execute:
-
-```bash
-pip3 install -e .
-```
+For local development, se [uv](https://docs.astral.sh/uv/).
