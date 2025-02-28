@@ -31,11 +31,12 @@ Homepage = "https://github.com/frbor/mmtools"
 dev-dependencies = [
     "pytest == 8.1.*",
     "mypy == 1.11.*",
-    "pre-commit == 3.8.*",
-    "pre-commit-hooks == 4.6.*",
     "types-requests",
     "types-passpy",
     "types-setuptools",
+    "pre-commit == 4.0.*",
+    "pre-commit-hooks == 4.6.*",
+
 ]
 
 [project.scripts]

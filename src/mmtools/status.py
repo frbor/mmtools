@@ -117,7 +117,7 @@ def polybar_error(args: Config, message: str) -> None:
 
 
 def polybar() -> None:
-    """Output channel status in i3blocks format"""
+    """Output channel status in polybar format"""
 
     args: Config = cast(Config, arguments.handle_args(Config, "mmstatus"))
 
@@ -163,7 +163,7 @@ def waybar_error(args: Config, message: str) -> None:
 
 
 def waybar() -> None:
-    """Output channel status in i3blocks format"""
+    """Output channel status in waybar format"""
 
     args: Config = cast(Config, arguments.handle_args(Config, "mmstatus"))
 
