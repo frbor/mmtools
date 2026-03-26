@@ -21,7 +21,7 @@ dependencies = [
     "mattermostdriver == 7.3.*",
     "notify2 == 0.3.*",
     "passpy == 1.0.2",
-    "requests == 2.32.*",
+    "requests>=2.32,<2.34",
 ]
 
 [project.urls]
