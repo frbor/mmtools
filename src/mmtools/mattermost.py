@@ -1,14 +1,57 @@
 """Mattermost module"""
 
+import asyncio
 import functools
-from collections.abc import Callable
-from logging import debug
+import ssl
+from collections.abc import Awaitable, Callable
+from logging import debug, warning
 from typing import cast
 
 from mattermostdriver import Driver  # type: ignore
+from mattermostdriver.websocket import Websocket  # type: ignore
 from pydantic import BaseModel, SecretStr
+from websockets.asyncio.client import connect
+from websockets.exceptions import ConnectionClosed
 
 from mmtools import arguments
+
+
+class ClientWebsocket(Websocket):  # type: ignore[misc]
+    """Use client TLS with the Mattermost driver's event dispatch."""
+
+    async def connect(self, event_handler: Callable[[str], Awaitable[None]]) -> None:
+        # mattermostdriver 7.3 creates a CLIENT_AUTH (server) context, which
+        # modern Python cannot use for an outgoing TLS connection.
+        context = None
+        scheme = "ws"
+        if self.options["scheme"] == "https":
+            scheme = "wss"
+            context = ssl.create_default_context()
+            if not self.options["verify"]:
+                context.check_hostname = False
+                context.verify_mode = ssl.CERT_NONE
+
+        url = (
+            f"{scheme}://{self.options['url']}:{self.options['port']}"
+            f"{self.options['basepath']}/websocket"
+        )
+        self._alive = True
+        while self._alive:
+            try:
+                async with connect(
+                    url, ssl=context, **(self.options["websocket_kw_args"] or {})
+                ) as websocket:
+                    await self._authenticate_websocket(websocket, event_handler)
+                    try:
+                        await self._start_loop(websocket, event_handler)
+                    except ConnectionClosed:
+                        pass
+                if not self.options["keepalive"]:
+                    break
+            except Exception as error:
+                warning("Failed to establish websocket connection: %s", error)
+            if self._alive:
+                await asyncio.sleep(self.options["keepalive_delay"])
 
 
 class Channel(BaseModel):
@@ -84,10 +127,15 @@ class Mattermost:
 
         return self.channels
 
-    def init_websocket(self, func: Callable) -> None:  # type: ignore
+    def init_websocket(self, func: Callable[[str], Awaitable[None]]) -> None:
         """Initialize websocket"""
 
-        self.api.init_websocket(func)
+        try:
+            asyncio.get_event_loop()
+        except RuntimeError:
+            asyncio.set_event_loop(asyncio.new_event_loop())
+
+        self.api.init_websocket(func, websocket_cls=ClientWebsocket)
 
 
 class Channels(BaseModel):

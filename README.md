@@ -2,6 +2,15 @@
 
 mmtools are various tools using the [mattermost](https://mattermost.org) API.
 
+# Changelog
+
+## 1.0.0
+
+Breaking change for `mmwaybar`: it now stays running and listens for Mattermost
+websocket events, writing updated JSON status lines as the unread status changes.
+Integrations that expect `mmwaybar` to exit after a single status check must be
+updated to handle the long-running process.
+
 # Installation
 
 ```bash
@@ -57,15 +66,16 @@ tail = true
 
 ### mmwaybar
 
-`mmwaybar` same as mmstatus, but with output for waybar.
+`mmwaybar` outputs the initial unread status and then listens for Mattermost
+websocket events, writing a new JSON line whenever messages or channel views
+can change the unread status.
 
 Example configuration for waybar:
 
 ```
 "custom/mattermost": {
-    "exec": " mmwaybar",
-    "return-type": "json",
-    "interval": 90
+    "exec": "mmwaybar",
+    "return-type": "json"
 }
 ```
 

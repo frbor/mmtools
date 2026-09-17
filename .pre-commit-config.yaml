@@ -21,70 +21,40 @@ repos:
     hooks:
       - id: mypy
         name: mypy
-        language: python
+        language: system
         entry: uv run mypy
         types: [python]
         args: ["."]
         pass_filenames: false
-        always_run: true
 
-  # - repo: local
-  #   hooks:
-  #     - id: pytest
-  #       name: pytest
-  #       language: python
-  #       entry: uv run pytest
-  #       types: [python]
-  #       pass_filenames: false
-  #       always_run: true
-
-  # - repo: local
-  #   hooks:
-  #     - id: commitizen
-  #       name: commitizen
-  #       language: python
-  #       entry: cz check --allow-abort --rev-range HEAD^..HEAD
-  #       pass_filenames: false
-  #       always_run: true
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        language: system
+        entry: uv run --locked pytest
+        files: '(\.py$|\.sh$|\.md$|\.toml$|\.ya?ml$|\.json$|\.conf$|^uv\.lock$|^Makefile$|^detections_report/typst_assets/)'
+        pass_filenames: false
 
   - repo: local
     hooks:
     -   id: uv-build
         name: uv-build
         entry: uv
-        args: [build,--wheel]
+        args: [build,--python,python3,--wheel]
         language: system
+        files: '(\.py$|^pyproject\.toml$|^uv\.lock$|^detections_report/typst_assets/)'
         pass_filenames: false
-        always_run: true
 
-  - repo: local
+  - repo: builtin
     hooks:
       - id: trailing-whitespace
-        name: trailing-whitespace
-        entry: trailing-whitespace-fixer
-        language: python
-        types: [text]
 
       - id: end-of-file-fixer
-        name: end-of-file-fixer
-        entry: end-of-file-fixer
-        language: python
-        types: [text]
 
       - id: check-json
-        name: check-json
-        entry: check-json
-        language: python
-        types: [json]
+
+      - id: check-yaml
+        args: [--allow-multiple-documents]
 
       - id: check-added-large-files
-        name: check-added-large-files
-        entry: check-added-large-files
-        language: python
-        types: [file]
-
-      - id: debug-statements
-        name: debug-statements
-        entry: debug-statement-hook
-        language: python
-        types: [python]

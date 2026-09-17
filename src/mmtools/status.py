@@ -5,6 +5,7 @@ import re
 import sys
 import time
 from collections.abc import Callable
+from logging import warning
 from typing import cast
 
 import requests
@@ -72,7 +73,10 @@ def get_status(
         return (private, other, True)
     except requests.exceptions.ReadTimeout:
         error(args, "Timeout")
-    except (requests.exceptions.ConnectionError, urllib3.exceptions.NewConnectionError):
+    except (
+        requests.exceptions.ConnectionError,
+        urllib3.exceptions.NewConnectionError,
+    ):
         error(args, "Connection error")
     except Exception as e:
         error(args, f"Unknown error: {e}")
@@ -162,32 +166,52 @@ def waybar_error(args: Config, message: str) -> None:
     print(json.dumps({"text": message, "class": "error"}))
 
 
+def write_waybar_status(args: Config, mm: Mattermost) -> None:
+    """Write the current unread status as one Waybar JSON line."""
+    private, other, _ = get_status(args, mm, waybar_error)
+
+    klass = "private" if private else "other"
+
+    # Join all channels with pipe
+    channel_status = " | ".join(other + private)
+    message = args.chat_prefix
+    if channel_status:
+        message += f" {channel_status}"
+
+    print(json.dumps({"text": message, "class": klass}), flush=True)
+
+
+class WaybarEventHandler:
+    """Refresh Waybar when a websocket event can change unread state."""
+
+    refresh_events = frozenset({"posted", "channel_viewed", "multiple_channels_viewed"})
+
+    def __init__(self, refresh: Callable[[], None]) -> None:
+        self.refresh = refresh
+
+    async def __call__(self, event: str) -> None:
+        try:
+            payload = json.loads(event)
+        except (json.JSONDecodeError, TypeError):
+            warning("Ignoring malformed Mattermost websocket event")
+            return
+
+        if isinstance(payload, dict) and payload.get("event") in self.refresh_events:
+            self.refresh()
+
+
 def waybar() -> None:
-    """Output channel status in waybar format"""
+    """Stream channel status updates in Waybar's JSON format."""
 
     args: Config = cast(Config, arguments.handle_args(Config, "mmstatus"))
 
     mm = init_mattermost(args, error=waybar_error)
 
-    (private, other, ok) = get_status(args, mm, waybar_error)
+    def refresh() -> None:
+        write_waybar_status(args, mm)
 
-    if private:
-        klass = "private"
-    else:
-        klass = "other"
-
-    # Join all channels with pipe
-    msg = f"{args.chat_prefix}" + " | ".join(other + private)
-
-    # If we have prefix and output - insert space between prefix and output
-    if msg and args.chat_prefix:
-        msg = " " + msg
-
-    print(json.dumps({"text": msg, "class": klass}))
-    try:
-        sys.stdout.flush()
-    except BrokenPipeError:
-        pass
+    refresh()
+    mm.init_websocket(WaybarEventHandler(refresh))
 
 
 def main() -> None:
