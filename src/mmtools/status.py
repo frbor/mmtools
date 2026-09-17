@@ -210,8 +210,11 @@ def waybar() -> None:
     def refresh() -> None:
         write_waybar_status(args, mm)
 
-    refresh()
-    mm.init_websocket(WaybarEventHandler(refresh))
+    try:
+        refresh()
+        mm.init_websocket(WaybarEventHandler(refresh))
+    except KeyboardInterrupt:
+        pass
 
 
 def main() -> None:

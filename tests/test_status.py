@@ -33,6 +33,18 @@ def test_waybar_event_handler_ignores_malformed_event() -> None:
     refresh.assert_not_called()
 
 
+def test_waybar_ignores_keyboard_interrupt(monkeypatch: pytest.MonkeyPatch) -> None:
+    mm = Mock()
+    mm.init_websocket.side_effect = KeyboardInterrupt
+    monkeypatch.setattr(status, "init_mattermost", Mock(return_value=mm))
+    monkeypatch.setattr(arguments, "handle_args", Mock(return_value=Mock()))
+    monkeypatch.setattr(status, "write_waybar_status", Mock())
+
+    status.waybar()
+
+    mm.init_websocket.assert_called_once()
+
+
 @pytest.mark.parametrize("verify", [True, False])
 def test_waybar_streams_post_and_read_over_client_tls(
     monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], verify: bool
