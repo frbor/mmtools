@@ -1,6 +1,6 @@
 [project]
 name = "mmtools"
-version = "1.0.0"
+version = "1.0.1"
 description = "mmtools"
 classifiers = [
     "Development Status :: 4 - Beta",

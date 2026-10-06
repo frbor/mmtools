@@ -163,28 +163,45 @@ def polybar() -> None:
 
 
 def waybar_error(args: Config, message: str) -> None:
-    print(json.dumps({"text": message, "class": "error"}))
+    print(json.dumps({"text": message, "class": "error"}), flush=True)
 
 
-def write_waybar_status(args: Config, mm: Mattermost) -> None:
-    """Write the current unread status as one Waybar JSON line."""
-    private, other, _ = get_status(args, mm, waybar_error)
+def write_waybar_status(
+    args: Config, mm: Mattermost, previous_output: str | None = None
+) -> str | None:
+    """Write changed unread status and return it for the next refresh."""
+    private, other, ok = get_status(args, mm, waybar_error)
+    if not ok:
+        return None
 
     klass = "private" if private else "other"
 
     # Join all channels with pipe
-    channel_status = " | ".join(other + private)
+    # Keep direct-message names visible when Waybar truncates the text.
+    channel_status = " | ".join(private + other)
     message = args.chat_prefix
     if channel_status:
         message += f" {channel_status}"
 
-    print(json.dumps({"text": message, "class": klass}), flush=True)
+    output = json.dumps({"text": message, "class": klass})
+    if output != previous_output:
+        print(output, flush=True)
+    return output
 
 
 class WaybarEventHandler:
     """Refresh Waybar when a websocket event can change unread state."""
 
-    refresh_events = frozenset({"posted", "channel_viewed", "multiple_channels_viewed"})
+    refresh_events = frozenset(
+        {
+            "hello",
+            "posted",
+            "channel_viewed",
+            "multiple_channels_viewed",
+            "direct_added",
+            "channel_member_updated",
+        }
+    )
 
     def __init__(self, refresh: Callable[[], None]) -> None:
         self.refresh = refresh
@@ -206,9 +223,11 @@ def waybar() -> None:
     args: Config = cast(Config, arguments.handle_args(Config, "mmstatus"))
 
     mm = init_mattermost(args, error=waybar_error)
+    previous_output: str | None = None
 
     def refresh() -> None:
-        write_waybar_status(args, mm)
+        nonlocal previous_output
+        previous_output = write_waybar_status(args, mm, previous_output)
 
     try:
         refresh()
