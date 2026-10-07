@@ -102,7 +102,7 @@ def setup_logging(
         )
     else:
         logging.basicConfig(
-            level=numeric_level, stream=sys.stdout, format=formatter, datefmt=datefmt
+            level=numeric_level, stream=sys.stderr, format=formatter, datefmt=datefmt
         )
 
 

@@ -70,12 +70,31 @@ tail = true
 websocket events, writing a new JSON line whenever messages or channel views
 can change the unread status.
 
+Event bursts are combined over 250 ms. A safety refresh runs every 30 seconds
+to recover missed updates and stale responses. Direct-message unread
+counts are verified separately when a DM is unread, was previously displayed,
+or is referenced by an event.
+
+If a refresh fails, the last successful text stays visible with an additional
+`stale` CSS class and an error tooltip. Failed refreshes retry on the next event
+or 30-second refresh. Slow HTTP requests can delay the next refresh.
+Before the first successful refresh, errors appear as status text. Logs go to
+stderr unless a logfile is configured; stdout contains JSON status lines.
+
 Example configuration for waybar:
 
 ```
 "custom/mattermost": {
     "exec": "mmwaybar",
     "return-type": "json"
+}
+```
+
+To make stale data visible, add a rule to your Waybar CSS, for example:
+
+```css
+#custom-mattermost.stale {
+    opacity: 0.6;
 }
 ```
 

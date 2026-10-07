@@ -1,11 +1,12 @@
 """mmtools - status"""
 
+import asyncio
 import json
 import re
 import sys
 import time
 from collections.abc import Callable
-from logging import warning
+from logging import debug, warning
 from typing import cast
 
 import requests
@@ -49,22 +50,33 @@ def init_mattermost(args: Config, error: Callable[[Config, str], None]) -> Matte
 
 
 def get_status(
-    args: Config, mm: Mattermost, error: Callable[[Config, str], None]
+    args: Config,
+    mm: Mattermost,
+    error: Callable[[Config, str], None],
+    *,
+    verify_direct: bool = False,
+    channel_ids: frozenset[str] = frozenset(),
 ) -> tuple[list[str], list[str], bool]:
     try:
-        channels = mm.init_channels()
+        channels = mm.init_channels(
+            verify_direct=verify_direct, channel_ids=channel_ids
+        )
+        ordered = sorted(
+            channels.channels,
+            key=lambda channel: (channel.display_name or "", channel.id or ""),
+        )
 
         # channel.type == D (Direct)
         private = [
             f"{channel.display_name}:{channel.msg_unread_count}"
-            for channel in channels.channels
+            for channel in ordered
             if channel.msg_unread_count
             and channel.type == "D"
             and not (args.ignore and re.search(args.ignore, channel.name))
         ]
         other = [
             f"{channel.display_name}:{channel.msg_unread_count}"
-            for channel in channels.channels
+            for channel in ordered
             if channel.msg_unread_count
             and channel.type != "D"
             and not (args.ignore and re.search(args.ignore, channel.name))
@@ -163,30 +175,119 @@ def polybar() -> None:
 
 
 def waybar_error(args: Config, message: str) -> None:
+    warning("Mattermost initialization failed: %s", message)
     print(json.dumps({"text": message, "class": "error"}), flush=True)
 
 
-def write_waybar_status(
-    args: Config, mm: Mattermost, previous_output: str | None = None
-) -> str | None:
-    """Write changed unread status and return it for the next refresh."""
-    private, other, ok = get_status(args, mm, waybar_error)
-    if not ok:
-        return None
+class WaybarStatusWriter:
+    """Write changed status, retaining the last successful text on failure."""
 
-    klass = "private" if private else "other"
+    def __init__(self, args: Config, mm: Mattermost) -> None:
+        self.args = args
+        self.mm = mm
+        self.last_good: dict[str, str] | None = None
+        self.previous_output: str | None = None
 
-    # Join all channels with pipe
-    # Keep direct-message names visible when Waybar truncates the text.
-    channel_status = " | ".join(private + other)
-    message = args.chat_prefix
-    if channel_status:
-        message += f" {channel_status}"
+    def refresh(self, channel_ids: frozenset[str] = frozenset()) -> bool:
+        message = "Unable to refresh Mattermost"
 
-    output = json.dumps({"text": message, "class": klass})
-    if output != previous_output:
-        print(output, flush=True)
-    return output
+        def error(args: Config, detail: str) -> None:
+            nonlocal message
+            message = detail
+            warning("Mattermost status refresh failed: %s", detail)
+
+        private, other, ok = get_status(
+            self.args, self.mm, error, verify_direct=True, channel_ids=channel_ids
+        )
+        payload: dict[str, str | list[str]]
+        if ok:
+            # Keep DM names visible when Waybar truncates the text.
+            channel_status = " | ".join(private + other)
+            message = self.args.chat_prefix
+            if channel_status:
+                message += f" {channel_status}"
+            self.last_good = {
+                "text": message,
+                "class": "private" if private else "other",
+            }
+            payload = dict(self.last_good)
+        elif self.last_good is not None:
+            payload = {
+                **self.last_good,
+                "class": [self.last_good["class"], "stale"],
+                "tooltip": message,
+            }
+        else:
+            payload = {"text": message, "class": "error"}
+
+        output = json.dumps(payload)
+        if output != self.previous_output:
+            debug("Mattermost status changed: %s", output)
+            print(output, flush=True)
+        self.previous_output = output
+        return ok
+
+
+class WaybarRefreshWorker:
+    """Serialize HTTP refreshes without blocking websocket event reception."""
+
+    def __init__(
+        self,
+        refresh: Callable[[frozenset[str]], bool],
+        *,
+        debounce: float = 0.25,
+        interval: float = 30,
+    ) -> None:
+        self.refresh = refresh
+        self.debounce = debounce
+        self.interval = interval
+        self.pending = asyncio.Event()
+        self.channel_ids: set[str] = set()
+
+    def request(self, channel_ids: frozenset[str] = frozenset()) -> None:
+        """Queue an update, retaining events received during an HTTP request."""
+        self.channel_ids.update(channel_ids)
+        self.pending.set()
+
+    async def run(self) -> None:
+        loop = asyncio.get_running_loop()
+        next_periodic = loop.time()
+
+        while True:
+            delay = max(0, next_periodic - loop.time())
+            if delay:
+                try:
+                    await asyncio.wait_for(self.pending.wait(), delay)
+                    # Coalesce bursts without delaying the periodic refresh.
+                    await asyncio.sleep(
+                        min(self.debounce, max(0, next_periodic - loop.time()))
+                    )
+                except TimeoutError:
+                    pass
+
+            channel_ids, self.channel_ids = self.channel_ids, set()
+            self.pending.clear()
+            now = loop.time()
+            if now >= next_periodic:
+                next_periodic = now + self.interval
+
+            if not await asyncio.to_thread(self.refresh, frozenset(channel_ids)):
+                # Retry these IDs on the next event or periodic refresh.
+                self.channel_ids.update(channel_ids)
+
+
+def _channel_id(value: object) -> str | None:
+    """Read a channel ID from an event object or embedded JSON string."""
+    if isinstance(value, str):
+        try:
+            value = json.loads(value)
+        except json.JSONDecodeError:
+            return None
+    if isinstance(value, dict) and isinstance(
+        channel_id := value.get("channel_id"), str
+    ):
+        return channel_id or None
+    return None
 
 
 class WaybarEventHandler:
@@ -203,7 +304,7 @@ class WaybarEventHandler:
         }
     )
 
-    def __init__(self, refresh: Callable[[], None]) -> None:
+    def __init__(self, refresh: Callable[[frozenset[str]], None]) -> None:
         self.refresh = refresh
 
     async def __call__(self, event: str) -> None:
@@ -214,7 +315,43 @@ class WaybarEventHandler:
             return
 
         if isinstance(payload, dict) and payload.get("event") in self.refresh_events:
-            self.refresh()
+            channel_ids: set[str] = set()
+            data = payload.get("data", {})
+            if isinstance(data, dict):
+                for value in (
+                    data,
+                    data.get("post"),
+                    data.get("channelMember"),
+                    data.get("channel_member"),
+                ):
+                    if channel_id := _channel_id(value):
+                        channel_ids.add(channel_id)
+                times = data.get("channel_times", {})
+                if isinstance(times, dict):
+                    channel_ids.update(key for key in times if isinstance(key, str))
+            if channel_id := _channel_id(payload.get("broadcast")):
+                channel_ids.add(channel_id)
+            channel_ids.discard("")
+            debug("Queued Mattermost status refresh: %s", payload["event"])
+            self.refresh(frozenset(channel_ids))
+
+
+async def stream_waybar(args: Config, mm: Mattermost) -> None:
+    """Run event reception and a single refresh worker with shared lifetime."""
+    writer = WaybarStatusWriter(args, mm)
+    worker = WaybarRefreshWorker(writer.refresh)
+    tasks = [
+        asyncio.create_task(worker.run()),
+        asyncio.create_task(mm.listen(WaybarEventHandler(worker.request))),
+    ]
+    try:
+        done, _ = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
+        for task in done:
+            await task
+    finally:
+        for task in tasks:
+            task.cancel()
+        await asyncio.gather(*tasks, return_exceptions=True)
 
 
 def waybar() -> None:
@@ -223,15 +360,8 @@ def waybar() -> None:
     args: Config = cast(Config, arguments.handle_args(Config, "mmstatus"))
 
     mm = init_mattermost(args, error=waybar_error)
-    previous_output: str | None = None
-
-    def refresh() -> None:
-        nonlocal previous_output
-        previous_output = write_waybar_status(args, mm, previous_output)
-
     try:
-        refresh()
-        mm.init_websocket(WaybarEventHandler(refresh))
+        asyncio.run(stream_waybar(args, mm))
     except KeyboardInterrupt:
         pass
 

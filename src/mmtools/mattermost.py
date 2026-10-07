@@ -69,13 +69,16 @@ class Channel(BaseModel):
     last_post_at: int | None
     total_msg_count: int | None
     dirty: bool | None = None
+    unread_count: int | None = None
 
     @property
     def msg_unread_count(self) -> int:
+        if self.unread_count is not None:
+            return max(0, self.unread_count)
         if self.total_msg_count is None or self.msg_count is None:
             return 0
 
-        return self.total_msg_count - self.msg_count
+        return max(0, self.total_msg_count - self.msg_count)
 
 
 class Mattermost:
@@ -118,12 +121,23 @@ class Mattermost:
     # Channels is not defined yet, and Channels depends on Mattermost in typing
     # so we need to quote the return definition
     # https://mypy.readthedocs.io/en/latest/kinds_of_types.html#class-name-forward-references
-    def init_channels(self) -> "Channels":
+    def init_channels(
+        self,
+        *,
+        verify_direct: bool = False,
+        channel_ids: frozenset[str] = frozenset(),
+    ) -> "Channels":
         """Initialize channels"""
 
         debug("channels()")
 
-        self.channels.update(self, self.user.id, self.teams[0]["id"])
+        self.channels.update(
+            self,
+            self.user.id,
+            self.teams[0]["id"],
+            verify_direct=verify_direct,
+            channel_ids=channel_ids,
+        )
 
         return self.channels
 
@@ -137,13 +151,26 @@ class Mattermost:
 
         self.api.init_websocket(func, websocket_cls=ClientWebsocket)
 
+    async def listen(self, func: Callable[[str], Awaitable[None]]) -> None:
+        """Listen in the caller's event loop, alongside background refreshes."""
+        self.api.websocket = ClientWebsocket(self.api.options, self.api.client.token)
+        await self.api.websocket.connect(func)
+
 
 class Channels(BaseModel):
     """Channels model Keeps a list of channels"""
 
     channels: list[Channel] = []
 
-    def update(self, mm: Mattermost, user_id: str, team_id: str) -> None:
+    def update(
+        self,
+        mm: Mattermost,
+        user_id: str,
+        team_id: str,
+        *,
+        verify_direct: bool = False,
+        channel_ids: frozenset[str] = frozenset(),
+    ) -> None:
         """
         Get list of channels for user. We have to subtract msg_count
         from total_msg_count to get unread message count
@@ -157,11 +184,47 @@ class Channels(BaseModel):
             )
         }
 
-        self.channels = []
-        for channel in mm.api.channels.get_channels_for_user(user_id, team_id):
+        verify_ids = set(channel_ids)
+        if verify_direct:
+            verify_ids.update(
+                channel.id
+                for channel in self.channels
+                if channel.type == "D" and channel.id is not None
+            )
+        raw_channels = {
+            channel["id"]: channel
+            for channel in mm.api.channels.get_channels_for_user(user_id, team_id)
+        }
+        if verify_direct:
+            for channel_id in verify_ids - raw_channels.keys():
+                # A new or previously unread DM may be missing from a stale list.
+                channel = mm.api.channels.get_channel(channel_id)
+                if channel["type"] == "D":
+                    raw_channels[channel_id] = channel
+
+        updated: list[Channel] = []
+        for channel_id, raw_channel in raw_channels.items():
             # Merge results from channel_members_for_user and channels_for_user
-            channel.update(channel_members[channel["id"]])
-            channel = Channel(**channel)
+            member = channel_members.get(channel_id)
+            if member is None:
+                member = mm.api.channels.get_channel_member(channel_id, user_id)
+            channel = Channel(**(raw_channel | member))
+
+            if (
+                verify_direct
+                and channel.type == "D"
+                and (
+                    channel_id in verify_ids
+                    or channel.msg_unread_count
+                    or (
+                        channel.total_msg_count is not None
+                        and channel.msg_count is not None
+                        and channel.total_msg_count < channel.msg_count
+                    )
+                )
+            ):
+                unread = mm.api.channels.get_unread_messages(user_id, channel_id)
+                channel.unread_count = int(unread["msg_count"])
 
             if not channel.msg_unread_count:
                 continue
@@ -179,7 +242,10 @@ class Channels(BaseModel):
                 else:
                     channel.display_name = mm.get_user(user2)
 
-            self.channels.append(channel)
+            updated.append(channel)
+
+        # Do not discard the last complete snapshot if any request fails.
+        self.channels = updated
 
     def debug(self) -> None:
         """Debug output of channels"""
