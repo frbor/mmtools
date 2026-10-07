@@ -30,6 +30,13 @@ def args() -> status.Config:
     )
 
 
+@pytest.fixture
+def clock(monkeypatch: pytest.MonkeyPatch) -> Mock:
+    clock = Mock(return_value=0.0)
+    monkeypatch.setattr("mmtools.status.time.monotonic", clock)
+    return clock
+
+
 def unread_channel(name: str = "alice", kind: str = "D") -> Channel:
     return Channel(
         id=name,
@@ -104,8 +111,139 @@ def test_waybar_status_preserves_text_and_recovers(
         {"text": "MM alice:1", "class": "private"},
         {"text": "MM alice:1", "class": ["private", "stale"], "tooltip": "Timeout"},
         {"text": "MM alice:1", "class": "private"},
-        {"text": "MM", "class": "other"},
     ]
+
+
+def test_read_dm_is_retained_without_delaying_other_channels(
+    args: status.Config, clock: Mock, capsys: pytest.CaptureFixture[str]
+) -> None:
+    mm = Mattermost.__new__(Mattermost)
+    fetch = Mock(
+        return_value=Channels(channels=[unread_channel(), unread_channel("Town", "O")])
+    )
+    mm.init_channels = fetch  # type: ignore[method-assign]
+    writer = WaybarStatusWriter(args, mm)
+    writer.refresh()
+
+    clock.return_value = 5.0
+    fetch.return_value = Channels(channels=[unread_channel("Town", "O")])
+    writer.refresh()
+    clock.return_value = 10.0
+    fetch.return_value = Channels()
+    writer.refresh()
+    clock.return_value = 34.99
+    writer.refresh()
+    output = [json.loads(line) for line in capsys.readouterr().out.splitlines()]
+    assert output == [
+        {"text": "MM alice:1 | Town:1", "class": "private"},
+        {"text": "MM alice:1", "class": "private"},
+    ]
+
+    clock.return_value = 35.0
+    writer.refresh()
+    assert json.loads(capsys.readouterr().out) == {"text": "MM", "class": "other"}
+
+
+def test_read_dm_deadlines_are_independent_and_keyed_by_channel_id(
+    args: status.Config, clock: Mock, capsys: pytest.CaptureFixture[str]
+) -> None:
+    first = unread_channel()
+    second = first.model_copy(update={"id": "another-dm", "total_msg_count": 2})
+    mm = Mattermost.__new__(Mattermost)
+    fetch = Mock(return_value=Channels(channels=[first, second]))
+    mm.init_channels = fetch  # type: ignore[method-assign]
+    writer = WaybarStatusWriter(args, mm)
+    writer.refresh()
+    initial = json.loads(capsys.readouterr().out)
+    assert "alice:1" in initial["text"] and "alice:2" in initial["text"]
+
+    clock.return_value = 10.0
+    fetch.return_value = Channels(channels=[second])
+    writer.refresh()
+    clock.return_value = 20.0
+    fetch.return_value = Channels()
+    writer.refresh()
+    assert capsys.readouterr().out == ""
+
+    clock.return_value = 40.0
+    writer.refresh()
+    assert json.loads(capsys.readouterr().out) == {
+        "text": "MM alice:2",
+        "class": "private",
+    }
+    clock.return_value = 50.0
+    writer.refresh()
+    assert json.loads(capsys.readouterr().out) == {"text": "MM", "class": "other"}
+
+
+def test_renewed_unread_dm_updates_count_and_restarts_retention_on_read(
+    args: status.Config, clock: Mock, capsys: pytest.CaptureFixture[str]
+) -> None:
+    mm = Mattermost.__new__(Mattermost)
+    fetch = Mock(return_value=Channels(channels=[unread_channel()]))
+    mm.init_channels = fetch  # type: ignore[method-assign]
+    writer = WaybarStatusWriter(args, mm)
+    writer.refresh()
+    capsys.readouterr()
+
+    clock.return_value = 1.0
+    fetch.return_value = Channels()
+    writer.refresh()
+    clock.return_value = 20.0
+    fetch.return_value = Channels(
+        channels=[unread_channel().model_copy(update={"total_msg_count": 2})]
+    )
+    writer.refresh()
+    assert json.loads(capsys.readouterr().out) == {
+        "text": "MM alice:2",
+        "class": "private",
+    }
+
+    clock.return_value = 31.0
+    writer.refresh()
+    clock.return_value = 40.0
+    fetch.return_value = Channels()
+    writer.refresh()
+    clock.return_value = 69.99
+    writer.refresh()
+    assert capsys.readouterr().out == ""
+    clock.return_value = 70.0
+    writer.refresh()
+    assert json.loads(capsys.readouterr().out) == {"text": "MM", "class": "other"}
+
+
+def test_failed_refreshes_do_not_start_or_extend_read_retention(
+    args: status.Config, clock: Mock, capsys: pytest.CaptureFixture[str]
+) -> None:
+    mm = Mattermost.__new__(Mattermost)
+    fetch = Mock(return_value=Channels(channels=[unread_channel()]))
+    mm.init_channels = fetch  # type: ignore[method-assign]
+    writer = WaybarStatusWriter(args, mm)
+    writer.refresh()
+    capsys.readouterr()
+
+    clock.return_value = 10.0
+    fetch.side_effect = requests.exceptions.ReadTimeout()
+    assert not writer.refresh()
+    assert json.loads(capsys.readouterr().out)["class"] == ["private", "stale"]
+
+    clock.return_value = 50.0
+    fetch.side_effect = None
+    fetch.return_value = Channels()
+    assert writer.refresh()
+    assert json.loads(capsys.readouterr().out) == {
+        "text": "MM alice:1",
+        "class": "private",
+    }
+
+    clock.return_value = 80.0
+    fetch.side_effect = requests.exceptions.ReadTimeout()
+    assert not writer.refresh()
+    assert json.loads(capsys.readouterr().out)["text"] == "MM alice:1"
+    clock.return_value = 81.0
+    fetch.side_effect = None
+    assert writer.refresh()
+    assert json.loads(capsys.readouterr().out) == {"text": "MM", "class": "other"}
 
 
 def test_waybar_initial_failure_shows_error(
@@ -115,6 +253,30 @@ def test_waybar_initial_failure_shows_error(
     mm.init_channels = Mock(side_effect=requests.exceptions.ReadTimeout())  # type: ignore[method-assign]
     assert not WaybarStatusWriter(args, mm).refresh()
     assert json.loads(capsys.readouterr().out) == {"text": "Timeout", "class": "error"}
+
+
+def test_get_status_preserves_filtering_and_clears_read_dms_immediately(
+    args: status.Config,
+) -> None:
+    args.ignore = "ignored"
+    mm = Mattermost.__new__(Mattermost)
+    mm.init_channels = Mock(  # type: ignore[method-assign]
+        side_effect=[
+            Channels(
+                channels=[
+                    unread_channel("Town", "O"),
+                    unread_channel("ignored"),
+                    unread_channel(),
+                    unread_channel("read").model_copy(update={"total_msg_count": 0}),
+                ]
+            ),
+            Channels(),
+        ]
+    )
+    error = Mock()
+    assert status.get_status(args, mm, error) == (["alice:1"], ["Town:1"], True)
+    assert status.get_status(args, mm, error) == ([], [], True)
+    error.assert_not_called()
 
 
 def test_waybar_order_is_stable_and_direct_messages_come_first(

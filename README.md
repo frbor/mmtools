@@ -75,6 +75,13 @@ to recover missed updates and stale responses. Direct-message unread
 counts are verified separately when a DM is unread, was previously displayed,
 or is referenced by an event.
 
+After a displayed direct message is reported read, its last displayed name and
+count stay visible for at least 30 seconds. It clears on the next successful
+refresh after that period, usually retaining it for 30–60 seconds. Each DM is
+retained independently; other channels continue updating normally. If a DM
+becomes unread again, its count updates and a later read starts a fresh period.
+Retention lasts only while `mmwaybar` is running.
+
 If a refresh fails, the last successful text stays visible with an additional
 `stale` CSS class and an error tooltip. Failed refreshes retry on the next event
 or 30-second refresh. Slow HTTP requests can delay the next refresh.

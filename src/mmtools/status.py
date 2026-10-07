@@ -6,6 +6,7 @@ import re
 import sys
 import time
 from collections.abc import Callable
+from dataclasses import dataclass
 from logging import debug, warning
 from typing import cast
 
@@ -14,7 +15,7 @@ import urllib3
 from pydantic import Field
 
 from mmtools import arguments
-from mmtools.mattermost import Mattermost
+from mmtools.mattermost import Channel, Mattermost
 
 
 class Config(arguments.Config):
@@ -49,40 +50,24 @@ def init_mattermost(args: Config, error: Callable[[Config, str], None]) -> Matte
             sys.exit(1)
 
 
-def get_status(
+def _load_status_channels(
     args: Config,
     mm: Mattermost,
     error: Callable[[Config, str], None],
     *,
     verify_direct: bool = False,
     channel_ids: frozenset[str] = frozenset(),
-) -> tuple[list[str], list[str], bool]:
+) -> list[Channel] | None:
     try:
         channels = mm.init_channels(
             verify_direct=verify_direct, channel_ids=channel_ids
         )
-        ordered = sorted(
-            channels.channels,
-            key=lambda channel: (channel.display_name or "", channel.id or ""),
-        )
-
-        # channel.type == D (Direct)
-        private = [
-            f"{channel.display_name}:{channel.msg_unread_count}"
-            for channel in ordered
+        return [
+            channel
+            for channel in channels.channels
             if channel.msg_unread_count
-            and channel.type == "D"
             and not (args.ignore and re.search(args.ignore, channel.name))
         ]
-        other = [
-            f"{channel.display_name}:{channel.msg_unread_count}"
-            for channel in ordered
-            if channel.msg_unread_count
-            and channel.type != "D"
-            and not (args.ignore and re.search(args.ignore, channel.name))
-        ]
-
-        return (private, other, True)
     except requests.exceptions.ReadTimeout:
         error(args, "Timeout")
     except (
@@ -93,7 +78,35 @@ def get_status(
     except Exception as e:
         error(args, f"Unknown error: {e}")
 
-    return ([], [], False)
+    return None
+
+
+def _format_status(channels: list[Channel]) -> tuple[list[str], list[str]]:
+    private: list[str] = []
+    other: list[str] = []
+    for channel in sorted(
+        channels, key=lambda channel: (channel.display_name or "", channel.id or "")
+    ):
+        target = private if channel.type == "D" else other
+        target.append(f"{channel.display_name}:{channel.msg_unread_count}")
+    return private, other
+
+
+def get_status(
+    args: Config,
+    mm: Mattermost,
+    error: Callable[[Config, str], None],
+    *,
+    verify_direct: bool = False,
+    channel_ids: frozenset[str] = frozenset(),
+) -> tuple[list[str], list[str], bool]:
+    channels = _load_status_channels(
+        args, mm, error, verify_direct=verify_direct, channel_ids=channel_ids
+    )
+    if channels is None:
+        return [], [], False
+    private, other = _format_status(channels)
+    return private, other, True
 
 
 def i3blocks_fatal(args: Config, message: str) -> None:
@@ -179,14 +192,46 @@ def waybar_error(args: Config, message: str) -> None:
     print(json.dumps({"text": message, "class": "error"}), flush=True)
 
 
+@dataclass
+class _RetainedDirectMessage:
+    channel: Channel
+    read_since: float | None = None
+
+
 class WaybarStatusWriter:
-    """Write changed status, retaining the last successful text on failure."""
+    """Write changed status, retaining read DMs and successful text on failure."""
+
+    read_retention = 30
 
     def __init__(self, args: Config, mm: Mattermost) -> None:
         self.args = args
         self.mm = mm
         self.last_good: dict[str, str] | None = None
         self.previous_output: str | None = None
+        self.direct_messages: dict[str, _RetainedDirectMessage] = {}
+
+    def _retain_direct_messages(self, channels: list[Channel]) -> list[Channel]:
+        now = time.monotonic()
+        unread_ids: set[str] = set()
+        other: list[Channel] = []
+        for channel in channels:
+            if channel.type == "D":
+                channel_id = channel.id or channel.name
+                unread_ids.add(channel_id)
+                self.direct_messages[channel_id] = _RetainedDirectMessage(
+                    channel.model_copy()
+                )
+            else:
+                other.append(channel)
+
+        for channel_id, retained in list(self.direct_messages.items()):
+            if channel_id not in unread_ids:
+                if retained.read_since is None:
+                    retained.read_since = now
+                if now - retained.read_since >= self.read_retention:
+                    del self.direct_messages[channel_id]
+
+        return other + [entry.channel for entry in self.direct_messages.values()]
 
     def refresh(self, channel_ids: frozenset[str] = frozenset()) -> bool:
         message = "Unable to refresh Mattermost"
@@ -196,11 +241,12 @@ class WaybarStatusWriter:
             message = detail
             warning("Mattermost status refresh failed: %s", detail)
 
-        private, other, ok = get_status(
+        channels = _load_status_channels(
             self.args, self.mm, error, verify_direct=True, channel_ids=channel_ids
         )
         payload: dict[str, str | list[str]]
-        if ok:
+        if channels is not None:
+            private, other = _format_status(self._retain_direct_messages(channels))
             # Keep DM names visible when Waybar truncates the text.
             channel_status = " | ".join(private + other)
             message = self.args.chat_prefix
@@ -225,7 +271,7 @@ class WaybarStatusWriter:
             debug("Mattermost status changed: %s", output)
             print(output, flush=True)
         self.previous_output = output
-        return ok
+        return channels is not None
 
 
 class WaybarRefreshWorker:
