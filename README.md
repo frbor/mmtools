@@ -109,6 +109,42 @@ To make stale data visible, add a rule to your Waybar CSS, for example:
 
 `mmwatch` connects to the mattermost websocket API and can display notification on messages and send SIGUSR2 to i3blocks to update statusbar before next interval.
 
+### mmchannels
+
+`mmchannels` lists joined public and private channels across all your teams,
+including channels you have already read, then exits. Use a team's short name
+to restrict the listing:
+
+```bash
+mmchannels
+mmchannels --team my-team
+```
+
+Output contains only date/name rows, newest activity first:
+
+```text
+2026-10-08 Town Square
+2024-02-19 Old Project
+never Empty Channel
+```
+
+Activity uses the creation time of the latest non-deleted, non-system post,
+formatted as a local-calendar date. Replies and bot/integration posts count;
+system events such as joins, departures, and channel changes do not. Channels
+with the same date are ordered by their full timestamps. Channels with no such
+posts in the accessible history appear last as `never`. Display names fall back
+to short names when empty. Direct and group messages are excluded.
+
+The command uses the shared authentication settings and a `[mmchannels]` config
+section, where `team` can set a default team. The status tools' `ignore` setting
+does not affect this listing. An unknown or unjoined team, API failure, or invalid
+response produces an error on stderr and a nonzero exit status without partial
+stdout. An empty listing exits successfully without output. The command only
+reads channel memberships and post history; it does not change subscriptions or
+fetch unread counts. It pages backward through each channel until it finds a
+qualifying post or exhausts the accessible history, so channels with extensive
+system activity can require multiple requests.
+
 
 ## Configuration
 
@@ -116,7 +152,7 @@ All tools can be configured using both command line arguments and a configuratio
 
 `mmtools` will first look for a configuration in `~/.config/mmtools/config-<HOSTNAME>` with fallback to `~/.config/mmtools/config`.
 
-Use the following command to create the configuration `~/.config/mmtools/config`. The same configuration file is used for both tools.
+Use the following command to create the configuration `~/.config/mmtools/config`. The same configuration file is used for all tools.
 
 ```bash
 mmconfig init

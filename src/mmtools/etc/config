@@ -39,3 +39,8 @@ password-pass-entry =
 [mmwatch]
 # no-notify = false
 # pkill = i3blocks
+
+[mmchannels]
+### List joined public/private channels in all teams; ignore does not apply.
+### Optionally restrict the listing to a joined team's short name.
+# team =

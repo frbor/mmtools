@@ -1,6 +1,6 @@
 [project]
 name = "mmtools"
-version = "1.0.3"
+version = "1.1.0"
 description = "mmtools"
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -46,6 +46,7 @@ mmpolybar = "mmtools.status:polybar"
 mmwaybar = "mmtools.status:waybar"
 mmwatch = "mmtools.watch:main"
 mmconfig = "mmtools.config:main"
+mmchannels = "mmtools.channels:main"
 
 [tool.ruff]
 line-length = 88
