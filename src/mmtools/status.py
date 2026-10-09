@@ -253,7 +253,7 @@ class WaybarStatusWriter:
             if channel_status:
                 message += f" {channel_status}"
             self.last_good = {
-                "text": message,
+                "text": message.strip(),
                 "class": "private" if private else "other",
             }
             payload = dict(self.last_good)

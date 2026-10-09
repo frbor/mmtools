@@ -93,9 +93,18 @@ Example configuration for waybar:
 ```
 "custom/mattermost": {
     "exec": "mmwaybar",
-    "return-type": "json"
+    "return-type": "json",
+    "escape": true
 }
 ```
+
+Set `"escape": true` so Waybar treats channel names as plain text. Otherwise,
+characters such as `&` in `Threat Detection & Response` can invalidate Pango
+markup and prevent text updates even while the CSS class changes (for example,
+turning red for a direct message without showing its sender).
+
+The status text has no leading or trailing whitespace, including when
+`chat_prefix` is empty.
 
 To make stale data visible, add a rule to your Waybar CSS, for example:
 

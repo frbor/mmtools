@@ -279,9 +279,20 @@ def test_get_status_preserves_filtering_and_clears_read_dms_immediately(
     error.assert_not_called()
 
 
+@pytest.mark.parametrize(
+    ("chat_prefix", "expected_text"),
+    [
+        ("MM", "MM alice:1 | zebra:1 | Town Square:1"),
+        ("", "alice:1 | zebra:1 | Town Square:1"),
+    ],
+)
 def test_waybar_order_is_stable_and_direct_messages_come_first(
-    args: status.Config, capsys: pytest.CaptureFixture[str]
+    args: status.Config,
+    capsys: pytest.CaptureFixture[str],
+    chat_prefix: str,
+    expected_text: str,
 ) -> None:
+    args.chat_prefix = chat_prefix
     mm = Mattermost.__new__(Mattermost)
     channels = [
         unread_channel("zebra"),
@@ -298,7 +309,7 @@ def test_waybar_order_is_stable_and_direct_messages_come_first(
     writer.refresh()
     writer.refresh()
     assert json.loads(capsys.readouterr().out) == {
-        "text": "MM alice:1 | zebra:1 | Town Square:1",
+        "text": expected_text,
         "class": "private",
     }
 
